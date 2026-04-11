@@ -1,0 +1,746 @@
+name: Flutter CI / CD
+
+on:
+  push:
+    branches:
+      - '**'       # 所有分支 push → 跑測試
+    tags:
+      - 'v*'       # push tag v1.0.0 之類 → build APK + 發布 Release
+
+# GitHub Pages 部署需要這些權限
+permissions:
+  contents: write        # 建立 Release / 上傳 asset
+  pages: write           # 部署 GitHub Pages
+  id-token: write        # Pages OIDC 驗證
+
+jobs:
+  # ─────────────────────────────────────────────
+  # Job 1: 測試（每次 push 都跑）
+  # ─────────────────────────────────────────────
+  test:
+    name: Run Tests and Generate Coverage
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Install dependencies
+        working-directory: ./flutter_app
+        run: flutter pub get
+
+      - name: Run tests with coverage
+        working-directory: ./flutter_app
+        run: flutter test --coverage
+
+      - name: Install lcov
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y lcov
+
+      - name: Generate HTML coverage report
+        working-directory: ./flutter_app
+        run: genhtml coverage/lcov.info -o coverage/html
+
+      - name: Upload coverage report artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: flutter-coverage-report
+          path: flutter_app/coverage/html/
+
+  # ─────────────────────────────────────────────
+  # Job 2: Build APK + Release（只在 tag v* 時跑）
+  # ─────────────────────────────────────────────
+  build-and-release:
+    name: Build APK & Publish Release
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17 (Android build 需要)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Install dependencies
+        working-directory: ./flutter_app
+        run: flutter pub get
+
+      - name: Build release APK
+        working-directory: ./flutter_app
+        run: flutter build apk --release --build-name=${{ github.ref_name }} --build-number=${{ github.run_number }}
+
+      - name: Rename APK（加入版本號）
+        run: |
+          mv flutter_app/build/app/outputs/flutter-apk/app-release.apk \
+             flutter_app/build/app/outputs/flutter-apk/obscure-app-${{ github.ref_name }}.apk
+
+      # ── 上傳到 GitHub Release ──
+      - name: Create GitHub Release & upload APK
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: "OBSCURE App ${{ github.ref_name }}"
+          body: |
+            ## 📱 OBSCURE App ${{ github.ref_name }}
+
+            > **Android APK 直接下載安裝版**
+
+            ### 安裝步驟
+            1. 點擊下方 `obscure-app-${{ github.ref_name }}.apk` 下載
+            2. 手機開啟「設定 → 安全性 → 允許安裝未知來源應用程式」
+            3. 點開下載的 APK 檔案安裝即可
+
+            ### 版本資訊
+            - Build Number: `${{ github.run_number }}`
+            - Commit: `${{ github.sha }}`
+          files: flutter_app/build/app/outputs/flutter-apk/obscure-app-${{ github.ref_name }}.apk
+          draft: false
+          prerelease: false
+
+      # ── 產生美觀的下載頁面（HTML）──
+      - name: Generate download page (GitHub Pages)
+        run: |
+          mkdir -p gh-pages
+          REPO="${{ github.repository }}"
+          TAG="${{ github.ref_name }}"
+          APK_URL="https://github.com/${REPO}/releases/download/${TAG}/obscure-app-${TAG}.apk"
+
+          cat > gh-pages/index.html << 'HTMLEOF'
+          <!DOCTYPE html>
+          <html lang="zh-TW">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+            <title>OBSCURE — 下載</title>
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+            <style>
+              *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+              /* ── Design Tokens (exact match to AppTheme) ── */
+              :root {
+                --bg:        #F5F0E8;   /* AppTheme.background */
+                --primary:   #1A1A1A;   /* AppTheme.primary */
+                --surface:   #FFFFFF;   /* AppTheme.surface */
+                --yellow:    #FFCC00;   /* AppTheme.accentYellow */
+                --red:       #E63B2E;   /* AppTheme.accentRed */
+                --blue:      #0055FF;   /* AppTheme.accentBlue */
+                --green:     #00C853;
+              }
+
+              html { scroll-behavior: smooth; }
+
+              body {
+                font-family: 'Space Grotesk', sans-serif;
+                background: var(--bg);
+                color: var(--primary);
+                min-height: 100dvh;
+              }
+
+              /* ── AppBar (ObscureAppBar) ── */
+              .appbar {
+                background: var(--bg);
+                border-bottom: 4px solid var(--primary);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 60px;
+                position: sticky;
+                top: 0;
+                z-index: 100;
+              }
+              .appbar-logo {
+                display: flex;
+                align-items: center;
+                gap: 4px;
+              }
+              .appbar-bar {
+                width: 12px;
+                height: 24px;
+                background: var(--primary);
+                flex-shrink: 0;
+              }
+              .appbar-title-wrap {
+                border-top: 2px solid var(--primary);
+                padding-top: 2px;
+              }
+              .appbar-title {
+                font-family: 'Space Grotesk', sans-serif;
+                font-weight: 600;
+                font-size: 20px;
+                color: var(--primary);
+                letter-spacing: 0;
+              }
+
+              /* ── Download Banner (pinned below AppBar) ── */
+              .dl-banner {
+                background: var(--yellow);
+                border-bottom: 3px solid var(--primary);
+                box-shadow: 0 4px 0 var(--primary);
+                padding: 12px 24px;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                justify-content: space-between;
+                flex-wrap: wrap;
+              }
+              .dl-banner-text {
+                font-size: 13px;
+                font-weight: 700;
+                color: var(--primary);
+                letter-spacing: 0;
+                line-height: 1.3;
+              }
+              .dl-banner-text span {
+                display: block;
+                font-size: 10px;
+                font-weight: 900;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                opacity: 0.6;
+              }
+              /* NeoButton style for download CTA */
+              .neo-wrap {
+                position: relative;
+                display: inline-block;
+                flex-shrink: 0;
+              }
+              .neo-shadow {
+                position: absolute;
+                inset: 0;
+                transform: translate(4px, 4px);
+                background: var(--primary);
+                border: 3px solid var(--primary);
+              }
+              .neo-btn {
+                position: relative;
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                padding: 10px 20px;
+                background: var(--red);
+                border: 3px solid var(--primary);
+                font-family: 'Space Grotesk', sans-serif;
+                font-size: 14px;
+                font-weight: 900;
+                color: white;
+                text-decoration: none;
+                cursor: pointer;
+                transition: transform 70ms ease-out;
+                white-space: nowrap;
+              }
+              .neo-wrap:active .neo-btn {
+                transform: translate(4px, 4px);
+              }
+
+              /* ── Page body ── */
+              .page-body {
+                padding: 48px 24px;
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+                max-width: 480px;
+                margin: 0 auto;
+              }
+
+              /* ── Login Card (exact replica of LoginVerificationScreen card) ── */
+              .login-card {
+                width: 100%;
+                background: var(--surface);
+                border: 3px solid var(--primary);
+                box-shadow: 8px 8px 0 var(--primary);
+                padding: 32px;
+                margin-bottom: 32px;
+              }
+
+              .login-card-title {
+                font-family: 'Space Grotesk', sans-serif;
+                font-size: 24px;
+                font-weight: 900;
+                color: var(--primary);
+                letter-spacing: 0;
+              }
+              .login-card-sub {
+                font-family: 'Space Grotesk', sans-serif;
+                font-size: 10px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                color: rgba(26,26,26,0.6);
+                margin-top: 4px;
+                margin-bottom: 24px;
+              }
+
+              /* Field label */
+              .field-label {
+                font-family: 'Space Grotesk', sans-serif;
+                font-size: 10px;
+                font-weight: 900;
+                text-transform: uppercase;
+                letter-spacing: 0;
+                color: var(--primary);
+                margin-bottom: 4px;
+              }
+
+              /* TextField replica */
+              .field-wrap {
+                position: relative;
+                margin-bottom: 16px;
+              }
+              .field-input {
+                width: 100%;
+                font-family: 'Space Grotesk', sans-serif;
+                font-weight: 700;
+                font-size: 15px;
+                color: var(--primary);
+                background: var(--surface);
+                border: 2px solid var(--primary);
+                border-radius: 0;
+                padding: 14px 44px 14px 12px;
+                outline: none;
+                -webkit-appearance: none;
+                appearance: none;
+              }
+              .field-input::placeholder {
+                color: rgba(26,26,26,0.3);
+                font-weight: 700;
+              }
+              .field-input:focus {
+                border-color: var(--red);
+              }
+              .field-icon {
+                position: absolute;
+                right: 12px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: var(--red);
+                font-size: 20px;
+                pointer-events: none;
+                font-style: normal;
+              }
+              .field-icon-at {
+                position: absolute;
+                right: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                font-family: 'Space Grotesk', sans-serif;
+                font-size: 22px;
+                font-weight: 900;
+                color: var(--red);
+                pointer-events: none;
+                line-height: 1;
+              }
+
+              /* Error hint */
+              .field-error {
+                font-family: 'Space Grotesk', sans-serif;
+                font-size: 10px;
+                font-weight: 700;
+                color: var(--red);
+                margin-top: -12px;
+                margin-bottom: 16px;
+              }
+
+              /* NeoButton: red SEND OTP */
+              .send-otp-wrap {
+                position: relative;
+                margin-bottom: 24px;
+              }
+              .send-otp-shadow {
+                position: absolute;
+                inset: 0;
+                transform: translate(4px, 4px);
+                background: var(--primary);
+                border: 3px solid var(--primary);
+              }
+              .send-otp-btn {
+                position: relative;
+                width: 100%;
+                height: 48px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: var(--red);
+                border: 3px solid var(--primary);
+                font-family: 'Space Grotesk', sans-serif;
+                font-size: 16px;
+                font-weight: 900;
+                color: white;
+                cursor: pointer;
+                letter-spacing: 0;
+                transition: transform 70ms ease-out;
+                -webkit-appearance: none;
+              }
+              .send-otp-wrap:active .send-otp-btn {
+                transform: translate(4px, 4px);
+              }
+
+              /* Social login row */
+              .social-row {
+                display: flex;
+                gap: 12px;
+                justify-content: space-between;
+                margin-bottom: 24px;
+              }
+              .social-box {
+                flex: 1;
+                aspect-ratio: 1;
+                border: 2px solid var(--primary);
+                background: var(--surface);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: 'Space Grotesk', sans-serif;
+                font-size: 22px;
+                font-weight: 900;
+                color: var(--primary);
+                cursor: pointer;
+                min-width: 52px;
+                max-width: 60px;
+              }
+              .social-box svg {
+                width: 24px;
+                height: 24px;
+                fill: none;
+                stroke: var(--primary);
+                stroke-width: 1.5;
+              }
+
+              /* Divider */
+              .divider {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                margin-bottom: 24px;
+              }
+              .divider-line {
+                flex: 1;
+                height: 2px;
+                background: var(--primary);
+              }
+              .divider-text {
+                font-family: 'Space Grotesk', sans-serif;
+                font-size: 10px;
+                font-weight: 900;
+                white-space: nowrap;
+                color: var(--primary);
+              }
+
+              /* Password strength meter */
+              .strength-row {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 4px;
+              }
+              .strength-label {
+                font-family: 'Space Grotesk', sans-serif;
+                font-size: 12px;
+                font-weight: 700;
+                color: var(--primary);
+                letter-spacing: 0;
+              }
+              .strength-value {
+                font-family: 'Space Grotesk', sans-serif;
+                font-size: 12px;
+                font-weight: 700;
+                color: var(--red);
+                letter-spacing: 0;
+              }
+              .strength-bars {
+                display: flex;
+                gap: 8px;
+                margin-bottom: 48px;
+              }
+              .strength-bar {
+                flex: 1;
+                height: 8px;
+                border: 1px solid var(--primary);
+              }
+              .strength-bar.filled { background: var(--red); }
+              .strength-bar.empty  { background: rgba(26,26,26,0.08); }
+
+              /* NeoButton: login (dark, large) */
+              .login-btn-wrap {
+                position: relative;
+                margin-bottom: 48px;
+              }
+              .login-btn-shadow {
+                position: absolute;
+                inset: 0;
+                transform: translate(8px, 8px);
+                background: var(--red);
+                border: 3px solid var(--primary);
+              }
+              .login-btn {
+                position: relative;
+                width: 100%;
+                height: 64px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: var(--primary);
+                border: 3px solid var(--primary);
+                font-family: 'Space Grotesk', sans-serif;
+                font-size: 20px;
+                font-weight: 900;
+                color: white;
+                cursor: pointer;
+                transition: transform 70ms ease-out;
+                -webkit-appearance: none;
+              }
+              .login-btn-wrap:active .login-btn {
+                transform: translate(8px, 8px);
+              }
+
+              /* Footer links */
+              .forgot-link {
+                font-family: 'Space Grotesk', sans-serif;
+                font-size: 14px;
+                font-weight: 700;
+                color: var(--primary);
+                text-decoration: underline;
+                text-decoration-thickness: 2px;
+                letter-spacing: 0;
+                cursor: pointer;
+                margin-bottom: 16px;
+                display: inline-block;
+              }
+              .divider-mini {
+                width: 48px;
+                height: 2px;
+                background: var(--primary);
+                margin-bottom: 16px;
+              }
+              .signup-text {
+                font-family: 'Space Grotesk', sans-serif;
+                font-size: 14px;
+                font-weight: 700;
+                color: var(--primary);
+                letter-spacing: 0;
+              }
+              .signup-text a { color: var(--blue); text-decoration: none; }
+
+              /* ── Verification strip (red bottom bar) ── */
+              .verify-strip {
+                background: var(--red);
+                border: 3px solid var(--primary);
+                box-shadow: 4px 4px 0 var(--primary);
+                padding: 16px;
+                display: flex;
+                align-items: center;
+                gap: 16px;
+              }
+              .verify-icon-box {
+                background: white;
+                padding: 8px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+              }
+              .verify-icon-box svg {
+                width: 24px;
+                height: 24px;
+                fill: none;
+                stroke: var(--primary);
+                stroke-width: 1.8;
+              }
+              .verify-text {
+                font-family: 'Space Grotesk', sans-serif;
+                font-size: 14px;
+                font-weight: 700;
+                color: white;
+                line-height: 1.3;
+                letter-spacing: 0.03em;
+              }
+
+              /* ── Responsive: cap width on large screens ── */
+              @media (min-width: 600px) {
+                .dl-banner { justify-content: center; gap: 24px; }
+              }
+            </style>
+          </head>
+          <body>
+
+            <!-- AppBar -->
+            <header class="appbar">
+              <div class="appbar-logo">
+                <div class="appbar-bar"></div>
+                <div class="appbar-title-wrap">
+                  <span class="appbar-title">Obscure</span>
+                </div>
+              </div>
+            </header>
+
+            <!-- Download Banner -->
+            <div class="dl-banner">
+              <div class="dl-banner-text">
+                <span>Android APK · APKDL_TAG_PLACEHOLDER</span>
+                立即下載並安裝 OBSCURE App
+              </div>
+              <div class="neo-wrap">
+                <div class="neo-shadow"></div>
+                <a class="neo-btn" href="APK_URL_PLACEHOLDER">
+                  <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                  </svg>
+                  下載 APK
+                </a>
+              </div>
+            </div>
+
+            <!-- Page Body: Login Screen Replica -->
+            <main class="page-body">
+
+              <!-- Login Card -->
+              <div class="login-card">
+                <div class="login-card-title">登入 LOGIN</div>
+                <div class="login-card-sub">輸入訪問憑證 ENTER ACCESS CREDENTIALS</div>
+
+                <!-- Mobile number -->
+                <div class="field-label">手機號碼 MOBILE NUMBER</div>
+                <div class="field-wrap">
+                  <input class="field-input" type="tel" placeholder="+886 0900 000 000" readonly>
+                  <span class="field-icon">📱</span>
+                </div>
+
+                <!-- Send OTP button -->
+                <div class="send-otp-wrap">
+                  <div class="send-otp-shadow"></div>
+                  <button class="send-otp-btn" disabled>發送驗證碼 SEND OTP</button>
+                </div>
+
+                <!-- Social login -->
+                <div class="social-row">
+                  <div class="social-box">G</div>
+                  <div class="social-box">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke-width="1.5"/><circle cx="12" cy="9" r="2.5" stroke-width="1.5"/></svg>
+                  </div>
+                  <div class="social-box">
+                    <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="#1A1A1A"/></svg>
+                  </div>
+                  <div class="social-box">
+                    <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke-width="1.5"/></svg>
+                  </div>
+                </div>
+
+                <!-- Divider -->
+                <div class="divider">
+                  <div class="divider-line"></div>
+                  <div class="divider-text">或使用電子郵件 OR EMAIL</div>
+                  <div class="divider-line"></div>
+                </div>
+
+                <!-- Email -->
+                <div class="field-label">電子郵件 EMAIL ADDRESS</div>
+                <div class="field-wrap">
+                  <input class="field-input" type="email" placeholder="USER@OBSCURE.IO" readonly>
+                  <span class="field-icon-at">@</span>
+                </div>
+                <div class="field-error">ⓘ 格式偵測錯誤 INVALID FORMAT DETECTION</div>
+
+                <!-- Password -->
+                <div class="field-label">密碼 PASSWORD</div>
+                <div class="field-wrap">
+                  <input class="field-input" type="password" placeholder="••••••••••••" readonly>
+                  <span class="field-icon" style="color:#1A1A1A;">
+                    <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24M1 1l22 22"/>
+                    </svg>
+                  </span>
+                </div>
+
+                <!-- Strength meter -->
+                <div class="strength-row">
+                  <span class="strength-label">安全性強度</span>
+                  <span class="strength-value">弱</span>
+                </div>
+                <div class="strength-bars">
+                  <div class="strength-bar filled"></div>
+                  <div class="strength-bar empty"></div>
+                  <div class="strength-bar empty"></div>
+                  <div class="strength-bar empty"></div>
+                </div>
+
+                <!-- Login button -->
+                <div class="login-btn-wrap">
+                  <div class="login-btn-shadow"></div>
+                  <button class="login-btn" disabled>登入</button>
+                </div>
+
+                <span class="forgot-link">忘記存取密鑰？</span>
+                <div class="divider-mini"></div>
+                <div class="signup-text">新用戶？ <a href="#">申請存取權限</a></div>
+              </div>
+
+              <!-- Verification strip -->
+              <div class="verify-strip">
+                <div class="verify-icon-box">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke-width="1.8"/>
+                  </svg>
+                </div>
+                <div class="verify-text">系統狀態：<br>已加密且驗證中</div>
+              </div>
+
+            </main>
+
+            <script>
+              // Replace placeholders with actual values injected by shell
+              document.querySelectorAll('a[href="APK_URL_PLACEHOLDER"]').forEach(el => {
+                el.href = "APKURL";
+              });
+              document.querySelectorAll('.dl-banner-text span').forEach(el => {
+                el.textContent = "Android APK · TAGVAL";
+              });
+            </script>
+          </body>
+          </html>
+          HTMLEOF
+
+          # Inject shell variables into the HTML (safe substitution after heredoc)
+          sed -i "s|APK_URL_PLACEHOLDER|${APK_URL}|g" gh-pages/index.html
+          sed -i "s|APKURL|${APK_URL}|g" gh-pages/index.html
+          sed -i "s|TAGVAL|${TAG}|g" gh-pages/index.html
+          sed -i "s|APKDL_TAG_PLACEHOLDER|${TAG}|g" gh-pages/index.html
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: gh-pages/
+
+  # ─────────────────────────────────────────────
+  # Job 3: 部署到 GitHub Pages（在 build-and-release 之後）
+  # ─────────────────────────────────────────────
+  deploy-pages:
+    name: Deploy Download Page to GitHub Pages
+    runs-on: ubuntu-latest
+    needs: build-and-release
+    if: startsWith(github.ref, 'refs/tags/v')
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
