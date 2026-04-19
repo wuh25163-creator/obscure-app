@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+
+<html class="light" lang="zh-TW"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-variant": "#e8e3da",
+              "on-surface": "#1a1a1a",
+              "secondary-fixed": "#ffdad6",
+              "secondary": "#e63b2e",
+              "inverse-surface": "#1a1a1a",
+              "on-background": "#1a1a1a",
+              "surface": "#f5f0e8",
+              "surface-tint": "#1a1a1a",
+              "error-container": "#ffdad6",
+              "surface-dim": "#d6d1c9",
+              "on-error": "#ffffff",
+              "on-tertiary-fixed-variant": "#1a1a1a",
+              "on-tertiary": "#ffffff",
+              "on-primary-fixed": "#1a1a1a",
+              "tertiary-container": "#d6e3ff",
+              "on-tertiary-container": "#1a1a1a",
+              "error": "#cc0000",
+              "on-surface-variant": "#4a4a4a",
+              "background": "#f5f0e8",
+              "tertiary-fixed": "#d6e3ff",
+              "secondary-container": "#ffdad6",
+              "inverse-on-surface": "#f5f0e8",
+              "surface-container-highest": "#e2ddd4",
+              "on-secondary": "#1a1a1a",
+              "on-primary-container": "#1a1a1a",
+              "tertiary-fixed-dim": "#a8c6ff",
+              "tertiary": "#0055ff",
+              "primary": "#1a1a1a",
+              "on-error-container": "#93000a",
+              "secondary-fixed-dim": "#ffb3ab",
+              "primary-fixed": "#ffcc00",
+              "outline-variant": "#d0cbc3",
+              "surface-container": "#eee9e0",
+              "primary-container": "#ffcc00",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary-fixed": "#1a1a1a",
+              "on-secondary-fixed-variant": "#1a1a1a",
+              "surface-bright": "#faf7f2",
+              "inverse-primary": "#f5f0e8",
+              "outline": "#1a1a1a",
+              "on-secondary-container": "#1a1a1a",
+              "on-primary-fixed-variant": "#1a1a1a",
+              "surface-container-low": "#f2ede5",
+              "primary-fixed-dim": "#e6b800",
+              "surface-container-high": "#e8e3da",
+              "on-tertiary-fixed": "#1a1a1a",
+              "on-primary": "#ffffff"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Inter"],
+              "label": ["Space Grotesk"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .neo-shadow {
+            box-shadow: 4px 4px 0px 0px rgba(26, 26, 26, 1);
+        }
+        .neo-shadow-sm {
+            box-shadow: 2px 2px 0px 0px rgba(26, 26, 26, 1);
+        }
+        .active-neo {
+            box-shadow: none !important;
+            transform: translate(2px, 2px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 py-4 bg-[#f5f0e8] dark:bg-[#1a1a1a] border-b-4 border-[#1a1a1a] dark:border-[#f5f0e8] shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] dark:shadow-[4px_4px_0px_0px_rgba(245,240,232,1)]">
+<div class="flex items-center gap-4">
+<button class="text-[#1a1a1a] dark:text-[#f5f0e8] hover:bg-[#ffcc00] hover:text-[#1a1a1a] transition-colors duration-100 p-2 active:translate-x-1 active:translate-y-1 active:shadow-none">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="text-3xl font-black text-[#1a1a1a] dark:text-[#f5f0e8] italic font-['Space_Grotesk'] uppercase tracking-tighter">OBSCURE</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-[#1a1a1a] dark:text-[#f5f0e8] hover:bg-[#ffcc00] hover:text-[#1a1a1a] transition-colors duration-100 p-2 active:translate-x-1 active:translate-y-1 active:shadow-none">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</header>
+<main class="pt-28 px-6 max-w-7xl mx-auto">
+<!-- Page Header -->
+<div class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<h2 class="font-headline font-bold text-6xl uppercase tracking-tighter text-primary">PORTFOLIO</h2>
+<p class="text-xl mt-2 font-medium border-l-4 border-primary-fixed pl-4">MANAGE YOUR CREATIVE ASSETS</p>
+</div>
+<div class="flex gap-4">
+<button class="bg-primary text-surface font-headline font-bold uppercase px-8 py-4 border-2 border-primary neo-shadow hover:bg-primary-fixed hover:text-primary transition-all active:translate-x-1 active:translate-y-1 active:shadow-none">
+                    Upload New
+                </button>
+</div>
+</div>
+<!-- Filter System -->
+<section class="mb-10">
+<div class="flex flex-wrap gap-3">
+<button class="bg-primary-container text-on-primary-container px-4 py-2 font-headline font-bold border-2 border-primary neo-shadow-sm hover:translate-y-[-2px] transition-transform">
+                    ALL PROJECTS
+                </button>
+<button class="bg-surface text-primary px-4 py-2 font-headline font-bold border-2 border-primary neo-shadow-sm hover:bg-primary-container transition-colors">
+                    #手繪 (HAND-DRAWN)
+                </button>
+<button class="bg-surface text-primary px-4 py-2 font-headline font-bold border-2 border-primary neo-shadow-sm hover:bg-primary-container transition-colors">
+                    #個人特色 (PERSONAL STYLE)
+                </button>
+<button class="bg-surface text-primary px-4 py-2 font-headline font-bold border-2 border-primary neo-shadow-sm hover:bg-primary-container transition-colors">
+                    #COMMERCIAL
+                </button>
+<button class="bg-surface text-primary px-4 py-2 font-headline font-bold border-2 border-primary neo-shadow-sm hover:bg-primary-container transition-colors">
+                    #DIGITAL_ART
+                </button>
+<button class="ml-auto flex items-center gap-2 font-headline font-bold border-b-4 border-secondary text-secondary px-2">
+<span class="material-symbols-outlined">filter_list</span>
+                    ADVANCED FILTERS
+                </button>
+</div>
+</section>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Folder Thumbnail -->
+<div class="md:col-span-4 group relative">
+<div class="h-full border-4 border-primary bg-surface p-6 neo-shadow hover:translate-x-[-4px] hover:translate-y-[-4px] transition-all flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-5xl" style="font-variation-settings: 'FILL' 1;">folder</span>
+<span class="bg-secondary text-surface px-2 py-1 font-headline font-bold text-sm">PRIVATE</span>
+</div>
+<h3 class="font-headline font-bold text-3xl uppercase leading-none mb-2">作品集(個人)</h3>
+<p class="font-medium text-on-surface-variant opacity-70">Personal Portfolio Collection</p>
+</div>
+<div class="mt-8 flex items-end justify-between">
+<div class="text-4xl font-black font-headline">24 <span class="text-lg">ITEMS</span></div>
+<button class="w-12 h-12 border-2 border-primary flex items-center justify-center hover:bg-primary hover:text-surface transition-colors">
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Main Work Card -->
+<div class="md:col-span-8 group">
+<div class="relative h-full border-4 border-primary bg-white neo-shadow overflow-hidden flex flex-col md:flex-row">
+<div class="w-full md:w-1/2 h-64 md:h-auto bg-surface-dim overflow-hidden border-r-0 md:border-r-4 border-primary">
+<img alt="Hand drawn artwork" class="w-full h-full object-cover grayscale contrast-125 hover:grayscale-0 transition-all duration-500" data-alt="Abstract hand drawn expressive ink illustration" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCuFgy0m14iEhj1A-F-NY5A2IDf1qhJZkhusGpSo2zovPklAF6F0hgVP6w0DuDFw2mjrx9YWLmBV4bUFwIFxp53Uss9_T-e3sW3H6qMmVlwW8t7UpYJ-aETYsYDhMW_Pp3tOHZSdHeZTAmqMDvpUSq-hfJrEcGMJWJe_ly4XALawFUYJw2mVxYhNbeMWn2k8PNA2CKP-xPm4LW_8wpA54mYgoRcl2SE0x9Pd-0fRpd1ilz1zx5snhGA0jn7kbsD6Gb1i7m4DB_USaQa"/>
+</div>
+<div class="p-6 flex-1 flex flex-col justify-between bg-surface">
+<div>
+<div class="flex gap-2 mb-4">
+<span class="text-xs font-bold px-2 py-1 border border-primary">#手繪</span>
+<span class="text-xs font-bold px-2 py-1 border border-primary">#INK</span>
+</div>
+<h3 class="font-headline font-bold text-4xl uppercase mb-4 tracking-tighter">INK REVOLUTION</h3>
+<p class="text-on-surface-variant leading-relaxed mb-6 font-medium">A collection of expressive hand-drawn experiments focusing on line weight and raw emotional texture. Personal style study.</p>
+</div>
+<div class="flex justify-between items-center pt-6 border-t-2 border-primary-container">
+<span class="font-headline font-bold">UPDATED: 2023.10.12</span>
+<div class="flex gap-2">
+<button class="p-2 border-2 border-primary hover:bg-primary-container transition-colors"><span class="material-symbols-outlined">edit</span></button>
+<button class="p-2 border-2 border-primary hover:bg-error-container text-error transition-colors"><span class="material-symbols-outlined">delete</span></button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Stats & Small Cards -->
+<div class="md:col-span-3">
+<div class="h-full border-4 border-primary bg-tertiary text-surface p-6 neo-shadow flex flex-col justify-center items-center text-center">
+<span class="material-symbols-outlined text-6xl mb-4">visibility</span>
+<div class="text-5xl font-black font-headline">12.5K</div>
+<div class="font-headline font-bold uppercase tracking-widest mt-2">Total Views</div>
+</div>
+</div>
+<div class="md:col-span-3">
+<div class="h-full border-4 border-primary bg-primary-fixed text-primary p-6 neo-shadow group cursor-pointer hover:bg-primary hover:text-surface transition-colors">
+<div class="flex justify-between mb-8">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="font-headline font-bold">NEWEST</span>
+</div>
+<h4 class="font-headline font-bold text-2xl uppercase">Sketchbook Series 01</h4>
+</div>
+</div>
+<div class="md:col-span-6">
+<div class="h-full border-4 border-primary bg-surface p-6 neo-shadow grid grid-cols-2 gap-4">
+<div class="border-2 border-primary p-4 flex flex-col justify-between">
+<span class="font-headline font-bold text-sm text-secondary">ACTIVE STATUS</span>
+<div class="text-3xl font-black font-headline uppercase mt-4">LIVE</div>
+</div>
+<div class="border-2 border-primary p-4 flex flex-col justify-between">
+<span class="font-headline font-bold text-sm text-tertiary">STORAGE</span>
+<div class="text-3xl font-black font-headline uppercase mt-4">84% FULL</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Secondary Grid -->
+<div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+<!-- Item 1 -->
+<div class="border-4 border-primary bg-white neo-shadow-sm overflow-hidden group">
+<div class="aspect-square bg-surface-dim border-b-4 border-primary overflow-hidden">
+<img alt="Project thumbnail" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-500" data-alt="Modern abstract colorful oil painting pattern" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDy8lcLmBcNuUqqqsCi0ht3ku7JwvuW2N4W3j9vJGgg_FZ7MtmOgRc8f2ZuWbMAHriLM6PeEPSX1KXf2nJxqWxnI2OzVgEBtRizrMZXotovhGTrvU0KLXS71sbnsvHPbGczDpoB9e_cO7UEoaDPQWsUodGYMYohM8DlnaQFypCYsRZtn8RzvMpxBA2evMP8mGjuTUmSIcmSsja_YJncQ0krT2-Ntd80FPLbUI0y10uk3cE_xx7-7cPGhgq8BVTV7ffKjDuWys-sSwje"/>
+</div>
+<div class="p-4">
+<h5 class="font-headline font-bold text-lg uppercase truncate">Personal Style #02</h5>
+<div class="flex justify-between items-center mt-2">
+<span class="text-xs font-bold bg-primary-container px-2 py-0.5">#個人特色</span>
+<span class="material-symbols-outlined text-xl">more_vert</span>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="border-4 border-primary bg-white neo-shadow-sm overflow-hidden group">
+<div class="aspect-square bg-surface-dim border-b-4 border-primary overflow-hidden">
+<img alt="Project thumbnail" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-500" data-alt="Digital geometric pattern with bold colors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBR6lFtpHNdTZnusbe2VNgsciZon-yEGEu-K_UwufdrrdEzUsKnO3d0oj7IzR_-Cw0m3IWnzcxx-ZVFZK1V0jyWu8GP4KsfJ-GP3zzCWOq4vHBbcup3vDzpG1Um3i_i4uHldxln0IftO5BdHOn70WgxFvMRtckTmRdfRZbtq2Si8DsALjJLTA7cvHByEXs7ONPbbsbRkzW0gaflxePkWc5NTOzKQncZ-Vmq6Tuh7hGlyt9W4e-8I7fFkV73S9mGxJsTWMNETa4S8gA"/>
+</div>
+<div class="p-4">
+<h5 class="font-headline font-bold text-lg uppercase truncate">Digital Void</h5>
+<div class="flex justify-between items-center mt-2">
+<span class="text-xs font-bold bg-primary-container px-2 py-0.5">#DIGITAL</span>
+<span class="material-symbols-outlined text-xl">more_vert</span>
+</div>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="border-4 border-primary bg-white neo-shadow-sm overflow-hidden group">
+<div class="aspect-square bg-surface-dim border-b-4 border-primary overflow-hidden">
+<img alt="Project thumbnail" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-500" data-alt="Vibrant abstract brush strokes on canvas" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKahLdVyYZHMb-m4e2KMpiz_qVJuDy07ej31hh41z1s_JbemrYd7RXLQinGp8BTrOpgIgW-gQ3lL9XjVg4VA4XfieHbKlidjeRQt9lktysTIWJMtUnPf4jLP-hucnMAA-axRuTzcLgK1LF_Ib3K38WQNJRenQz8oKX5MtOzPQGVKgVn5bEGS0CVA4zd0PcFSfhAXujgIFsm5ng-RVkWhovk8SPrOQ_Q_Zikqazz7k0DDTAKnk0sbMg_5r4WUmIDk_kMEBrs3LUfBpv"/>
+</div>
+<div class="p-4">
+<h5 class="font-headline font-bold text-lg uppercase truncate">Hand Drawn Chaos</h5>
+<div class="flex justify-between items-center mt-2">
+<span class="text-xs font-bold bg-primary-container px-2 py-0.5">#手繪</span>
+<span class="material-symbols-outlined text-xl">more_vert</span>
+</div>
+</div>
+</div>
+<!-- Empty Add Slot -->
+<div class="border-4 border-dashed border-primary bg-surface-container flex flex-col items-center justify-center p-8 group cursor-pointer hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-5xl mb-4 group-hover:scale-125 transition-transform">add_circle</span>
+<span class="font-headline font-bold uppercase text-center">Add New Project</span>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-20 px-4 pb-safe bg-[#f5f0e8] dark:bg-[#1a1a1a] border-t-4 border-[#1a1a1a] dark:border-[#f5f0e8]">
+<button class="text-[#1a1a1a] dark:text-[#f5f0e8] opacity-80 active:scale-95 transition-transform flex flex-col items-center">
+<span class="material-symbols-outlined">home</span>
+</button>
+<button class="text-[#1a1a1a] dark:text-[#f5f0e8] opacity-80 active:scale-95 transition-transform flex flex-col items-center">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="bg-[#ffcc00] text-[#1a1a1a] border-2 border-[#1a1a1a] scale-110 active:scale-95 transition-transform p-3 rounded-none shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+</button>
+<button class="text-[#1a1a1a] dark:text-[#f5f0e8] opacity-80 active:scale-95 transition-transform flex flex-col items-center">
+<span class="material-symbols-outlined">mail</span>
+</button>
+</nav>
+</body></html>

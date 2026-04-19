@@ -1,0 +1,20 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Flutter Web",
+            "request": "launch",
+            "type": "dart",
+            "cwd": "${workspaceFolder}/flutter_app",
+            "program": "${workspaceFolder}/flutter_app/lib/main.dart",
+            "args": ["-d", "chrome"]
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "對 localhost 啟動 Chrome",
+            "url": "http://localhost:8080",
+            "webRoot": "${workspaceFolder}"
+        }
+    ]
+}

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+<html class="light" lang="zh-Hant"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>OBSCURE - Messages</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-variant": "#e8e3da",
+              "on-surface": "#1a1a1a",
+              "secondary-fixed": "#ffdad6",
+              "secondary": "#e63b2e",
+              "inverse-surface": "#1a1a1a",
+              "on-background": "#1a1a1a",
+              "surface": "#f5f0e8",
+              "surface-tint": "#1a1a1a",
+              "error-container": "#ffdad6",
+              "surface-dim": "#d6d1c9",
+              "on-error": "#ffffff",
+              "on-tertiary-fixed-variant": "#1a1a1a",
+              "on-tertiary": "#ffffff",
+              "on-primary-fixed": "#1a1a1a",
+              "tertiary-container": "#d6e3ff",
+              "on-tertiary-container": "#1a1a1a",
+              "error": "#cc0000",
+              "on-surface-variant": "#4a4a4a",
+              "background": "#f5f0e8",
+              "tertiary-fixed": "#d6e3ff",
+              "secondary-container": "#ffdad6",
+              "inverse-on-surface": "#f5f0e8",
+              "surface-container-highest": "#e2ddd4",
+              "on-secondary": "#1a1a1a",
+              "on-primary-container": "#1a1a1a",
+              "tertiary-fixed-dim": "#a8c6ff",
+              "tertiary": "#0055ff",
+              "primary": "#1a1a1a",
+              "on-error-container": "#93000a",
+              "secondary-fixed-dim": "#ffb3ab",
+              "primary-fixed": "#ffcc00",
+              "outline-variant": "#d0cbc3",
+              "surface-container": "#eee9e0",
+              "primary-container": "#ffcc00",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary-fixed": "#1a1a1a",
+              "on-secondary-fixed-variant": "#1a1a1a",
+              "surface-bright": "#faf7f2",
+              "inverse-primary": "#f5f0e8",
+              "outline": "#1a1a1a",
+              "on-secondary-container": "#1a1a1a",
+              "on-primary-fixed-variant": "#1a1a1a",
+              "surface-container-low": "#f2ede5",
+              "primary-fixed-dim": "#e6b800",
+              "surface-container-high": "#e8e3da",
+              "on-tertiary-fixed": "#1a1a1a",
+              "on-primary": "#ffffff"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Inter"],
+              "label": ["Space Grotesk"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .neo-brutal-shadow {
+        box-shadow: 4px 4px 0px 0px #1a1a1a;
+      }
+      .neo-brutal-shadow-sm {
+        box-shadow: 2px 2px 0px 0px #1a1a1a;
+      }
+      body {
+        -webkit-tap-highlight-color: transparent;
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body antialiased">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 py-4 bg-[#f5f0e8] dark:bg-[#1a1a1a] border-b-4 border-[#1a1a1a] shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]">
+<div class="flex items-center gap-4">
+<button class="text-[#1a1a1a] active:translate-x-1 active:translate-y-1 transition-all">
+<span class="material-symbols-outlined text-3xl">menu</span>
+</button>
+<h1 class="text-3xl font-black text-[#1a1a1a] italic font-['Space_Grotesk'] uppercase tracking-tighter">OBSCURE</h1>
+</div>
+<div class="flex items-center">
+<button class="text-[#1a1a1a] active:translate-x-1 active:translate-y-1 transition-all">
+<span class="material-symbols-outlined text-3xl">account_circle</span>
+</button>
+</div>
+</header>
+<main class="pt-28 pb-32 px-4 max-w-4xl mx-auto">
+<!-- Search & Filter Bar -->
+<section class="mb-8">
+<div class="flex gap-2">
+<div class="flex-1 bg-surface border-2 border-primary p-3 flex items-center gap-3 neo-brutal-shadow-sm">
+<span class="material-symbols-outlined text-primary">search</span>
+<input class="bg-transparent border-none focus:ring-0 font-label text-sm uppercase w-full" placeholder="SEARCH MESSAGES..." type="text"/>
+</div>
+<button class="bg-primary-container border-2 border-primary p-3 neo-brutal-shadow-sm active:translate-x-1 active:translate-y-1 transition-all">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+</div>
+</section>
+<!-- Message List -->
+<div class="space-y-4">
+<!-- Active Thread -->
+<div class="bg-surface border-4 border-primary p-5 flex gap-4 neo-brutal-shadow hover:bg-surface-container transition-colors cursor-pointer group">
+<div class="relative flex-shrink-0">
+<img class="w-16 h-16 border-2 border-primary object-cover" data-alt="Close up portrait of a professional woman" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSC6QJnTed8dXUvAj4OPedCNhUbTS3oUddUPmRfkNMf-v_TLCqFT-I9epXupF5t0BlpU95vQHs0InDbsrxpUvRJO-y22kXUIjwT02xHlTxY5EOCDYEYDGBLTb34aUf0_GpOmKqqdikoBfnYegm_zX1N_DyVaNyBbCnSbW6f_rfNptWqj0rirpxi1PGtTqcmdX12FFplvEl3xrlvGmsFfeUyCBsnEx3kDLcGZE2Pn6ZqdoTtbiXnCERhOhHCDB9EQNTpbUqptDOsf-F"/>
+<div class="absolute -bottom-1 -right-1 w-5 h-5 bg-primary-container border-2 border-primary flex items-center justify-center">
+<span class="text-[10px] font-black">2</span>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start mb-1">
+<h2 class="font-headline font-bold text-xl uppercase leading-none truncate">林**小姐 (Ms. Lin)</h2>
+<span class="font-label text-xs font-bold uppercase whitespace-nowrap">22 mins ago</span>
+</div>
+<p class="text-secondary font-bold text-sm mb-2 uppercase">**方案 - 尊享計劃確認</p>
+<p class="text-on-surface-variant text-sm line-clamp-1">你好，關於**方案的內容，我還有一些細節想請教...</p>
+</div>
+<div class="flex flex-col justify-center">
+<span class="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">chevron_right</span>
+</div>
+</div>
+<!-- Read Thread -->
+<div class="bg-surface border-2 border-primary p-5 flex gap-4 hover:bg-surface-container transition-colors cursor-pointer">
+<div class="flex-shrink-0">
+<img class="w-16 h-16 border-2 border-primary object-cover grayscale" data-alt="Portrait of a creative professional man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCO6YL9n67pEWUgRIMptgKwXly2vCmcm-GngsErQX1lbwtXOhVkwhE8txQJmJP4BBu77lhGKdA4y2XXrg5haBqMJu8lW1wGIWXgyahyvelERMXsv_DT9PLY9XqjSVX5zwmeqY2Rd_BAE4x15viyHpI7snm_oEuVd5zAVI9AqSwhMydq44lzXV9Fy8XpokLcFY07-V4uF0W3O1AEYzshzkUIItizDIN42NXrbGPRLwRQNn6s3X89xa344NZXccNOhxaMKDCoDkR3CwHN"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start mb-1">
+<h2 class="font-headline font-bold text-xl uppercase leading-none truncate">張先生 (Mr. Chang)</h2>
+<span class="font-label text-xs font-medium uppercase opacity-60">2 hours ago</span>
+</div>
+<p class="text-on-surface-variant font-medium text-sm mb-2 uppercase">**方案 - 進度更新</p>
+<p class="text-on-surface-variant text-sm line-clamp-1 opacity-70">謝謝你的詳細說明，我們會再討論一下。</p>
+</div>
+<div class="flex flex-col justify-center">
+<span class="material-symbols-outlined text-primary opacity-30">chevron_right</span>
+</div>
+</div>
+<!-- Read Thread -->
+<div class="bg-surface border-2 border-primary p-5 flex gap-4 hover:bg-surface-container transition-colors cursor-pointer">
+<div class="flex-shrink-0">
+<img class="w-16 h-16 border-2 border-primary object-cover grayscale" data-alt="Smiling portrait of a business executive" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAzOGGlfSklFUXjxalQ19W_hKrEZSIGITVynkm9sD1h6Rniu_yoDnD8siL2A9GU8VI2EsPPeyV9BoSfKHKRkKnGT6gbCUPWodN2kIDoVgcT8wPIfZ9l-rn6kIxEKppQQs3ZoS2bTpmML9HyKCxHFsyHJliEtZ0GnXxy9HD0GHANXW2WYRe036VZ5QNKdBxErMLDEn-srH_taHZr3vRmnVRxYLu5kPsXyuu8sHBK1IFV56Y7bwqy3YMbWvE-mCffwUHXPl7LoXpBZMH"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start mb-1">
+<h2 class="font-headline font-bold text-xl uppercase leading-none truncate">王小姐 (Ms. Wang)</h2>
+<span class="font-label text-xs font-medium uppercase opacity-60">Yesterday</span>
+</div>
+<p class="text-on-surface-variant font-medium text-sm mb-2 uppercase">**方案 - 續約諮詢</p>
+<p class="text-on-surface-variant text-sm line-clamp-1 opacity-70">請問續約後原本的優惠還能保留嗎？</p>
+</div>
+<div class="flex flex-col justify-center">
+<span class="material-symbols-outlined text-primary opacity-30">chevron_right</span>
+</div>
+</div>
+<!-- Read Thread -->
+<div class="bg-surface border-2 border-primary p-5 flex gap-4 hover:bg-surface-container transition-colors cursor-pointer">
+<div class="flex-shrink-0">
+<div class="w-16 h-16 border-2 border-primary bg-tertiary flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-3xl">corporate_fare</span>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start mb-1">
+<h2 class="font-headline font-bold text-xl uppercase leading-none truncate">系統通知 (SYSTEM)</h2>
+<span class="font-label text-xs font-medium uppercase opacity-60">2 days ago</span>
+</div>
+<p class="text-on-surface-variant font-medium text-sm mb-2 uppercase">帳戶安全性</p>
+<p class="text-on-surface-variant text-sm line-clamp-1 opacity-70">您的帳戶最近從新的裝置登入，若非本人...</p>
+</div>
+<div class="flex flex-col justify-center">
+<span class="material-symbols-outlined text-primary opacity-30">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Floating Action Button -->
+<button class="fixed bottom-24 right-6 w-16 h-16 bg-secondary border-4 border-primary text-white flex items-center justify-center neo-brutal-shadow active:translate-x-1 active:translate-y-1 active:shadow-none transition-all z-40">
+<span class="material-symbols-outlined text-3xl">edit</span>
+</button>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-20 px-4 pb-safe bg-[#f5f0e8] dark:bg-[#1a1a1a] border-t-4 border-[#1a1a1a] font-['Space_Grotesk'] font-bold uppercase">
+<button class="text-[#1a1a1a] opacity-80 active:scale-95 transition-transform flex flex-col items-center">
+<span class="material-symbols-outlined text-2xl">home</span>
+</button>
+<button class="text-[#1a1a1a] opacity-80 active:scale-95 transition-transform flex flex-col items-center">
+<span class="material-symbols-outlined text-2xl">search</span>
+</button>
+<!-- ACTIVE TAB: MAIL -->
+<button class="bg-[#ffcc00] text-[#1a1a1a] border-2 border-[#1a1a1a] scale-110 active:scale-95 transition-transform flex flex-col items-center p-2">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">mail</span>
+</button>
+<button class="text-[#1a1a1a] opacity-80 active:scale-95 transition-transform flex flex-col items-center">
+<span class="material-symbols-outlined text-2xl">person</span>
+</button>
+</nav>
+</body></html>

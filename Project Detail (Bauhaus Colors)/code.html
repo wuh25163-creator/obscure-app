@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-tertiary-fixed": "#ffffff",
+            "tertiary-fixed": "#FF0000", // Bauhaus Red
+            "primary-fixed": "#F5F5F5",
+            "on-primary-fixed": "#000000",
+            "inverse-surface": "#000000",
+            "tertiary-fixed-dim": "#D00000",
+            "secondary-container": "#FFD700", // Bauhaus Yellow
+            "on-primary-container": "#000000",
+            "tertiary": "#FF0000",
+            "background": "#F5F5F5",
+            "on-secondary": "#000000",
+            "primary-dim": "#000000",
+            "surface-container-highest": "#E5E5E5",
+            "on-secondary-fixed": "#000000",
+            "on-tertiary": "#ffffff",
+            "secondary": "#FFD700",
+            "outline": "#000000",
+            "on-secondary-container": "#000000",
+            "surface-container": "#F5F5F5",
+            "on-primary": "#000000",
+            "inverse-primary": "#ffffff",
+            "on-error-container": "#752121",
+            "on-surface": "#000000",
+            "secondary-fixed": "#FFD700",
+            "error-dim": "#4e0309",
+            "surface-bright": "#ffffff",
+            "secondary-dim": "#E5C100",
+            "primary": "#000000",
+            "on-secondary-fixed-variant": "#000000",
+            "secondary-fixed-dim": "#E5C100",
+            "primary-container": "#F5F5F5",
+            "on-error": "#ffffff",
+            "surface-container-high": "#E5E5E5",
+            "on-tertiary-container": "#ffffff",
+            "on-background": "#000000",
+            "surface-dim": "#E5E5E5",
+            "surface-variant": "#F5F5F5",
+            "surface-container-lowest": "#ffffff",
+            "error-container": "#fe8983",
+            "surface-tint": "#000000",
+            "inverse-on-surface": "#F5F5F5",
+            "surface-container-low": "#F5F5F5",
+            "outline-variant": "#000000",
+            "on-tertiary-fixed-variant": "#FF0000",
+            "surface": "#F5F5F5",
+            "tertiary-dim": "#FF0000",
+            "error": "#9f403d",
+            "on-primary-fixed-variant": "#000000",
+            "on-surface-variant": "#000000",
+            "tertiary-container": "#FF0000",
+            "primary-fixed-dim": "#E5E5E5",
+            "bauhaus-blue": "#0000FF",
+            "bauhaus-yellow": "#FFD700",
+            "bauhaus-red": "#FF0000"
+          },
+          fontFamily: {
+            "headline": ["Space Grotesk"],
+            "body": ["Space Grotesk"],
+            "label": ["Space Grotesk"]
+          },
+          borderRadius: {"DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px"},
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    body {
+      background-color: #F5F5F5;
+    }
+    .border-heavy {
+      border: 4px solid #000000;
+    }
+    .shadow-brutalist {
+      box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+    }
+    input::placeholder {
+      color: #000000;
+    }
+  </style>
+</head>
+<body class="font-body text-on-surface selection:bg-bauhaus-blue selection:text-white">
+<!-- Fixed Top Header -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-4 h-16 bg-background border-b-4 border-on-surface">
+<div class="flex flex-col">
+<h1 class="font-headline font-bold text-xl leading-tight">回味</h1>
+<p class="font-headline font-medium text-xs">鮭魚</p>
+</div>
+<button class="h-10 w-10 flex items-center justify-center border-heavy bg-bauhaus-yellow shadow-brutalist active:translate-x-1 active:translate-y-1 active:shadow-none transition-all">
+<span class="material-symbols-outlined text-2xl" data-icon="close">close</span>
+</button>
+</header>
+<main class="pt-16 pb-20">
+<!-- Main Visual -->
+<section class="w-full aspect-[4/5] bg-bauhaus-blue border-b-4 border-on-surface relative">
+</section>
+<!-- Project Info Section -->
+<section class="p-4 space-y-1">
+<h2 class="font-headline font-bold text-3xl uppercase tracking-tighter">回味</h2>
+<p class="font-headline font-bold text-sm text-on-surface/80">2025/5/5</p>
+</section>
+<!-- Comments Section Card -->
+<section class="mx-4 mb-6 bg-surface-container border-heavy p-4 flex flex-col min-h-[12rem] relative shadow-brutalist">
+<div class="flex flex-col gap-3 mb-10">
+<h3 class="font-headline font-bold text-xl uppercase tracking-tight mb-1">評論</h3>
+<div class="space-y-3">
+<p class="text-sm font-medium border-l-4 border-bauhaus-red pl-2">這幾何構成非常有張力！</p>
+<p class="text-sm font-medium border-l-4 border-bauhaus-blue pl-2">色彩運用很到位，學習了。</p>
+<p class="text-sm font-medium border-l-4 border-bauhaus-yellow pl-2">很棒的包裝設計概念。</p>
+</div>
+</div>
+<div class="absolute bottom-4 right-4">
+<a class="font-headline font-bold text-sm underline bg-bauhaus-yellow px-2 border-2 border-on-surface shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]" href="#">所有評論</a>
+</div>
+</section>
+<!-- Comment Input -->
+<section class="mx-4 mb-10 flex">
+<div class="flex-grow bg-white border-heavy h-12 px-3 flex items-center">
+<span class="text-on-surface/40 font-headline font-bold">輸入評論...</span>
+</div>
+<div class="w-16 bg-on-surface border-heavy border-l-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-white" data-icon="send">send</span>
+</div>
+</section>
+<!-- Author Info Section -->
+<section class="mx-4 space-y-4">
+<h3 class="font-headline font-bold text-2xl uppercase tracking-tight">作者/團隊</h3>
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-full border-heavy bg-bauhaus-yellow shadow-brutalist"></div>
+<span class="font-headline font-bold text-lg">鮭魚</span>
+</div>
+<div class="flex gap-2">
+<span class="bg-surface-container border-heavy px-4 py-1 text-sm font-headline font-bold shadow-brutalist border-bauhaus-red">#台式</span>
+<span class="bg-surface-container border-heavy px-4 py-1 text-sm font-headline font-bold shadow-brutalist border-bauhaus-blue">#包裝</span>
+</div>
+</section>
+<!-- Recommendations -->
+<section class="mt-8 px-4">
+<div class="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
+<div class="w-[45%] aspect-[4/3] bg-bauhaus-red border-heavy shrink-0 shadow-brutalist"></div>
+<div class="w-[45%] aspect-[4/3] bg-bauhaus-yellow border-heavy shrink-0 shadow-brutalist"></div>
+<div class="w-[45%] aspect-[4/3] bg-bauhaus-blue border-heavy shrink-0 shadow-brutalist"></div>
+</div>
+</section>
+<!-- Footer Metrics -->
+<section class="mt-12 mx-4 bg-surface-container border-heavy p-6 space-y-4 shadow-brutalist mb-8">
+<div class="flex items-center justify-between border-b-2 border-on-surface pb-2">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-xl text-bauhaus-red" data-icon="favorite" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="font-headline font-bold uppercase">按讚</span>
+</div>
+<span class="font-headline font-black text-xl">342</span>
+</div>
+<div class="flex items-center justify-between border-b-2 border-on-surface pb-2">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-xl text-on-surface" data-icon="near_me">near_me</span>
+<span class="font-headline font-bold uppercase">觀看</span>
+</div>
+<span class="font-headline font-black text-xl">1.2k</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-xl text-on-surface" data-icon="chat_bubble">chat_bubble</span>
+<span class="font-headline font-bold uppercase">留言</span>
+</div>
+<span class="font-headline font-black text-xl">3</span>
+</div>
+</section>
+</main>
+</body></html>

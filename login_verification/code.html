@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>OBSCURE | Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "outline-variant": "#b7b2a1",
+                        "inverse-surface": "#0f0e0a",
+                        "on-primary": "#faf7f6",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed": "#f7e471",
+                        "secondary-fixed-dim": "#e9d564",
+                        "on-tertiary": "#f3f2ff",
+                        "surface-container": "#f3ede1",
+                        "on-tertiary-fixed": "#ffffff",
+                        "tertiary": "#004be4",
+                        "on-tertiary-container": "#ffffff",
+                        "tertiary-container": "#0356ff",
+                        "tertiary-dim": "#0044d0",
+                        "on-surface-variant": "#625f51",
+                        "primary-container": "#e5e2e1",
+                        "inverse-on-surface": "#a09c96",
+                        "inverse-primary": "#ffffff",
+                        "on-surface": "#353327",
+                        "surface-bright": "#fef9f1",
+                        "on-secondary": "#fff9e8",
+                        "primary": "#1a1a1a",
+                        "on-secondary-container": "#5d5200",
+                        "error-dim": "#4e0309",
+                        "tertiary-fixed": "#0356ff",
+                        "primary-fixed-dim": "#d6d4d3",
+                        "primary-dim": "#535252",
+                        "on-tertiary-fixed-variant": "#cad3ff",
+                        "error": "#e63b2e",
+                        "on-primary-fixed-variant": "#5c5b5b",
+                        "on-background": "#353327",
+                        "error-container": "#fe8983",
+                        "secondary-dim": "#5f5300",
+                        "on-primary-fixed": "#403f3f",
+                        "surface-container-high": "#eee8d9",
+                        "primary-fixed": "#e5e2e1",
+                        "on-secondary-fixed-variant": "#685c00",
+                        "secondary-container": "#f7e471",
+                        "surface": "#fef9f1",
+                        "surface-dim": "#e0dac6",
+                        "tertiary-fixed-dim": "#004be4",
+                        "background": "#f5f0e8",
+                        "surface-container-highest": "#e8e2d1",
+                        "on-error": "#fff7f6",
+                        "secondary": "#ff3f3f",
+                        "on-secondary-fixed": "#483f00",
+                        "surface-container-low": "#f8f3e9",
+                        "on-error-container": "#752121",
+                        "on-primary-container": "#525151",
+                        "surface-variant": "#e8e2d1",
+                        "surface-tint": "#5f5e5e",
+                        "outline": "#1a1a1a"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .neo-shadow { box-shadow: 8px 8px 0px 0px rgba(26,26,26,1); }
+        .neo-shadow-sm { box-shadow: 4px 4px 0px 0px rgba(26,26,26,1); }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-[#f5f0e8] font-body text-primary min-h-screen flex flex-col items-center justify-center p-6">
+<!-- Brand Logo Anchor -->
+<header class="mb-12 text-center">
+<h1 class="font-headline text-7xl font-black italic tracking-tighter uppercase text-primary">
+            OBSCURE
+        </h1>
+<div class="mt-2 h-2 w-full bg-primary"></div>
+</header>
+<main class="w-full max-w-md">
+<!-- Login Card -->
+<div class="bg-white border-[3px] border-primary p-8 neo-shadow">
+<div class="mb-8">
+<h2 class="font-headline text-3xl font-bold uppercase mb-2">Login</h2>
+<p class="text-sm font-medium uppercase tracking-tight opacity-70">Enter access credentials</p>
+</div>
+<form class="space-y-8" onsubmit="return false;">
+<!-- Email Field -->
+<div class="relative">
+<label class="block font-headline font-bold uppercase text-xs mb-1">Email Address</label>
+<div class="relative">
+<input class="w-full bg-transparent border-b-[3px] border-primary py-3 px-0 font-headline font-bold uppercase focus:outline-none focus:border-secondary placeholder:text-primary/20" placeholder="USER@OBSCURE.IO" type="email"/>
+<div class="absolute right-0 top-3 text-secondary">
+<span class="material-symbols-outlined" data-icon="alternate_email">alternate_email</span>
+</div>
+</div>
+<!-- Error Hint Example -->
+<div class="mt-2 flex items-center gap-1 text-error">
+<span class="material-symbols-outlined text-sm" data-icon="error">error</span>
+<span class="font-headline text-[10px] font-bold uppercase tracking-wider">Invalid format detection</span>
+</div>
+</div>
+<!-- Password Field -->
+<div class="relative">
+<label class="block font-headline font-bold uppercase text-xs mb-1">Password</label>
+<div class="relative">
+<input class="w-full bg-transparent border-b-[3px] border-primary py-3 px-0 font-headline font-bold focus:outline-none focus:border-secondary placeholder:text-primary/20" placeholder="••••••••••••" type="password"/>
+<div class="absolute right-0 top-3">
+<span class="material-symbols-outlined" data-icon="visibility_off">visibility_off</span>
+</div>
+</div>
+<!-- Strength Meter -->
+<div class="mt-4">
+<div class="flex justify-between items-center mb-1">
+<span class="font-headline text-[10px] font-bold uppercase tracking-wider">Security Strength</span>
+<span class="font-headline text-[10px] font-bold uppercase tracking-wider text-secondary">Weak</span>
+</div>
+<div class="grid grid-cols-4 gap-2 h-2">
+<div class="bg-secondary border border-primary"></div>
+<div class="bg-primary/10 border border-primary"></div>
+<div class="bg-primary/10 border border-primary"></div>
+<div class="bg-primary/10 border border-primary"></div>
+</div>
+</div>
+</div>
+<!-- Action Button -->
+<button class="group relative w-full bg-primary text-white font-headline font-black text-xl py-5 border-[3px] border-primary transition-all active:translate-x-1 active:translate-y-1 active:shadow-none hover:bg-secondary" type="submit">
+                    SIGN IN
+                    <div class="absolute -right-2 -bottom-2 w-full h-full bg-secondary -z-10 border-[3px] border-primary group-active:hidden"></div>
+</button>
+</form>
+<div class="mt-12 flex flex-col gap-4">
+<a class="font-headline font-bold text-xs uppercase underline decoration-2 underline-offset-4 hover:text-secondary transition-colors" href="#">
+                    Forgot Access Key?
+                </a>
+<div class="h-[2px] w-12 bg-primary"></div>
+<p class="font-headline font-medium text-xs uppercase">
+                    New entity? <a class="font-bold text-tertiary" href="#">Apply for access</a>
+</p>
+</div>
+</div>
+<!-- Verification / Status Ticker -->
+<div class="mt-8 border-[3px] border-primary bg-secondary text-white p-4 neo-shadow-sm flex items-center gap-4">
+<div class="animate-pulse bg-white p-2 text-primary">
+<span class="material-symbols-outlined" data-icon="security" style="font-variation-settings: 'FILL' 1;">security</span>
+</div>
+<div class="font-headline font-bold text-xs uppercase leading-tight">
+                System Status: <br/>
+<span class="text-primary font-black">Encrypted &amp; Verification Active</span>
+</div>
+</div>
+</main>
+<!-- Visual Embellishment -->
+<div class="fixed bottom-0 left-0 w-full h-24 pointer-events-none overflow-hidden opacity-5 flex items-end">
+<span class="font-headline text-[12rem] font-black italic tracking-tighter leading-none -mb-12">OBSCURE</span>
+</div>
+<!-- Decorative Grid Background Elements -->
+<div class="fixed top-12 left-12 w-32 h-32 border-l-8 border-t-8 border-primary opacity-20 pointer-events-none"></div>
+<div class="fixed bottom-12 right-12 w-32 h-32 border-r-8 border-b-8 border-primary opacity-20 pointer-events-none"></div>
+</body></html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>OBSCURE | Daily Planner</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-variant": "#e8e3da",
+              "on-surface": "#1a1a1a",
+              "secondary-fixed": "#ffdad6",
+              "secondary": "#e63b2e",
+              "inverse-surface": "#1a1a1a",
+              "on-background": "#1a1a1a",
+              "surface": "#f5f0e8",
+              "surface-tint": "#1a1a1a",
+              "error-container": "#ffdad6",
+              "surface-dim": "#d6d1c9",
+              "on-error": "#ffffff",
+              "on-tertiary-fixed-variant": "#1a1a1a",
+              "on-tertiary": "#ffffff",
+              "on-primary-fixed": "#1a1a1a",
+              "tertiary-container": "#d6e3ff",
+              "on-tertiary-container": "#1a1a1a",
+              "error": "#cc0000",
+              "on-surface-variant": "#4a4a4a",
+              "background": "#f5f0e8",
+              "tertiary-fixed": "#d6e3ff",
+              "secondary-container": "#ffdad6",
+              "inverse-on-surface": "#f5f0e8",
+              "surface-container-highest": "#e2ddd4",
+              "on-secondary": "#1a1a1a",
+              "on-primary-container": "#1a1a1a",
+              "tertiary-fixed-dim": "#a8c6ff",
+              "tertiary": "#0055ff",
+              "primary": "#1a1a1a",
+              "on-error-container": "#93000a",
+              "secondary-fixed-dim": "#ffb3ab",
+              "primary-fixed": "#ffcc00",
+              "outline-variant": "#d0cbc3",
+              "surface-container": "#eee9e0",
+              "primary-container": "#ffcc00",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary-fixed": "#1a1a1a",
+              "on-secondary-fixed-variant": "#1a1a1a",
+              "surface-bright": "#faf7f2",
+              "inverse-primary": "#f5f0e8",
+              "outline": "#1a1a1a",
+              "on-secondary-container": "#1a1a1a",
+              "on-primary-fixed-variant": "#1a1a1a",
+              "surface-container-low": "#f2ede5",
+              "primary-fixed-dim": "#e6b800",
+              "surface-container-high": "#e8e3da",
+              "on-tertiary-fixed": "#1a1a1a",
+              "on-primary": "#ffffff"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Inter"],
+              "label": ["Space Grotesk"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .neo-shadow {
+            box-shadow: 4px 4px 0px 0px rgba(26, 26, 26, 1);
+        }
+        .neo-shadow-lg {
+            box-shadow: 8px 8px 0px 0px rgba(26, 26, 26, 1);
+        }
+        .active-neo-shadow {
+            box-shadow: 2px 2px 0px 0px rgba(26, 26, 26, 1);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body selection:bg-primary-fixed">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 py-4 bg-[#f5f0e8] dark:bg-[#1a1a1a] border-b-4 border-[#1a1a1a] dark:border-[#f5f0e8] shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-[#1a1a1a] dark:text-[#f5f0e8] hover:bg-[#ffcc00] hover:text-[#1a1a1a] transition-colors duration-100 p-1 active:translate-x-1 active:translate-y-1 active:shadow-none">menu</button>
+<span class="text-3xl font-black text-[#1a1a1a] dark:text-[#f5f0e8] italic font-['Space_Grotesk'] uppercase tracking-tighter">OBSCURE</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-[#1a1a1a] dark:text-[#f5f0e8] hover:bg-[#ffcc00] hover:text-[#1a1a1a] transition-colors duration-100 p-1 active:translate-x-1 active:translate-y-1 active:shadow-none">account_circle</button>
+</div>
+</header>
+<main class="pt-28 pb-32 px-6 max-w-4xl mx-auto">
+<!-- Date Header -->
+<section class="mb-12 border-b-4 border-outline pb-6">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<p class="font-headline font-black text-6xl md:text-9xl leading-none tracking-tighter">9/1 一</p>
+<p class="font-headline font-bold text-2xl tracking-widest mt-2 uppercase">September 2025</p>
+</div>
+<div class="bg-primary text-surface px-4 py-2 font-headline font-bold text-xl uppercase italic">
+                    Focus Mode: ON
+                </div>
+</div>
+</section>
+<!-- Bento Planner Grid -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Main Tasks -->
+<div class="md:col-span-8 space-y-6">
+<div class="bg-surface border-4 border-outline neo-shadow p-6">
+<h2 class="font-headline font-black text-3xl mb-6 uppercase flex items-center gap-3">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">list_alt</span>
+                        Daily Missions
+                    </h2>
+<div class="space-y-4">
+<!-- Task Item -->
+<div class="flex items-center group">
+<input class="w-8 h-8 border-4 border-outline text-primary-fixed focus:ring-0 rounded-none cursor-pointer" type="checkbox"/>
+<div class="flex-grow ml-4">
+<input class="w-full bg-transparent border-b-4 border-outline-variant focus:border-primary-fixed text-xl font-headline font-bold py-2 focus:ring-0 transition-colors" placeholder="Enter high-priority task..." type="text" value="Finalize Bauhaus structural analysis"/>
+</div>
+</div>
+<!-- Task Item -->
+<div class="flex items-center group">
+<input class="w-8 h-8 border-4 border-outline text-primary-fixed focus:ring-0 rounded-none cursor-pointer" type="checkbox"/>
+<div class="flex-grow ml-4">
+<input class="w-full bg-transparent border-b-4 border-outline-variant focus:border-primary-fixed text-xl font-headline font-bold py-2 focus:ring-0 transition-colors" placeholder="Enter high-priority task..." type="text" value="Update Obscure design documentation"/>
+</div>
+</div>
+<!-- Empty Task -->
+<div class="flex items-center group">
+<input class="w-8 h-8 border-4 border-outline text-primary-fixed focus:ring-0 rounded-none cursor-pointer" type="checkbox"/>
+<div class="flex-grow ml-4">
+<input class="w-full bg-transparent border-b-4 border-outline-variant focus:border-primary-fixed text-xl font-headline font-bold py-2 focus:ring-0 transition-colors" placeholder="Add new task..." type="text"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Secondary Goals -->
+<div class="bg-tertiary-container border-4 border-outline neo-shadow p-6">
+<h2 class="font-headline font-black text-2xl mb-4 uppercase">Sub-Objectives</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div class="bg-surface border-2 border-outline p-4 flex flex-col gap-2">
+<span class="text-xs font-bold uppercase tracking-widest text-on-surface-variant">09:00 - 10:00</span>
+<textarea class="bg-transparent border-none focus:ring-0 font-body font-medium p-0 resize-none" rows="2">Morning sprint: UI components</textarea>
+</div>
+<div class="bg-surface border-2 border-outline p-4 flex flex-col gap-2 opacity-60">
+<span class="text-xs font-bold uppercase tracking-widest text-on-surface-variant">14:00 - 15:30</span>
+<textarea class="bg-transparent border-none focus:ring-0 font-body font-medium p-0 resize-none" rows="2">Team sync / Review</textarea>
+</div>
+</div>
+</div>
+</div>
+<!-- Side Rail -->
+<div class="md:col-span-4 space-y-6">
+<!-- Weather / Status Widget -->
+<div class="bg-primary-fixed border-4 border-outline neo-shadow p-6 text-on-primary-fixed flex flex-col items-center justify-center text-center">
+<span class="material-symbols-outlined text-6xl mb-2" style="font-variation-settings: 'FILL' 1;">light_mode</span>
+<p class="font-headline font-black text-4xl">24°C</p>
+<p class="font-headline font-bold uppercase tracking-tighter">Clear Skies</p>
+</div>
+<!-- Habit Tracker -->
+<div class="bg-secondary-container border-4 border-outline neo-shadow p-6">
+<h3 class="font-headline font-black text-xl mb-4 uppercase">Habits</h3>
+<div class="space-y-3">
+<div class="flex justify-between items-center">
+<span class="font-bold uppercase text-sm">Hydration</span>
+<div class="flex gap-1">
+<div class="w-4 h-4 border-2 border-outline bg-primary"></div>
+<div class="w-4 h-4 border-2 border-outline bg-primary"></div>
+<div class="w-4 h-4 border-2 border-outline bg-surface"></div>
+<div class="w-4 h-4 border-2 border-outline bg-surface"></div>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-bold uppercase text-sm">Reading</span>
+<div class="flex gap-1">
+<div class="w-4 h-4 border-2 border-outline bg-primary"></div>
+<div class="w-4 h-4 border-2 border-outline bg-surface"></div>
+<div class="w-4 h-4 border-2 border-outline bg-surface"></div>
+<div class="w-4 h-4 border-2 border-outline bg-surface"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick Note -->
+<div class="bg-surface border-4 border-outline neo-shadow p-6 flex flex-col gap-4">
+<h3 class="font-headline font-black text-xl uppercase">Notes</h3>
+<div class="bg-surface-container border-b-2 border-outline p-2 h-32 overflow-hidden italic text-on-surface-variant text-sm">
+                        Remember to check the grid alignment for the upcoming brutalist theme update. Form must follow function.
+                    </div>
+<button class="bg-tertiary text-white border-2 border-outline py-2 font-headline font-black uppercase hover:bg-on-surface transition-colors active:translate-x-1 active:translate-y-1 active:shadow-none">Edit Note</button>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-20 px-4 pb-safe bg-[#f5f0e8] dark:bg-[#1a1a1a] border-t-4 border-[#1a1a1a] dark:border-[#f5f0e8]">
+<button class="flex items-center justify-center w-12 h-12 rounded-none bg-[#ffcc00] text-[#1a1a1a] border-2 border-[#1a1a1a] scale-110 active:scale-95 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+</button>
+<button class="flex items-center justify-center w-12 h-12 rounded-none text-[#1a1a1a] dark:text-[#f5f0e8] opacity-80 hover:bg-[#0055ff] hover:text-white active:scale-95 transition-transform">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="flex items-center justify-center w-12 h-12 rounded-none text-[#1a1a1a] dark:text-[#f5f0e8] opacity-80 hover:bg-[#0055ff] hover:text-white active:scale-95 transition-transform">
+<span class="material-symbols-outlined">mail</span>
+</button>
+<button class="flex items-center justify-center w-12 h-12 rounded-none text-[#1a1a1a] dark:text-[#f5f0e8] opacity-80 hover:bg-[#0055ff] hover:text-white active:scale-95 transition-transform">
+<span class="material-symbols-outlined">person</span>
+</button>
+</nav>
+<!-- Floating Action Button - Supressed as per Task Logic (it's a planner/details screen), but keeping it here for demonstration of alignment if it were needed -->
+<!-- <button class="fixed right-6 bottom-28 w-16 h-16 bg-primary text-surface border-4 border-outline neo-shadow flex items-center justify-center z-40 active:translate-x-1 active:translate-y-1 active:shadow-none">
+        <span class="material-symbols-outlined text-4xl">add</span>
+    </button> -->
+</body></html>

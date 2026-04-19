@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../core/app_theme.dart';
 import '../../core/neo_button.dart';
+import '../../core/app_icons.dart';
 
 class NotificationCenterScreen extends StatelessWidget {
   const NotificationCenterScreen({super.key});
@@ -12,19 +13,14 @@ class NotificationCenterScreen extends StatelessWidget {
       appBar: ObscureAppBar(
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right: 16.0, top: 8, bottom: 8),
-            child: Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(color: AppTheme.primary, width: 2),
-              ),
-              child: IconButton(
-                padding: EdgeInsets.zero,
-                icon: const Icon(Icons.notifications_active, color: AppTheme.primary, size: 20),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
+            padding: const EdgeInsets.only(right: 16.0),
+            child: IconButton(
+              icon: AppIcons.notification(color: AppTheme.primary, size: 24, isFill: true),
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              onPressed: () {
+                Navigator.pop(context);
+              },
             ),
           )
         ],

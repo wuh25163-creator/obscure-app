@@ -1,9 +1,35 @@
 import 'package:flutter/material.dart';
 import '../../core/app_theme.dart';
 import '../../core/neo_button.dart';
+import '../../core/app_icons.dart';
 
-class LoginVerificationScreen extends StatelessWidget {
+class LoginVerificationScreen extends StatefulWidget {
   const LoginVerificationScreen({super.key});
+
+  @override
+  State<LoginVerificationScreen> createState() => _LoginVerificationScreenState();
+}
+
+class _LoginVerificationScreenState extends State<LoginVerificationScreen> {
+  bool _isPasswordVisible = false;
+  final TextEditingController _passwordController = TextEditingController();
+  int _passwordLength = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _passwordController.addListener(() {
+      setState(() {
+        _passwordLength = _passwordController.text.length;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +82,8 @@ class LoginVerificationScreen extends StatelessWidget {
                           hintStyle: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, color: AppTheme.primary.withValues(alpha: 0.3)),
                           enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: AppTheme.primary, width: 2), borderRadius: BorderRadius.zero),
                           focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: AppTheme.accentRed, width: 2), borderRadius: BorderRadius.zero),
-                          suffixIcon: const Icon(Icons.phone_iphone_outlined, color: AppTheme.accentRed),
+                          suffixIcon: Center(child: AppIcons.smartphone(color: AppTheme.accentRed, size: 24)),
+                          suffixIconConstraints: const BoxConstraints(maxWidth: 48, maxHeight: 48),
                           contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
                           isDense: true,
                         ),
@@ -84,34 +111,11 @@ class LoginVerificationScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
-                            width: 56,
-                            height: 56,
-                            decoration: BoxDecoration(border: Border.all(color: AppTheme.primary, width: 2), color: Colors.white),
-                            alignment: Alignment.center,
-                            child: const Text('G', style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 24, fontWeight: FontWeight.w900, color: AppTheme.primary)),
-                          ),
-                          Container(
-                            width: 56,
-                            height: 56,
-                            decoration: BoxDecoration(border: Border.all(color: AppTheme.primary, width: 2), color: Colors.white),
-                            alignment: Alignment.center,
-                            child: const Icon(Icons.apple, size: 28, color: AppTheme.primary),
-                          ),
-                          Container(
-                            width: 56,
-                            height: 56,
-                            decoration: BoxDecoration(border: Border.all(color: AppTheme.primary, width: 2), color: Colors.white),
-                            alignment: Alignment.center,
-                            child: const Icon(Icons.camera_alt_outlined, size: 24, color: AppTheme.primary),
-                          ),
-                          Container(
-                            width: 56,
-                            height: 56,
-                            decoration: BoxDecoration(border: Border.all(color: AppTheme.primary, width: 2), color: Colors.white),
-                            alignment: Alignment.center,
-                            child: const Icon(Icons.chat_bubble_outline, size: 24, color: AppTheme.primary),
-                          ),
+                          _buildSocialIcon(AppIcons.google(size: 28)),
+                          _buildSocialIcon(AppIcons.apple(size: 28)),
+                          _buildSocialIcon(AppIcons.instagram(size: 28)),
+                          _buildSocialIcon(AppIcons.threads(size: 28)),
+                          _buildSocialIcon(AppIcons.line(size: 28)),
                         ],
                       ),
                       const SizedBox(height: 24),
@@ -141,7 +145,7 @@ class LoginVerificationScreen extends StatelessWidget {
                           hintStyle: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, color: AppTheme.primary.withValues(alpha: 0.3)),
                           enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: AppTheme.primary, width: 2), borderRadius: BorderRadius.zero),
                           focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: AppTheme.accentRed, width: 2), borderRadius: BorderRadius.zero),
-                          suffixIcon: const Text('@', style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 24, fontWeight: FontWeight.w900, color: AppTheme.accentRed)),
+                          suffixIcon: AppIcons.at(color: AppTheme.accentRed, size: 24),
                           suffixIconConstraints: const BoxConstraints(minWidth: 40, minHeight: 0),
                           contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
                           isDense: true,
@@ -162,13 +166,26 @@ class LoginVerificationScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       TextField(
-                        obscureText: true,
+                        obscureText: !_isPasswordVisible,
+                        controller: _passwordController,
                         decoration: InputDecoration(
-                          hintText: '••••••••••••',
+                          hintText: '輸入至少 8 個字元長度',
                           hintStyle: TextStyle(color: AppTheme.primary.withValues(alpha: 0.3)),
                           enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: AppTheme.primary, width: 2), borderRadius: BorderRadius.zero),
                           focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: AppTheme.accentRed, width: 2), borderRadius: BorderRadius.zero),
-                          suffixIcon: const Icon(Icons.visibility_off, color: AppTheme.primary),
+                          suffixIcon: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _isPasswordVisible = !_isPasswordVisible;
+                              });
+                            },
+                            child: Center(
+                              child: _isPasswordVisible
+                                  ? AppIcons.eye(color: AppTheme.primary, size: 24)
+                                  : AppIcons.eyeOff(color: AppTheme.primary, size: 24),
+                            ),
+                          ),
+                          suffixIconConstraints: const BoxConstraints(maxWidth: 48, maxHeight: 48),
                           contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
                           isDense: true,
                         ),
@@ -177,25 +194,7 @@ class LoginVerificationScreen extends StatelessWidget {
                       const SizedBox(height: 16),
 
                       // Strength Meter
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text('安全性強度', style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 12, fontWeight: FontWeight.bold, letterSpacing: 0)),
-                          Text('弱', style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 12, fontWeight: FontWeight.bold, color: AppTheme.accentRed, letterSpacing: 0)),
-                        ],
-                      ),
-                      const SizedBox(height: 4),
-                      Row(
-                        children: [
-                          Expanded(child: Container(height: 8, decoration: BoxDecoration(color: AppTheme.accentRed, border: Border.all(color: AppTheme.primary)))),
-                          const SizedBox(width: 8),
-                          Expanded(child: Container(height: 8, decoration: BoxDecoration(color: AppTheme.primary.withValues(alpha: 0.1), border: Border.all(color: AppTheme.primary)))),
-                          const SizedBox(width: 8),
-                          Expanded(child: Container(height: 8, decoration: BoxDecoration(color: AppTheme.primary.withValues(alpha: 0.1), border: Border.all(color: AppTheme.primary)))),
-                          const SizedBox(width: 8),
-                          Expanded(child: Container(height: 8, decoration: BoxDecoration(color: AppTheme.primary.withValues(alpha: 0.1), border: Border.all(color: AppTheme.primary)))),
-                        ],
-                      ),
+                      _buildStrengthMeter(),
                       const SizedBox(height: 48),
 
                       NeoButton(
@@ -265,6 +264,60 @@ class LoginVerificationScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildStrengthMeter() {
+    int strengthLevel = 0;
+    if (_passwordLength > 0 && _passwordLength <= 4) strengthLevel = 1; // Weak
+    else if (_passwordLength > 4 && _passwordLength < 8) strengthLevel = 2; // Medium
+    else if (_passwordLength >= 8) strengthLevel = 4; // Strong (all 4 bars)
+
+    String strengthText = '無';
+    Color strengthColor = AppTheme.primary.withValues(alpha: 0.3);
+    if (strengthLevel == 1) {
+      strengthText = '弱';
+      strengthColor = AppTheme.accentRed;
+    } else if (strengthLevel == 2) {
+      strengthText = '中';
+      strengthColor = AppTheme.accentYellow;
+    } else if (strengthLevel == 4) {
+      strengthText = '強';
+      strengthColor = AppTheme.accentBlue;
+    }
+
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text('安全性強度', style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 12, fontWeight: FontWeight.bold, letterSpacing: 0)),
+            Text(strengthText, style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 12, fontWeight: FontWeight.bold, color: strengthColor, letterSpacing: 0)),
+          ],
+        ),
+        const SizedBox(height: 4),
+        Row(
+          children: [
+            Expanded(child: Container(height: 8, decoration: BoxDecoration(color: strengthLevel >= 1 ? strengthColor : AppTheme.primary.withValues(alpha: 0.1), border: Border.all(color: AppTheme.primary)))),
+            const SizedBox(width: 8),
+            Expanded(child: Container(height: 8, decoration: BoxDecoration(color: strengthLevel >= 2 ? strengthColor : AppTheme.primary.withValues(alpha: 0.1), border: Border.all(color: AppTheme.primary)))),
+            const SizedBox(width: 8),
+            Expanded(child: Container(height: 8, decoration: BoxDecoration(color: strengthLevel >= 4 ? strengthColor : AppTheme.primary.withValues(alpha: 0.1), border: Border.all(color: AppTheme.primary)))),
+            const SizedBox(width: 8),
+            Expanded(child: Container(height: 8, decoration: BoxDecoration(color: strengthLevel >= 4 ? strengthColor : AppTheme.primary.withValues(alpha: 0.1), border: Border.all(color: AppTheme.primary)))),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSocialIcon(Widget iconWidget) {
+    return Container(
+      width: 48, // Reduced from 56 to fit 5 icons across standard screen widths uniformly
+      height: 48,
+      decoration: BoxDecoration(border: Border.all(color: AppTheme.primary, width: 2), color: Colors.white),
+      alignment: Alignment.center,
+      child: iconWidget,
     );
   }
 }

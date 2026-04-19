@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'app_icons.dart';
 import '../screens/shared/notification_center_screen.dart';
 
 class AppTheme {
@@ -103,42 +104,32 @@ class ObscureAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       leading: leading ??
           Padding(
-            padding: const EdgeInsets.only(left: 16.0, top: 8, bottom: 8),
-            child: Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(color: AppTheme.primary, width: 2),
-              ),
-              child: IconButton(
-                padding: EdgeInsets.zero,
-                icon: const Icon(Icons.search, color: AppTheme.primary, size: 20),
-                onPressed: () {},
-              ),
+            padding: const EdgeInsets.only(left: 16.0),
+            child: IconButton(
+              icon: AppIcons.equal(color: AppTheme.primary, size: 24),
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              onPressed: () {},
             ),
           ),
       actions: actions ??
           [
             Padding(
-              padding: const EdgeInsets.only(right: 16.0, top: 8, bottom: 8),
-              child: Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(color: AppTheme.primary, width: 2),
-                ),
-                child: IconButton(
-                  padding: EdgeInsets.zero,
-                  icon: const Icon(Icons.notifications_none, color: AppTheme.primary, size: 20),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const NotificationCenterScreen(),
-                      ),
-                    );
-                  },
-                ),
+              padding: const EdgeInsets.only(right: 16.0),
+              child: IconButton(
+                icon: AppIcons.notification(color: AppTheme.primary, size: 24),
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const NotificationCenterScreen(),
+                    ),
+                  );
+                },
               ),
-            )
+            ),
           ],
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(4.0),

@@ -705,13 +705,8 @@ jobs:
             </main>
 
             <script>
-              // Replace placeholders with actual values injected by shell
-              document.querySelectorAll('a[href="APK_URL_PLACEHOLDER"]').forEach(el => {
-                el.href = "APKURL";
-              });
-              document.querySelectorAll('.dl-banner-text span').forEach(el => {
-                el.textContent = "Android APK · TAGVAL";
-              });
+              // Placeholders already substituted by sed during CI build
+              // No runtime JS substitution needed
             </script>
           </body>
           </html>
@@ -751,8 +746,6 @@ jobs:
         run: |
           mkdir -p gh-pages
           REPO="${{ github.repository }}"
-          # 永遠指向最新 Release（自動追蹤，不需要寫死版本號）
-          APK_URL="https://github.com/${REPO}/releases/latest/download/obscure-app-latest.apk"
           RELEASES_URL="https://github.com/${REPO}/releases/latest"
 
           cat > gh-pages/index.html << 'HTMLEOF'
@@ -846,7 +839,7 @@ jobs:
               </div>
               <div class="neo-wrap">
                 <div class="neo-shadow"></div>
-                <a class="neo-btn" href="RELEASES_URL_PLACEHOLDER">
+                <a id="dl-btn" class="neo-btn" href="RELEASES_URL_PLACEHOLDER">
                   <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
                   </svg>
@@ -924,11 +917,33 @@ jobs:
                 <div class="verify-text">系統狀態：<br>已加密且驗證中</div>
               </div>
             </main>
+            <script>
+              // 動態呼叫 GitHub API 取得最新 Release 的真實 APK 下載連結
+              (function () {
+                var REPO = 'REPO_PLACEHOLDER';
+                var btn = document.getElementById('dl-btn');
+                fetch('https://api.github.com/repos/' + REPO + '/releases/latest')
+                  .then(function (r) { return r.json(); })
+                  .then(function (data) {
+                    var assets = data.assets || [];
+                    var apk = assets.find(function (a) { return a.name.endsWith('.apk'); });
+                    if (apk && apk.browser_download_url) {
+                      btn.href = apk.browser_download_url;
+                    }
+                    var tagSpan = document.querySelector('.dl-banner-text span');
+                    if (tagSpan && data.tag_name) {
+                      tagSpan.textContent = 'Android APK · ' + data.tag_name;
+                    }
+                  })
+                  .catch(function () { /* 保持 fallback Releases 頁錯誤時不中斷 */ });
+              })();
+            </script>
           </body>
           </html>
           HTMLEOF
 
-          # 注入實際 URL
+          # 注入實際 URL 至頁面
+          sed -i "s|REPO_PLACEHOLDER|${REPO}|g" gh-pages/index.html
           sed -i "s|RELEASES_URL_PLACEHOLDER|${RELEASES_URL}|g" gh-pages/index.html
 
       - name: Upload Pages artifact

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>OBSCURE | Contract &amp; Quote</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "outline-variant": "#b7b2a1",
+              "inverse-surface": "#0f0e0a",
+              "on-primary": "#faf7f6",
+              "surface-container-lowest": "#ffffff",
+              "secondary-fixed": "#f7e471",
+              "secondary-fixed-dim": "#e9d564",
+              "on-tertiary": "#f3f2ff",
+              "surface-container": "#f3ede1",
+              "on-tertiary-container": "#ffffff",
+              "tertiary": "#004be4",
+              "on-tertiary-container": "#ffffff",
+              "tertiary-container": "#0356ff",
+              "tertiary-dim": "#0044d0",
+              "on-surface-variant": "#625f51",
+              "primary-container": "#e5e2e1",
+              "inverse-on-surface": "#a09c96",
+              "inverse-primary": "#ffffff",
+              "on-surface": "#353327",
+              "surface-bright": "#fef9f1",
+              "on-secondary": "#fff9e8",
+              "primary": "#5f5e5e",
+              "on-secondary-container": "#5d5200",
+              "error-dim": "#4e0309",
+              "tertiary-fixed": "#0356ff",
+              "primary-fixed-dim": "#d6d4d3",
+              "primary-dim": "#535252",
+              "on-tertiary-fixed-variant": "#cad3ff",
+              "error": "#9f403d",
+              "on-primary-fixed-variant": "#5c5b5b",
+              "on-background": "#353327",
+              "error-container": "#fe8983",
+              "secondary-dim": "#5f5300",
+              "on-primary-fixed": "#403f3f",
+              "surface-container-high": "#eee8d9",
+              "primary-fixed": "#e5e2e1",
+              "on-secondary-fixed-variant": "#685c00",
+              "secondary-container": "#f7e471",
+              "surface": "#fef9f1",
+              "surface-dim": "#e0dac6",
+              "tertiary-fixed-dim": "#004be4",
+              "background": "#fef9f1",
+              "surface-container-highest": "#e8e2d1",
+              "on-error": "#fff7f6",
+              "secondary": "#6c5f00",
+              "on-secondary-fixed": "#483f00",
+              "surface-container-low": "#f8f3e9",
+              "on-error-container": "#752121",
+              "on-primary-container": "#525151",
+              "surface-variant": "#e8e2d1",
+              "surface-tint": "#5f5e5e",
+              "outline": "#7f7b6c"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Inter"],
+              "label": ["Space Grotesk"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #f5f0e8;
+            color: #1a1a1a;
+            font-family: 'Inter', sans-serif;
+        }
+        .bauhaus-border { border: 4px solid #1a1a1a; }
+        .bauhaus-shadow { shadow: 6px 6px 0px 0px #1a1a1a; }
+        .headline-bauhaus { font-family: 'Space Grotesk', sans-serif; font-weight: 900; letter-spacing: -0.05em; text-transform: uppercase; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="antialiased">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full border-b-4 border-[#1a1a1a] bg-[#f5f0e8] flex justify-between items-center px-6 h-20 z-50 shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-3xl">grid_view</span>
+<span class="headline-bauhaus text-4xl italic">OBSCURE</span>
+</div>
+<nav class="hidden md:flex gap-8 font-['Space_Grotesk'] font-bold uppercase tracking-tighter">
+<a class="text-[#1a1a1a] hover:bg-[#ff3f3f] hover:text-white transition-colors duration-100 px-2" href="#">Dashboard</a>
+<a class="text-[#1a1a1a] hover:bg-[#ff3f3f] hover:text-white transition-colors duration-100 px-2" href="#">Projects</a>
+<a class="text-[#ff3f3f] underline decoration-4 px-2" href="#">Contracts</a>
+<a class="text-[#1a1a1a] hover:bg-[#ff3f3f] hover:text-white transition-colors duration-100 px-2" href="#">Quotes</a>
+</nav>
+<div class="h-12 w-12 bauhaus-border bg-[#ff3f3f] flex items-center justify-center overflow-hidden">
+<img class="object-cover h-full w-full" data-alt="high contrast black and white portrait of a creative professional with minimalist background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjkCFDB7H_E_Pd_v19iJmkbwQ22NoiqaVW_pZKSlnqcPuhGH6-f9Zl3_q15FKP5CvGiiYRN1qb4rSdaiDUclV6hjoZhgHxT9HDVR4TktvZlkbAAk2qv--xlRMo_JYMsJ-DMd7Eat2DnnG9wQznFjvtklsY2McyLU6ImUle763o4pPPv0QMJXSrFNGFdcKUzK4PwrhNEfsWCf2s8KCKs5ZipMEeAOm3FhZiVRYeA-0uMxGR81w5DH4lUY0kDA_gvLGMWEIfRwJqrZgK"/>
+</div>
+</header>
+<!-- NavigationDrawer (Sidebar for Desktop) -->
+<aside class="hidden md:flex fixed left-0 top-0 h-screen w-72 flex-col pt-24 border-r-4 border-[#1a1a1a] bg-[#f5f0e8] z-40">
+<div class="px-6 py-4">
+<h2 class="font-['Space_Grotesk'] font-black text-2xl mb-8 uppercase">MENU</h2>
+</div>
+<div class="flex flex-col gap-2">
+<a class="flex items-center gap-4 px-4 py-3 text-[#1a1a1a] font-['Space_Grotesk'] font-bold uppercase hover:bg-[#0055ff] hover:text-white transition-all duration-75" href="#">
+<span class="material-symbols-outlined">dashboard</span> Dashboard
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 text-[#1a1a1a] font-['Space_Grotesk'] font-bold uppercase hover:bg-[#0055ff] hover:text-white transition-all duration-75" href="#">
+<span class="material-symbols-outlined">folder_open</span> Projects
+            </a>
+<a class="flex items-center gap-4 mx-2 my-1 px-4 py-3 bg-[#ff3f3f] text-white border-2 border-[#1a1a1a] shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] font-['Space_Grotesk'] font-bold uppercase" href="#">
+<span class="material-symbols-outlined">description</span> Contracts
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 text-[#1a1a1a] font-['Space_Grotesk'] font-bold uppercase hover:bg-[#0055ff] hover:text-white transition-all duration-75" href="#">
+<span class="material-symbols-outlined">request_quote</span> Quotes
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 text-[#1a1a1a] font-['Space_Grotesk'] font-bold uppercase hover:bg-[#0055ff] hover:text-white transition-all duration-75" href="#">
+<span class="material-symbols-outlined">notifications</span> Notifications
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 text-[#1a1a1a] font-['Space_Grotesk'] font-bold uppercase hover:bg-[#0055ff] hover:text-white transition-all duration-75" href="#">
+<span class="material-symbols-outlined">shield_person</span> Admin
+            </a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="pt-28 pb-24 md:pl-80 px-6 max-w-7xl mx-auto">
+<!-- Hero Header -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12">
+<div class="md:col-span-8 bauhaus-border p-8 bg-[#ff3f3f] text-white shadow-[8px_8px_0px_0px_rgba(26,26,26,1)]">
+<h1 class="headline-bauhaus text-6xl md:text-8xl leading-none mb-4">Contract<br/>Draft 042</h1>
+<p class="font-['Inter'] text-xl max-w-md">Comprehensive service agreement for project 'Neon-Lattice' – Visual Identity &amp; Digital Framework.</p>
+</div>
+<div class="md:col-span-4 bauhaus-border p-8 bg-white flex flex-col justify-between shadow-[8px_8px_0px_0px_rgba(26,26,26,1)]">
+<div class="headline-bauhaus text-2xl uppercase">STATUS</div>
+<div class="text-7xl headline-bauhaus text-[#ff3f3f]">PENDING</div>
+<div class="font-bold border-t-4 border-[#1a1a1a] pt-4">ISSUED: OCT 24, 2023</div>
+</div>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Terms Checklist -->
+<section class="lg:col-span-2 space-y-8">
+<div class="bauhaus-border p-8 bg-white shadow-[8px_8px_0px_0px_rgba(26,26,26,1)]">
+<h2 class="headline-bauhaus text-4xl mb-8 border-b-4 border-[#1a1a1a] pb-2">TERMS OF ENGAGEMENT</h2>
+<div class="space-y-6">
+<!-- Term Item -->
+<div class="flex items-start gap-4 group">
+<div class="min-w-[40px] h-10 bauhaus-border bg-[#0055ff] flex items-center justify-center text-white">
+<span class="material-symbols-outlined">check</span>
+</div>
+<div>
+<h3 class="headline-bauhaus text-2xl">REVISIONS</h3>
+<p class="text-on-surface-variant font-body">Maximum of three (3) iterative cycles per phase. Additional pivots billed at hourly rate of $250. No carry-over of unused cycles.</p>
+</div>
+</div>
+<!-- Term Item -->
+<div class="flex items-start gap-4 group">
+<div class="min-w-[40px] h-10 bauhaus-border bg-[#0055ff] flex items-center justify-center text-white">
+<span class="material-symbols-outlined">check</span>
+</div>
+<div>
+<h3 class="headline-bauhaus text-2xl">DELIVERY</h3>
+<p class="text-on-surface-variant font-body">Standard turnaround is 14 business days post-brief approval. Expedited tracks incur a 40% surcharge on total project volume.</p>
+</div>
+</div>
+<!-- Term Item -->
+<div class="flex items-start gap-4 group">
+<div class="min-w-[40px] h-10 bauhaus-border bg-[#0055ff] flex items-center justify-center text-white">
+<span class="material-symbols-outlined">check</span>
+</div>
+<div>
+<h3 class="headline-bauhaus text-2xl">COPYRIGHT</h3>
+<p class="text-on-surface-variant font-body">Full intellectual property transfer upon final payment receipt. Contractor retains right to showcase work in archival portfolio only.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Fee Breakdown -->
+<div class="bauhaus-border p-8 bg-white shadow-[8px_8px_0px_0px_rgba(26,26,26,1)]">
+<h2 class="headline-bauhaus text-4xl mb-8 border-b-4 border-[#1a1a1a] pb-2">FEE BREAKDOWN</h2>
+<div class="space-y-4">
+<div class="flex justify-between items-end border-b-2 border-dotted border-[#1a1a1a] pb-2">
+<span class="headline-bauhaus text-xl">PHASE 1: RESEARCH &amp; DISCOVERY</span>
+<span class="headline-bauhaus text-4xl"><span class="text-[#ff3f3f]">$</span> 2,500</span>
+</div>
+<div class="flex justify-between items-end border-b-2 border-dotted border-[#1a1a1a] pb-2">
+<span class="headline-bauhaus text-xl">PHASE 2: DESIGN EXECUTION</span>
+<span class="headline-bauhaus text-4xl"><span class="text-[#ff3f3f]">$</span> 8,200</span>
+</div>
+<div class="flex justify-between items-end border-b-2 border-dotted border-[#1a1a1a] pb-2">
+<span class="headline-bauhaus text-xl">PHASE 3: QA &amp; IMPLEMENTATION</span>
+<span class="headline-bauhaus text-4xl"><span class="text-[#ff3f3f]">$</span> 4,000</span>
+</div>
+<div class="pt-6 flex justify-between items-center bg-[#1a1a1a] text-white p-4">
+<span class="headline-bauhaus text-3xl">TOTAL PROJECT FEE</span>
+<span class="headline-bauhaus text-6xl">$ 14,700</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Signature & Action Sidebar -->
+<section class="space-y-8">
+<!-- Image Widget -->
+<div class="bauhaus-border overflow-hidden bg-[#0055ff] shadow-[8px_8px_0px_0px_rgba(26,26,26,1)]">
+<img class="w-full h-48 object-cover grayscale contrast-125 mix-blend-multiply" data-alt="abstract geometric architectural detail with sharp shadows and primary colors yellow and blue" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUAdgAMmwfRR-C81Tlnd4RSlWYIGZabwQFy5o9pXqSzew4bzEjaew4dAkFjj4MP37s9QFc5bbOdN1Ut29exKyuOE-EJKcLH_SX1uiI2LetbewGq5GCGqrYJVeRCdA-frVmSmkiGtA2C_VCxzblyHAHYuJyNCgY_xaSGpH9tV2gWWLC12OFINZbcxtXpGVqG4ZQOMt8VQdelWV4Sy0hPIyMGrz90SYdoYpiGhjZiTxzyAG8TaR0X3hKmupIhyKqPYVCSbnB274NZq6j"/>
+<div class="p-6 text-white">
+<h4 class="headline-bauhaus text-xl mb-2">PROJECT REFERENCE</h4>
+<p class="font-body text-sm opacity-90">Visual benchmark for architectural typography and high-contrast layout principles.</p>
+</div>
+</div>
+<!-- Signature Area -->
+<div class="bauhaus-border p-8 bg-[#f7e471] shadow-[8px_8px_0px_0px_rgba(26,26,26,1)]">
+<h2 class="headline-bauhaus text-3xl mb-6">SIGNATURE</h2>
+<div class="space-y-6">
+<div class="border-b-4 border-[#1a1a1a] h-24 flex items-end pb-2 overflow-hidden italic font-['Space_Grotesk'] text-4xl text-[#1a1a1a] opacity-40">
+                            Draw signature here...
+                        </div>
+<div class="font-['Space_Grotesk'] font-bold text-sm uppercase">
+                            By signing, you agree to the OBSCURE Master Service Agreement V4.0
+                        </div>
+<button class="w-full bg-[#1a1a1a] text-white headline-bauhaus py-4 text-2xl hover:bg-[#ff3f3f] transition-colors border-2 border-transparent active:translate-x-1 active:translate-y-1 active:shadow-none">
+                            EXECUTE CONTRACT
+                        </button>
+<button class="w-full bg-transparent border-4 border-[#1a1a1a] text-[#1a1a1a] headline-bauhaus py-4 text-2xl hover:bg-white transition-colors active:translate-x-1 active:translate-y-1">
+                            DOWNLOAD PDF
+                        </button>
+</div>
+</div>
+<!-- Support Widget -->
+<div class="bauhaus-border p-6 bg-white shadow-[8px_8px_0px_0px_rgba(26,26,26,1)]">
+<div class="flex items-center gap-4 mb-4">
+<span class="material-symbols-outlined text-4xl text-[#0055ff]">help</span>
+<h3 class="headline-bauhaus text-xl">NEED CLARITY?</h3>
+</div>
+<p class="font-body text-sm mb-4">Contact your project lead for immediate adjustments or clarification on any clause.</p>
+<a class="inline-block headline-bauhaus text-[#0055ff] border-b-2 border-[#0055ff] pb-1" href="mailto:support@obscure.studio">SUPPORT@OBSCURE.STUDIO</a>
+</div>
+</section>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center bg-[#f5f0e8] border-t-4 border-[#1a1a1a] h-16">
+<a class="text-[#1a1a1a] h-full flex items-center justify-center w-full active:invert" href="#">
+<span class="material-symbols-outlined">home</span>
+</a>
+<a class="text-[#1a1a1a] h-full flex items-center justify-center w-full active:invert" href="#">
+<span class="material-symbols-outlined">search</span>
+</a>
+<a class="bg-[#ff3f3f] text-white h-full flex items-center justify-center w-full active:invert" href="#">
+<span class="material-symbols-outlined">description</span>
+</a>
+<a class="text-[#1a1a1a] h-full flex items-center justify-center w-full active:invert" href="#">
+<span class="material-symbols-outlined">star</span>
+</a>
+<a class="text-[#1a1a1a] h-full flex items-center justify-center w-full active:invert" href="#">
+<span class="material-symbols-outlined">person</span>
+</a>
+</nav>
+</body></html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<html class="light" lang="zh-TW"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-variant": "#e8e3da",
+              "on-surface": "#1a1a1a",
+              "secondary-fixed": "#ffdad6",
+              "secondary": "#e63b2e",
+              "inverse-surface": "#1a1a1a",
+              "on-background": "#1a1a1a",
+              "surface": "#f5f0e8",
+              "surface-tint": "#1a1a1a",
+              "error-container": "#ffdad6",
+              "surface-dim": "#d6d1c9",
+              "on-error": "#ffffff",
+              "on-tertiary-fixed-variant": "#1a1a1a",
+              "on-tertiary": "#ffffff",
+              "on-primary-fixed": "#1a1a1a",
+              "tertiary-container": "#d6e3ff",
+              "on-tertiary-container": "#1a1a1a",
+              "error": "#cc0000",
+              "on-surface-variant": "#4a4a4a",
+              "background": "#f5f0e8",
+              "tertiary-fixed": "#d6e3ff",
+              "secondary-container": "#ffdad6",
+              "inverse-on-surface": "#f5f0e8",
+              "surface-container-highest": "#e2ddd4",
+              "on-secondary": "#1a1a1a",
+              "on-primary-container": "#1a1a1a",
+              "tertiary-fixed-dim": "#a8c6ff",
+              "tertiary": "#0055ff",
+              "primary": "#1a1a1a",
+              "on-error-container": "#93000a",
+              "secondary-fixed-dim": "#ffb3ab",
+              "primary-fixed": "#ffcc00",
+              "outline-variant": "#d0cbc3",
+              "surface-container": "#eee9e0",
+              "primary-container": "#ffcc00",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary-fixed": "#1a1a1a",
+              "on-secondary-fixed-variant": "#1a1a1a",
+              "surface-bright": "#faf7f2",
+              "inverse-primary": "#f5f0e8",
+              "outline": "#1a1a1a",
+              "on-secondary-container": "#1a1a1a",
+              "on-primary-fixed-variant": "#1a1a1a",
+              "surface-container-low": "#f2ede5",
+              "primary-fixed-dim": "#e6b800",
+              "surface-container-high": "#e8e3da",
+              "on-tertiary-fixed": "#1a1a1a",
+              "on-primary": "#ffffff"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Inter"],
+              "label": ["Space Grotesk"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .neo-shadow {
+            box-shadow: 8px 8px 0px 0px rgba(26, 26, 26, 1);
+        }
+        .neo-shadow-sm {
+            box-shadow: 4px 4px 0px 0px rgba(26, 26, 26, 1);
+        }
+        .neo-shadow-hover:hover {
+            box-shadow: 12px 12px 0px 0px rgba(26, 26, 26, 1);
+            transform: translate(-4px, -4px);
+        }
+        .neo-shadow-active:active {
+            box-shadow: 0px 0px 0px 0px rgba(26, 26, 26, 1);
+            transform: translate(4px, 4px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body min-h-screen flex flex-col selection:bg-primary-fixed selection:text-on-background">
+<!-- TopAppBar Shell (Suppressed based on Transactional logic, but providing Brand Identity as requested) -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 py-4 bg-[#f5f0e8] dark:bg-[#1a1a1a] border-b-4 border-[#1a1a1a] dark:border-[#f5f0e8] shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]">
+<div class="text-3xl font-black text-[#1a1a1a] dark:text-[#f5f0e8] italic font-['Space_Grotesk'] uppercase tracking-tighter">
+            OBSCURE
+        </div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-[#1a1a1a] dark:text-[#f5f0e8] hover:bg-[#ffcc00] hover:text-[#1a1a1a] transition-colors duration-100 p-2 border-2 border-transparent active:border-[#1a1a1a]">
+                menu
+            </button>
+</div>
+</header>
+<main class="flex-grow flex flex-col items-center justify-center pt-24 pb-12 px-6">
+<!-- Identity Title -->
+<div class="text-center mb-12 md:mb-20">
+<h1 class="font-headline font-black text-6xl md:text-9xl uppercase tracking-tighter leading-none mb-4">
+                請選擇
+            </h1>
+<div class="w-24 h-4 bg-secondary mx-auto border-2 border-primary"></div>
+</div>
+<!-- Identity Cards Container (Bento Grid Style) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl w-full">
+<!-- Designer Card -->
+<button class="group flex flex-col text-left bg-primary-fixed border-4 border-primary p-8 md:p-12 neo-shadow neo-shadow-hover neo-shadow-active transition-all duration-100 relative overflow-hidden h-full">
+<!-- Decorative Graphic -->
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-[160px]" style="font-variation-settings: 'FILL' 1;">
+                        palette
+                    </span>
+</div>
+<div class="relative z-10 flex flex-col h-full">
+<div class="mb-8 bg-primary text-primary-fixed inline-flex items-center justify-center w-16 h-16 border-2 border-primary">
+<span class="material-symbols-outlined text-4xl">architecture</span>
+</div>
+<h2 class="font-headline font-extrabold text-5xl md:text-6xl mb-6 uppercase leading-none">
+                        設計師
+                    </h2>
+<p class="font-body text-xl font-medium leading-relaxed mb-8 border-l-4 border-primary pl-4">
+                        我想要設計工作，做出屬於我的作品集，並增進自身的技術。
+                    </p>
+<div class="mt-auto flex items-center font-headline font-bold text-2xl uppercase tracking-tight gap-3">
+<span>ENTERING AS CREATOR</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</div>
+</div>
+</button>
+<!-- Customer Card -->
+<button class="group flex flex-col text-left bg-surface border-4 border-primary p-8 md:p-12 neo-shadow neo-shadow-hover neo-shadow-active transition-all duration-100 relative overflow-hidden h-full">
+<!-- Decorative Graphic -->
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-[160px]" style="font-variation-settings: 'FILL' 1;">
+                        lightbulb
+                    </span>
+</div>
+<div class="relative z-10 flex flex-col h-full">
+<div class="mb-8 bg-tertiary text-white inline-flex items-center justify-center w-16 h-16 border-2 border-primary">
+<span class="material-symbols-outlined text-4xl">hail</span>
+</div>
+<h2 class="font-headline font-extrabold text-5xl md:text-6xl mb-6 uppercase leading-none">
+                        客戶
+                    </h2>
+<p class="font-body text-xl font-medium leading-relaxed mb-8 border-l-4 border-primary pl-4">
+                        我有一個想法，但需要設計人才的協助，來完善這個想法。
+                    </p>
+<div class="mt-auto flex items-center font-headline font-bold text-2xl uppercase tracking-tight gap-3 text-tertiary">
+<span>ENTERING AS CLIENT</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</div>
+</div>
+</button>
+</div>
+<!-- Footer Decorative Elements -->
+<div class="mt-16 w-full max-w-6xl flex flex-wrap justify-between items-end gap-8 opacity-40 grayscale group hover:grayscale-0 transition-all duration-500">
+<div class="flex gap-2">
+<div class="w-8 h-8 bg-primary"></div>
+<div class="w-8 h-8 bg-secondary"></div>
+<div class="w-8 h-8 bg-primary-fixed"></div>
+<div class="w-8 h-8 bg-tertiary"></div>
+</div>
+<div class="text-xs font-headline font-black uppercase tracking-widest text-right">
+                BAUHAUS PROTOCOL V.1.0 // EST. 2024<br/>
+                DESIGNED FOR OBSCURE ECOSYSTEM
+            </div>
+</div>
+</main>
+<!-- Navigation Suppressed for focused identity selection flow -->
+<!-- But keeping a hidden element to represent the logic if it were standard browsing -->
+<nav aria-label="Suppressed Global Navigation" class="hidden"></nav>
+<!-- Side Graphics (Neo-Brutalist Layout Elements) -->
+<div class="fixed left-0 top-1/2 -translate-y-1/2 -rotate-90 origin-left ml-4 pointer-events-none hidden lg:block">
+<span class="font-headline font-black text-xs uppercase tracking-[1em] text-primary/20">FORM FOLLOWS FUNCTION — OBSCURE IDENTITY SELECTION</span>
+</div>
+</body></html>

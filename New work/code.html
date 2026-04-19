@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+
+<html class="light" lang="zh-Hant"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;family=Inter:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#f7e471",
+                    "outline-variant": "#b7b2a1",
+                    "surface-tint": "#5f5e5e",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-fixed-variant": "#cad3ff",
+                    "secondary-dim": "#5f5300",
+                    "primary-dim": "#535252",
+                    "error": "#9f403d",
+                    "secondary-fixed-dim": "#e9d564",
+                    "surface-variant": "#e8e2d1",
+                    "on-error": "#fff7f6",
+                    "inverse-primary": "#ffffff",
+                    "primary-fixed-dim": "#d6d4d3",
+                    "on-secondary-fixed": "#483f00",
+                    "surface-container-highest": "#e8e2d1",
+                    "inverse-on-surface": "#a09c96",
+                    "on-primary": "#faf7f6",
+                    "tertiary-dim": "#0044d0",
+                    "on-tertiary-container": "#ffffff",
+                    "on-surface-variant": "#625f51",
+                    "secondary-fixed": "#f7e471",
+                    "secondary": "#6c5f00",
+                    "on-secondary": "#fff9e8",
+                    "tertiary-container": "#0356ff",
+                    "outline": "#7f7b6c",
+                    "on-secondary-container": "#5d5200",
+                    "primary-container": "#e5e2e1",
+                    "primary": "#5f5e5e",
+                    "on-secondary-fixed-variant": "#685c00",
+                    "surface-dim": "#e0dac6",
+                    "on-error-container": "#752121",
+                    "on-primary-fixed-variant": "#5c5b5b",
+                    "error-dim": "#4e0309",
+                    "surface-container-high": "#eee8d9",
+                    "on-primary-container": "#525151",
+                    "surface-container": "#f3ede1",
+                    "background": "#fef9f1",
+                    "inverse-surface": "#0f0e0a",
+                    "on-tertiary-fixed": "#ffffff",
+                    "tertiary-fixed-dim": "#004be4",
+                    "error-container": "#fe8983",
+                    "on-background": "#353327",
+                    "on-primary-fixed": "#403f3f",
+                    "tertiary-fixed": "#0356ff",
+                    "tertiary": "#004be4",
+                    "surface": "#fef9f1",
+                    "surface-container-low": "#f8f3e9",
+                    "primary-fixed": "#e5e2e1",
+                    "on-tertiary": "#f3f2ff",
+                    "on-surface": "#353327",
+                    "surface-bright": "#fef9f1"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Space Grotesk"],
+                    "body": ["Inter"],
+                    "label": ["Space Grotesk"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f0e8;
+        }
+        .neo-brutalist-shadow {
+            box-shadow: 4px 4px 0px 0px #1a1a1a;
+        }
+        .neo-brutalist-shadow-sm {
+            box-shadow: 2px 2px 0px 0px #1a1a1a;
+        }
+        .neo-brutalist-shadow-active {
+            box-shadow: 0px 0px 0px 0px #1a1a1a;
+            transform: translate(2px, 2px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-[#f5f0e8] text-[#1a1a1a] pb-24">
+<!-- TopAppBar -->
+<header class="bg-[#f5f0e8] dark:bg-zinc-900 border-b-4 border-[#1a1a1a] dark:border-white sticky top-0 z-50 flex justify-between items-center w-full px-6 py-4 shadow-[4px_4px_0px_0px_#1a1a1a] dark:shadow-[4px_4px_0px_0px_#ffffff]">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#1a1a1a] dark:text-zinc-100 text-3xl cursor-pointer active:scale-90 transition-transform">arrow_back</span>
+<h1 class="font-['Space_Grotesk'] font-black uppercase tracking-tighter text-4xl text-[#1a1a1a] dark:text-zinc-100">NEW PROJECT</h1>
+</div>
+<button class="font-['Space_Grotesk'] font-black text-xl text-[#ff3f3f] hover:bg-[#ff3f3f] hover:text-white px-4 py-1 transition-colors duration-100 active:translate-x-1 active:translate-y-1">POST</button>
+</header>
+<main class="max-w-2xl mx-auto p-6 space-y-10">
+<!-- Field: 名稱/品名 -->
+<section class="space-y-3">
+<label class="font-['Space_Grotesk'] font-black text-2xl uppercase tracking-tight">名稱/品名</label>
+<input class="w-full bg-white border-4 border-[#1a1a1a] p-4 font-['Inter'] font-bold text-lg focus:outline-none focus:ring-0 focus:border-[#ff3f3f] neo-brutalist-shadow transition-all placeholder:text-zinc-400" placeholder="輸入專案標題..." type="text"/>
+</section>
+<!-- Section: 相關領域 -->
+<section class="space-y-4">
+<h2 class="font-['Space_Grotesk'] font-black text-2xl uppercase tracking-tight">相關領域</h2>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+<button class="bg-[#ff3f3f] text-white border-4 border-[#1a1a1a] p-4 font-['Space_Grotesk'] font-bold uppercase tracking-wide neo-brutalist-shadow-sm active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all">平面設計</button>
+<button class="bg-white text-[#1a1a1a] border-4 border-[#1a1a1a] p-4 font-['Space_Grotesk'] font-bold uppercase tracking-wide neo-brutalist-shadow-sm hover:bg-[#f7e471] transition-all">建築空間</button>
+<button class="bg-white text-[#1a1a1a] border-4 border-[#1a1a1a] p-4 font-['Space_Grotesk'] font-bold uppercase tracking-wide neo-brutalist-shadow-sm hover:bg-[#f7e471] transition-all">產品開發</button>
+<button class="bg-white text-[#1a1a1a] border-4 border-[#1a1a1a] p-4 font-['Space_Grotesk'] font-bold uppercase tracking-wide neo-brutalist-shadow-sm hover:bg-[#f7e471] transition-all">品牌企劃</button>
+<button class="bg-white text-[#1a1a1a] border-4 border-[#1a1a1a] p-4 font-['Space_Grotesk'] font-bold uppercase tracking-wide neo-brutalist-shadow-sm hover:bg-[#f7e471] transition-all">數位體驗</button>
+<button class="bg-white text-[#1a1a1a] border-4 border-[#1a1a1a] p-4 font-['Space_Grotesk'] font-bold uppercase tracking-wide neo-brutalist-shadow-sm hover:bg-[#f7e471] transition-all">藝術創作</button>
+</div>
+</section>
+<!-- Section: Large dashed upload box -->
+<section>
+<div class="w-full h-64 border-4 border-dashed border-[#1a1a1a] bg-white flex flex-col items-center justify-center space-y-4 group cursor-pointer hover:bg-zinc-50 transition-colors">
+<div class="w-20 h-20 bg-[#f7e471] border-4 border-[#1a1a1a] flex items-center justify-center neo-brutalist-shadow-sm group-active:translate-x-0.5 group-active:translate-y-0.5 group-active:shadow-none transition-all">
+<span class="material-symbols-outlined text-5xl text-[#1a1a1a]">cloud_upload</span>
+</div>
+<div class="text-center">
+<p class="font-['Space_Grotesk'] font-black text-xl">點擊或拖放上傳圖片</p>
+<p class="font-['Inter'] font-medium text-zinc-500 uppercase text-sm">PNG, JPG up to 10MB</p>
+</div>
+</div>
+</section>
+<!-- Section: 風格標籤 -->
+<section class="space-y-4">
+<h2 class="font-['Space_Grotesk'] font-black text-2xl uppercase tracking-tight">風格標籤</h2>
+<div class="flex flex-wrap gap-3">
+<span class="px-4 py-2 bg-[#1a1a1a] text-white font-['Space_Grotesk'] font-bold border-2 border-[#1a1a1a] flex items-center gap-2">
+                    #極簡主義
+                    <span class="material-symbols-outlined text-sm cursor-pointer hover:text-[#ff3f3f]">close</span>
+</span>
+<span class="px-4 py-2 bg-white text-[#1a1a1a] font-['Space_Grotesk'] font-bold border-2 border-[#1a1a1a] hover:bg-zinc-100 cursor-pointer transition-colors">#包浩斯</span>
+<span class="px-4 py-2 bg-white text-[#1a1a1a] font-['Space_Grotesk'] font-bold border-2 border-[#1a1a1a] hover:bg-zinc-100 cursor-pointer transition-colors">#現代主義</span>
+<span class="px-4 py-2 bg-white text-[#1a1a1a] font-['Space_Grotesk'] font-bold border-2 border-[#1a1a1a] hover:bg-zinc-100 cursor-pointer transition-colors">#粗獷主義</span>
+<div class="px-4 py-2 border-2 border-dashed border-[#1a1a1a] font-['Space_Grotesk'] font-bold text-zinc-400 flex items-center gap-1 cursor-pointer hover:border-[#ff3f3f] hover:text-[#ff3f3f] transition-all">
+<span class="material-symbols-outlined text-sm">add</span>
+                    新增標籤
+                </div>
+</div>
+</section>
+<!-- Section: 設計理念 -->
+<section class="space-y-3">
+<label class="font-['Space_Grotesk'] font-black text-2xl uppercase tracking-tight">設計理念</label>
+<textarea class="w-full bg-white border-4 border-[#1a1a1a] p-4 font-['Inter'] font-medium text-lg focus:outline-none focus:ring-0 focus:border-[#ff3f3f] neo-brutalist-shadow transition-all resize-none" placeholder="描述你的專案核心概念與設計過程..." rows="6"></textarea>
+</section>
+<!-- Large '儲存專案' button -->
+<section class="pt-6">
+<button class="w-full bg-[#ff3f3f] text-white border-4 border-[#1a1a1a] py-6 font-['Space_Grotesk'] font-black text-3xl uppercase tracking-widest neo-brutalist-shadow hover:bg-[#e63b2e] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all">
+                儲存專案
+            </button>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-stretch h-20 bg-[#f5f0e8] dark:bg-zinc-900 border-t-4 border-[#1a1a1a] dark:border-white">
+<a class="flex flex-col items-center justify-center text-[#1a1a1a] dark:text-zinc-400 px-4 hover:bg-[#ff3f3f]/10 transition-colors active:scale-95" href="#">
+<span class="material-symbols-outlined text-2xl">grid_view</span>
+<span class="font-['Space_Grotesk'] font-bold text-xs uppercase">FEED</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#1a1a1a] dark:text-zinc-400 px-4 hover:bg-[#ff3f3f]/10 transition-colors active:scale-95" href="#">
+<span class="material-symbols-outlined text-2xl">folder</span>
+<span class="font-['Space_Grotesk'] font-bold text-xs uppercase">LIBRARY</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-[#ff3f3f] text-white border-x-2 border-[#1a1a1a] h-full px-4 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined text-2xl">add_box</span>
+<span class="font-['Space_Grotesk'] font-bold text-xs uppercase">CREATE</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#1a1a1a] dark:text-zinc-400 px-4 hover:bg-[#ff3f3f]/10 transition-colors active:scale-95" href="#">
+<span class="material-symbols-outlined text-2xl">person</span>
+<span class="font-['Space_Grotesk'] font-bold text-xs uppercase">PROFILE</span>
+</a>
+</nav>
+</body></html>

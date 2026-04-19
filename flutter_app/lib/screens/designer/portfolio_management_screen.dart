@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../core/app_icons.dart';
 import '../../core/app_theme.dart';
 
 class PortfolioManagementScreen extends StatelessWidget {
@@ -325,11 +326,11 @@ class PortfolioManagementScreen extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _buildNavItem(context, Icons.home_rounded, AppTheme.isDesigner ? '/daily_planner' : '/discovery_feed'),
-                _buildNavItem(context, Icons.search_rounded, '/search_categories'),
-                _buildNavItem(context, Icons.auto_awesome_rounded, '/commission_status'),
-                _buildNavItem(context, Icons.chat_bubble_outline_rounded, '/message_inbox'),
-                _buildNavItem(context, Icons.person_outline_rounded, '/designer_profile'),
+                _buildNavItem(context, 'home', AppTheme.isDesigner ? '/daily_planner' : '/discovery_feed'),
+                _buildNavItem(context, 'search', '/search_categories'),
+                _buildNavItem(context, 'shining', '/commission_status'),
+                _buildNavItem(context, 'chat', '/message_inbox'),
+                _buildNavItem(context, 'user', '/designer_profile'),
               ],
             ),
           ),
@@ -383,7 +384,7 @@ class PortfolioManagementScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildNavItem(BuildContext context, IconData icon, String route, {bool isActive = false}) {
+  Widget _buildNavItem(BuildContext context, String iconName, String route, {bool isActive = false}) {
     return GestureDetector(
       onTap: () {
         if (!isActive) Navigator.pushReplacementNamed(context, route);
@@ -396,7 +397,7 @@ class PortfolioManagementScreen extends StatelessWidget {
           shape: BoxShape.circle,
         ),
         alignment: Alignment.center,
-        child: Icon(icon, color: AppTheme.primary, size: 28),
+        child: AppIcons.fromName(iconName, color: AppTheme.primary, size: 28, isActive: isActive),
       ),
     );
   }

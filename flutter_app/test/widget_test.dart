@@ -10,13 +10,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:obscure_app/main.dart';
 
 void main() {
-  testWidgets('App should start with identity selection screen', (WidgetTester tester) async {
+  testWidgets('App should start with login screen', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(const StitchApp());
 
-    // Verify that the identity selection screen is displayed.
-    expect(find.text('請選擇'), findsOneWidget);
-    expect(find.text('設計師'), findsOneWidget);
-    expect(find.text('客戶'), findsOneWidget);
+    // Verify that the login screen is displayed.
+    expect(find.text('登入 LOGIN'), findsOneWidget);
+    expect(find.text('手機號碼 MOBILE NUMBER'), findsOneWidget);
   });
 }

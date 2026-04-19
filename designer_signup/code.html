@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+
+<html lang="zh-Hant"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-variant": "#e8e3da",
+              "on-surface": "#1a1a1a",
+              "secondary-fixed": "#ffdad6",
+              "secondary": "#e63b2e",
+              "inverse-surface": "#1a1a1a",
+              "on-background": "#1a1a1a",
+              "surface": "#f5f0e8",
+              "surface-tint": "#1a1a1a",
+              "error-container": "#ffdad6",
+              "surface-dim": "#d6d1c9",
+              "on-error": "#ffffff",
+              "on-tertiary-fixed-variant": "#1a1a1a",
+              "on-tertiary": "#ffffff",
+              "on-primary-fixed": "#1a1a1a",
+              "tertiary-container": "#d6e3ff",
+              "on-tertiary-container": "#1a1a1a",
+              "error": "#cc0000",
+              "on-surface-variant": "#4a4a4a",
+              "background": "#f5f0e8",
+              "tertiary-fixed": "#d6e3ff",
+              "secondary-container": "#ffdad6",
+              "inverse-on-surface": "#f5f0e8",
+              "surface-container-highest": "#e2ddd4",
+              "on-secondary": "#1a1a1a",
+              "on-primary-container": "#1a1a1a",
+              "tertiary-fixed-dim": "#a8c6ff",
+              "tertiary": "#0055ff",
+              "primary": "#1a1a1a",
+              "on-error-container": "#93000a",
+              "secondary-fixed-dim": "#ffb3ab",
+              "primary-fixed": "#ffcc00",
+              "outline-variant": "#d0cbc3",
+              "surface-container": "#eee9e0",
+              "primary-container": "#ffcc00",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary-fixed": "#1a1a1a",
+              "on-secondary-fixed-variant": "#1a1a1a",
+              "surface-bright": "#faf7f2",
+              "inverse-primary": "#f5f0e8",
+              "outline": "#1a1a1a",
+              "on-secondary-container": "#1a1a1a",
+              "on-primary-fixed-variant": "#1a1a1a",
+              "surface-container-low": "#f2ede5",
+              "primary-fixed-dim": "#e6b800",
+              "surface-container-high": "#e8e3da",
+              "on-tertiary-fixed": "#1a1a1a",
+              "on-primary": "#ffffff"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Inter"],
+              "label": ["Space Grotesk"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .neo-shadow {
+            box-shadow: 8px 8px 0px 0px rgba(26, 26, 26, 1);
+        }
+        .neo-shadow-sm {
+            box-shadow: 4px 4px 0px 0px rgba(26, 26, 26, 1);
+        }
+        .neo-shadow-button:active {
+            box-shadow: 0px 0px 0px 0px rgba(26, 26, 26, 1);
+            transform: translate(4px, 4px);
+        }
+        body {
+            background-color: #f5f0e8;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body text-on-surface antialiased">
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 py-4 bg-[#f5f0e8] border-b-4 border-[#1a1a1a] shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary text-2xl">menu</span>
+<span class="text-3xl font-black text-[#1a1a1a] italic font-['Space_Grotesk'] uppercase tracking-tighter">OBSCURE</span>
+</div>
+<div class="flex items-center">
+<span class="material-symbols-outlined text-primary text-3xl">account_circle</span>
+</div>
+</header>
+<main class="min-h-screen pt-28 pb-12 px-6 max-w-4xl mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+<div class="md:col-span-5 flex flex-col justify-center">
+<div class="mb-8 border-l-8 border-primary-container pl-6">
+<h1 class="font-headline font-black text-6xl md:text-8xl uppercase leading-[0.85] tracking-tighter mb-4">
+                        JOIN<br/>THE<br/>LAB.
+                    </h1>
+<p class="font-headline font-bold text-xl uppercase tracking-widest text-secondary">Designer Onboarding</p>
+</div>
+<div class="hidden md:block relative h-64 border-4 border-primary neo-shadow bg-surface-container overflow-hidden">
+<img alt="Bauhaus abstract geometric art" class="w-full h-full object-cover grayscale contrast-125 opacity-40" data-alt="Abstract Bauhaus geometric shapes and patterns" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6DTtGYUaVr2BLOSjDgf7m59olXHqxKTcxGadWIHILR4e-wWKVXCw9HAWXwJ8hCVKCH4A7BwDTN3RgSYanJnfri7hDmr86fx1TORBcUNK_-ZiNcAs1ftVKSzgHd_U1hJwgh4Kv5LG6Xk3oz9lGqt8UGVeVxKmCMTH_SZwZPsdaFOtFux4_GccJ1wAo27R0EnSvzdb_XSS_dt3G9zFZlTQTiRg7f2ESAia_8oCPXqOZ0cOqS-r5iH3Wptyw8uFYypNDhR57TbdIlckl"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="font-headline font-black text-4xl italic text-primary">CREATIVE_UNITS</span>
+</div>
+</div>
+</div>
+<div class="md:col-span-7">
+<section class="bg-surface border-4 border-primary neo-shadow p-8 relative">
+<div class="absolute -top-6 -right-6 w-12 h-12 bg-primary-container border-4 border-primary flex items-center justify-center">
+<span class="material-symbols-outlined font-bold">bolt</span>
+</div>
+<form class="space-y-6">
+<div class="group">
+<label class="block font-headline font-bold text-sm uppercase tracking-wider mb-1 text-primary">姓名(暱稱)</label>
+<input class="w-full bg-transparent border-b-4 border-primary focus:border-tertiary outline-none py-3 font-headline font-medium text-xl placeholder:text-primary/20 transition-colors uppercase" placeholder="YOUR DESIGNER ALIAS" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-6">
+<div class="group">
+<label class="block font-headline font-bold text-sm uppercase tracking-wider mb-1 text-primary">電話</label>
+<input class="w-full bg-transparent border-b-4 border-primary focus:border-tertiary outline-none py-3 font-headline font-medium text-xl placeholder:text-primary/20 transition-colors" placeholder="+886" type="tel"/>
+</div>
+<div class="group">
+<label class="block font-headline font-bold text-sm uppercase tracking-wider mb-1 text-primary">年齡</label>
+<input class="w-full bg-transparent border-b-4 border-primary focus:border-tertiary outline-none py-3 font-headline font-medium text-xl placeholder:text-primary/20 transition-colors" placeholder="24" type="number"/>
+</div>
+</div>
+<div class="space-y-3">
+<label class="block font-headline font-bold text-sm uppercase tracking-wider text-primary">專科(是否為設計本科)</label>
+<div class="grid grid-cols-2 gap-4">
+<button class="border-4 border-primary py-4 px-6 flex items-center justify-between group hover:bg-primary hover:text-white transition-all" type="button">
+<span class="font-headline font-bold uppercase">是的</span>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</button>
+<button class="border-4 border-primary py-4 px-6 flex items-center justify-between group hover:bg-primary hover:text-white transition-all" type="button">
+<span class="font-headline font-bold uppercase">非本科</span>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity" style="font-variation-settings: 'FILL' 1;">cancel</span>
+</button>
+</div>
+<input class="w-full bg-transparent border-b-4 border-primary/30 focus:border-tertiary outline-none py-2 font-headline font-medium text-sm uppercase transition-colors" placeholder="描述你的專業領域 / MAJOR" type="text"/>
+</div>
+<div class="group">
+<label class="block font-headline font-bold text-sm uppercase tracking-wider mb-1 text-primary">工作次數</label>
+<div class="flex items-center gap-4">
+<input class="flex-grow accent-primary" max="100" min="0" type="range"/>
+<span class="font-headline font-black text-3xl border-4 border-primary px-3 py-1 bg-primary-container min-w-[64px] text-center">24</span>
+</div>
+</div>
+<div class="pt-6">
+<button class="w-full bg-primary-container text-primary font-headline font-black text-2xl py-6 border-4 border-primary uppercase neo-shadow-sm neo-shadow-button transition-all hover:bg-primary hover:text-primary-container flex items-center justify-center gap-3" type="submit">
+                                開始合作
+                                <span class="material-symbols-outlined text-3xl">arrow_forward</span>
+</button>
+</div>
+</form>
+</section>
+<div class="mt-8 flex flex-wrap gap-4 justify-between items-center px-2">
+<p class="font-headline text-xs font-bold uppercase max-w-[200px] leading-tight">By joining, you agree to our functional guidelines and core principles.</p>
+<div class="flex gap-4">
+<div class="w-8 h-8 bg-secondary border-2 border-primary"></div>
+<div class="w-8 h-8 bg-tertiary border-2 border-primary"></div>
+<div class="w-8 h-8 bg-primary-container border-2 border-primary"></div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-20 px-4 pb-safe bg-[#f5f0e8] border-t-4 border-[#1a1a1a]">
+<div class="flex flex-col items-center justify-center">
+<span class="material-symbols-outlined text-[#1a1a1a] opacity-80">home</span>
+</div>
+<div class="flex flex-col items-center justify-center">
+<span class="material-symbols-outlined text-[#1a1a1a] opacity-80">search</span>
+</div>
+<div class="flex flex-col items-center justify-center">
+<span class="material-symbols-outlined text-[#1a1a1a] opacity-80">mail</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-[#ffcc00] text-[#1a1a1a] border-2 border-[#1a1a1a] scale-110 p-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+</div>
+</footer>
+</body></html>

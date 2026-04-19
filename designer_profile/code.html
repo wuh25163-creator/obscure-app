@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+
+<html class="light" lang="zh-TW"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-variant": "#e8e3da",
+              "on-surface": "#1a1a1a",
+              "secondary-fixed": "#ffdad6",
+              "secondary": "#e63b2e",
+              "inverse-surface": "#1a1a1a",
+              "on-background": "#1a1a1a",
+              "surface": "#f5f0e8",
+              "surface-tint": "#1a1a1a",
+              "error-container": "#ffdad6",
+              "surface-dim": "#d6d1c9",
+              "on-error": "#ffffff",
+              "on-tertiary-fixed-variant": "#1a1a1a",
+              "on-tertiary": "#ffffff",
+              "on-primary-fixed": "#1a1a1a",
+              "tertiary-container": "#d6e3ff",
+              "on-tertiary-container": "#1a1a1a",
+              "error": "#cc0000",
+              "on-surface-variant": "#4a4a4a",
+              "background": "#f5f0e8",
+              "tertiary-fixed": "#d6e3ff",
+              "secondary-container": "#ffdad6",
+              "inverse-on-surface": "#f5f0e8",
+              "surface-container-highest": "#e2ddd4",
+              "on-secondary": "#1a1a1a",
+              "on-primary-container": "#1a1a1a",
+              "tertiary-fixed-dim": "#a8c6ff",
+              "tertiary": "#0055ff",
+              "primary": "#1a1a1a",
+              "on-error-container": "#93000a",
+              "secondary-fixed-dim": "#ffb3ab",
+              "primary-fixed": "#ffcc00",
+              "outline-variant": "#d0cbc3",
+              "surface-container": "#eee9e0",
+              "primary-container": "#ffcc00",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary-fixed": "#1a1a1a",
+              "on-secondary-fixed-variant": "#1a1a1a",
+              "surface-bright": "#faf7f2",
+              "inverse-primary": "#f5f0e8",
+              "outline": "#1a1a1a",
+              "on-secondary-container": "#1a1a1a",
+              "on-primary-fixed-variant": "#1a1a1a",
+              "surface-container-low": "#f2ede5",
+              "primary-fixed-dim": "#e6b800",
+              "surface-container-high": "#e8e3da",
+              "on-tertiary-fixed": "#1a1a1a",
+              "on-primary": "#ffffff"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Inter"],
+              "label": ["Space Grotesk"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .neo-shadow {
+        box-shadow: 4px 4px 0px 0px #1a1a1a;
+      }
+      .neo-shadow-lg {
+        box-shadow: 8px 8px 0px 0px #1a1a1a;
+      }
+      .bg-grid {
+        background-size: 40px 40px;
+        background-image: radial-gradient(circle, #1a1a1a 1px, transparent 1px);
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 py-4 bg-[#f5f0e8] dark:bg-[#1a1a1a] border-b-4 border-[#1a1a1a] dark:border-[#f5f0e8] shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] dark:shadow-[4px_4px_0px_0px_rgba(245,240,232,1)]">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-[#1a1a1a] dark:text-[#f5f0e8] hover:bg-[#ffcc00] hover:text-[#1a1a1a] transition-colors duration-100 p-1 active:translate-x-1 active:translate-y-1 active:shadow-none">menu</button>
+<h1 class="text-3xl font-black text-[#1a1a1a] dark:text-[#f5f0e8] italic font-['Space_Grotesk'] uppercase tracking-tighter">OBSCURE</h1>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex gap-8 font-['Space_Grotesk'] font-bold uppercase tracking-tighter">
+<a class="text-[#1a1a1a] dark:text-[#f5f0e8] hover:bg-[#ffcc00] transition-colors p-1" href="#">Works</a>
+<a class="text-[#1a1a1a] dark:text-[#f5f0e8] hover:bg-[#ffcc00] transition-colors p-1" href="#">Studio</a>
+<a class="text-[#ffcc00] dark:text-[#ffcc00] border-b-2 border-[#ffcc00]" href="#">Profile</a>
+</nav>
+<button class="material-symbols-outlined text-[#1a1a1a] dark:text-[#f5f0e8] hover:bg-[#ffcc00] hover:text-[#1a1a1a] transition-colors duration-100 p-1 active:translate-x-1 active:translate-y-1 active:shadow-none">account_circle</button>
+</div>
+</header>
+<main class="pt-28 pb-32 px-4 md:px-8 max-w-7xl mx-auto bg-grid bg-fixed">
+<!-- Profile Header Section -->
+<section class="mb-16">
+<div class="flex flex-col md:flex-row gap-8 items-start md:items-center">
+<!-- Avatar -->
+<div class="relative">
+<div class="w-48 h-48 md:w-64 md:h-64 rounded-full border-4 border-outline bg-primary-container overflow-hidden neo-shadow-lg">
+<img alt="鮭魚 Avatar" class="w-full h-full object-cover" data-alt="Portrait of a creative designer with artistic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6GddSiWQwP5pNq6ZJLZHNkVIy5D2dhhvBVXtvhJ-E6LbFqnPK5vsO1bhJ027vDYCMLKdj_LkxQONe_299tKAhbGH2yUfT1oKWI9ulPlGySqM1iAbUhS7hHt2xw3ZUQ3wrkEmTDLP52PCnoEKGhSnB5JXU0l8ltfABn1BD_XsrfBrfF3ayMzcrG6-gYaH9EamE0uT1A2GOaAVg1f0yHKF-PIscxudpdSbtZ4h3Sr3ldnezSEjTGghDGfkp43amYDsKyKCD5R85fsE0"/>
+</div>
+<div class="absolute -bottom-2 -right-2 bg-secondary text-on-error px-4 py-2 border-2 border-outline font-headline font-black rotate-3 neo-shadow">
+                        PRO
+                    </div>
+</div>
+<!-- Info -->
+<div class="flex-1 space-y-4">
+<div class="space-y-1">
+<h2 class="text-6xl md:text-8xl font-headline font-black uppercase tracking-tighter leading-none">鮭魚</h2>
+<p class="text-2xl font-headline font-bold text-secondary tracking-tight">視覺傳達設計</p>
+</div>
+<div class="flex flex-wrap gap-3 py-2">
+<span class="bg-surface px-4 py-1 border-2 border-outline font-label font-bold text-sm uppercase tracking-widest">#台式</span>
+<span class="bg-surface px-4 py-1 border-2 border-outline font-label font-bold text-sm uppercase tracking-widest">#像素</span>
+<span class="bg-surface px-4 py-1 border-2 border-outline font-label font-bold text-sm uppercase tracking-widest">#BRUTALIST</span>
+</div>
+<!-- Popularity Stats -->
+<div class="grid grid-cols-3 gap-0 border-4 border-outline bg-surface w-full md:max-w-md neo-shadow">
+<div class="p-4 border-r-4 border-outline text-center">
+<p class="text-xs font-label font-black text-on-surface-variant uppercase">Views</p>
+<p class="text-2xl font-headline font-black">24.5K</p>
+</div>
+<div class="p-4 border-r-4 border-outline text-center">
+<p class="text-xs font-label font-black text-on-surface-variant uppercase">Appreciation</p>
+<p class="text-2xl font-headline font-black">8.2K</p>
+</div>
+<div class="p-4 text-center bg-primary-container">
+<p class="text-xs font-label font-black text-on-surface uppercase">Followers</p>
+<p class="text-2xl font-headline font-black">1.4K</p>
+</div>
+</div>
+</div>
+<!-- Action -->
+<div class="flex flex-col gap-4 w-full md:w-auto">
+<button class="bg-tertiary text-on-tertiary border-4 border-outline px-10 py-4 font-headline font-black text-xl uppercase tracking-widest hover:bg-on-tertiary hover:text-tertiary transition-colors neo-shadow active:translate-x-1 active:translate-y-1 active:shadow-none">
+                        Follow
+                    </button>
+<button class="bg-surface text-on-surface border-4 border-outline px-10 py-4 font-headline font-black text-xl uppercase tracking-widest hover:bg-primary-container transition-colors neo-shadow active:translate-x-1 active:translate-y-1 active:shadow-none">
+                        Message
+                    </button>
+</div>
+</div>
+</section>
+<!-- Bento Portfolio Grid -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-8">
+<div class="md:col-span-12">
+<h3 class="text-4xl font-headline font-black uppercase border-b-8 border-outline pb-2 inline-block">Selected Projects</h3>
+</div>
+<!-- Project 1: Large -->
+<div class="md:col-span-8 group">
+<div class="bg-surface border-4 border-outline neo-shadow overflow-hidden h-full flex flex-col">
+<div class="aspect-video relative bg-surface-dim border-b-4 border-outline overflow-hidden">
+<img alt="Project 回味" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300" data-alt="Nostalgic urban street photography with high contrast" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhMonqJz4GgGru1AphLKfYyi0ma2UCTRXbSL3oQFKhpDGEKwQIweKQ--cnT0kFSo3liID3mDdHRFOrgOmV56B4YrEkerNqW4k7j_f58e2SJ8RjaqKSyllGKOk7nN73BRedbitzeUNTL7tUVZ4Grs3KGpq1OS1BpbLkjJ4UVgUS9W-ZYHNiSorGCmW0nvza-wUahfPhNBW6d5tJcFxlUe7GeHqPUn2xV2qee0XAhL8B3TwItK-064K5IjBC36kqQaEPCepgRd2kDYFz"/>
+<div class="absolute top-4 right-4 bg-primary-container border-2 border-outline px-3 py-1 font-label font-black">2024</div>
+</div>
+<div class="p-8 space-y-4">
+<h4 class="text-5xl font-headline font-black uppercase tracking-tighter">回味</h4>
+<p class="text-xl font-body max-w-2xl leading-relaxed">
+                            Reminiscence: A visual exploration of traditional Taiwanese market culture through modern brutalist lens. 
+                            整合台式招牌美學與數位像素風格，重新詮釋巷弄間的日常記憶。
+                        </p>
+<div class="flex gap-4 pt-4">
+<span class="text-secondary font-headline font-black uppercase">Editorial Design</span>
+<span class="text-tertiary font-headline font-black uppercase">Identity</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Project 2: Square/Info -->
+<div class="md:col-span-4 space-y-8">
+<div class="bg-secondary text-on-error border-4 border-outline p-8 neo-shadow h-[50%] flex flex-col justify-end">
+<span class="material-symbols-outlined text-6xl mb-4">star</span>
+<h5 class="text-3xl font-headline font-black uppercase leading-tight">Top Designer of the Month</h5>
+<p class="font-body opacity-90 mt-2">Awarded for "Visual Excellence in Taiwanese Modernism"</p>
+</div>
+<div class="bg-primary-container border-4 border-outline p-8 neo-shadow h-[calc(50%-2rem)] flex flex-col justify-center">
+<h5 class="text-4xl font-headline font-black uppercase leading-none">Collaboration?</h5>
+<p class="font-body font-bold mt-4 underline underline-offset-4 cursor-pointer">salmon.studio@design.tw</p>
+</div>
+</div>
+<!-- Project 3: Medium -->
+<div class="md:col-span-4 group">
+<div class="bg-surface border-4 border-outline neo-shadow overflow-hidden flex flex-col h-full">
+<div class="aspect-square bg-surface-container overflow-hidden border-b-4 border-outline">
+<img alt="Project 日月交映" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300" data-alt="Abstract geometric shapes in blue and yellow" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBgHD22-py4I2RP54FUvkX69XdxEfLSLciFN7_OaU-NcxqnI48EAlSJaFy4XiTxF5uWbm1mZjRH-yeGK-QB-8kgaszkPGzYOBldhrpIusB1XIqL32QLtFML05jT4RS0QMgmw_vC6npKa0pm4AqiBShZiPI5LpCRK5GRpyBSLkBx7lHT3i0beDTjg4FtIOWWHRLJcnkfzinqbGi6l5m_zthTLA4ce8KpKiqk2UUHWk8A7VjW1z9NmA90os7-rXVcL7STTp1g2ezmRtD"/>
+</div>
+<div class="p-6">
+<h4 class="text-3xl font-headline font-black uppercase tracking-tight">日月交映</h4>
+<p class="font-body mt-2 text-on-surface-variant">Sun &amp; Moon Intersection: Experimental branding project focusing on celestial patterns and high-contrast typography.</p>
+</div>
+</div>
+</div>
+<!-- Project 4: Horizontal -->
+<div class="md:col-span-8 group">
+<div class="bg-surface-container-highest border-4 border-outline neo-shadow overflow-hidden flex flex-col md:flex-row h-full">
+<div class="md:w-1/2 p-8 flex flex-col justify-between">
+<div>
+<h4 class="text-4xl font-headline font-black uppercase tracking-tighter">新台式像素</h4>
+<p class="font-body mt-4">Neo-Taiwanese Pixelism: Crafting a digital identity for the next generation of urban creators.</p>
+</div>
+<button class="mt-8 self-start border-b-4 border-outline font-headline font-black uppercase hover:text-secondary transition-colors">View Case Study -&gt;</button>
+</div>
+<div class="md:w-1/2 h-64 md:h-auto border-t-4 md:border-t-0 md:border-l-4 border-outline bg-tertiary">
+<img alt="Pixel art project" class="w-full h-full object-cover" data-alt="Colorful abstract pixel pattern design" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzQKzyl13Spk8F2sELBJpM-J2uwiH5Bs5qlffFnMIQEV2X6PqOJFr9uMrO9ufsXX0LrOtk8i0Kr2qFdKwVjFM9iVf40hEghsZcajAZ2G5aFjy58H8iTjuj2TGKVxsYK5Qwbz1vfI8n_05iy-ALHI8yobKupBLsVgCcCVeB6p6eZAFF_4O4QcLiJTp35DGMEUZXYBrx8sFfrwz-qlujIRSeRoqSuqb-Mt0kr4dKJJP2vzvPSz5P7My9xskv2snCPVJRYSb9KsDyhUpx"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Social Links Footer-in-main -->
+<section class="mt-24 mb-12 flex flex-wrap justify-between items-end gap-8 border-t-4 border-outline pt-8">
+<div class="space-y-4">
+<p class="text-sm font-label font-black uppercase tracking-widest text-on-surface-variant">Social Channels</p>
+<div class="flex gap-4">
+<a class="bg-outline text-surface p-2 hover:bg-secondary transition-colors" href="#"><span class="material-symbols-outlined">language</span></a>
+<a class="bg-outline text-surface p-2 hover:bg-secondary transition-colors" href="#"><span class="material-symbols-outlined">alternate_email</span></a>
+<a class="bg-outline text-surface p-2 hover:bg-secondary transition-colors" href="#"><span class="material-symbols-outlined">share</span></a>
+</div>
+</div>
+<p class="text-xs font-label font-bold uppercase opacity-50">© 2024 Salmon Design Studio. Form Follows Function.</p>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-20 px-4 pb-safe bg-[#f5f0e8] dark:bg-[#1a1a1a] border-t-4 border-[#1a1a1a] dark:border-[#f5f0e8] md:hidden">
+<button class="flex items-center justify-center w-12 h-12 text-[#1a1a1a] dark:text-[#f5f0e8] opacity-80 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">home</span>
+</button>
+<button class="flex items-center justify-center w-12 h-12 text-[#1a1a1a] dark:text-[#f5f0e8] opacity-80 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="flex items-center justify-center w-12 h-12 text-[#1a1a1a] dark:text-[#f5f0e8] opacity-80 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">mail</span>
+</button>
+<button class="flex items-center justify-center w-14 h-14 bg-[#ffcc00] text-[#1a1a1a] border-2 border-[#1a1a1a] scale-110 active:scale-95 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+</button>
+</nav>
+</body></html>

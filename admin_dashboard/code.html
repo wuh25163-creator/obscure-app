@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>OBSCURE Admin Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "outline-variant": "#b7b2a1",
+              "inverse-surface": "#0f0e0a",
+              "on-primary": "#faf7f6",
+              "surface-container-lowest": "#ffffff",
+              "secondary-fixed": "#f7e471",
+              "secondary-fixed-dim": "#e9d564",
+              "on-tertiary": "#f3f2ff",
+              "surface-container": "#f3ede1",
+              "on-tertiary-container": "#ffffff",
+              "tertiary": "#004be4",
+              "on-tertiary-container": "#ffffff",
+              "tertiary-container": "#0356ff",
+              "tertiary-dim": "#0044d0",
+              "on-surface-variant": "#625f51",
+              "primary-container": "#e5e2e1",
+              "inverse-on-surface": "#a09c96",
+              "inverse-primary": "#ffffff",
+              "on-surface": "#353327",
+              "surface-bright": "#fef9f1",
+              "on-secondary": "#fff9e8",
+              "primary": "#5f5e5e",
+              "on-secondary-container": "#5d5200",
+              "error-dim": "#4e0309",
+              "tertiary-fixed": "#0356ff",
+              "primary-fixed-dim": "#d6d4d3",
+              "primary-dim": "#535252",
+              "on-tertiary-fixed-variant": "#cad3ff",
+              "error": "#9f403d",
+              "on-primary-fixed-variant": "#5c5b5b",
+              "on-background": "#353327",
+              "error-container": "#fe8983",
+              "secondary-dim": "#5f5300",
+              "on-primary-fixed": "#403f3f",
+              "surface-container-high": "#eee8d9",
+              "primary-fixed": "#e5e2e1",
+              "on-secondary-fixed-variant": "#685c00",
+              "secondary-container": "#f7e471",
+              "surface": "#fef9f1",
+              "surface-dim": "#e0dac6",
+              "tertiary-fixed-dim": "#004be4",
+              "background": "#fef9f1",
+              "surface-container-highest": "#e8e2d1",
+              "on-error": "#fff7f6",
+              "secondary": "#6c5f00",
+              "on-secondary-fixed": "#483f00",
+              "surface-container-low": "#f8f3e9",
+              "on-error-container": "#752121",
+              "on-primary-container": "#525151",
+              "surface-variant": "#e8e2d1",
+              "surface-tint": "#5f5e5e",
+              "outline": "#7f7b6c"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Inter"],
+              "label": ["Space Grotesk"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      body {
+        background-color: #f5f0e8;
+        font-family: 'Inter', sans-serif;
+      }
+      .bauhaus-border {
+        border: 3px solid #1a1a1a;
+      }
+      .bauhaus-shadow {
+        box-shadow: 6px 6px 0px 0px #1a1a1a;
+      }
+      .bauhaus-shadow-sm {
+        box-shadow: 4px 4px 0px 0px #1a1a1a;
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-background">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full border-b-4 border-[#1a1a1a] bg-[#f5f0e8] z-50 flex justify-between items-center px-6 h-20 shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-[#1a1a1a] p-2 hover:bg-[#ff3f3f] hover:text-white transition-colors duration-100 active:translate-x-1 active:translate-y-1 active:shadow-none">grid_view</button>
+<h1 class="text-4xl font-black text-[#1a1a1a] italic font-['Space_Grotesk'] uppercase tracking-tighter">OBSCURE</h1>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex gap-8 font-['Space_Grotesk'] font-bold uppercase tracking-tighter">
+<a class="text-[#ff3f3f] underline decoration-4" href="#">Dashboard</a>
+<a class="text-[#1a1a1a] hover:bg-[#ff3f3f] hover:text-white transition-colors duration-100 px-2" href="#">Projects</a>
+<a class="text-[#1a1a1a] hover:bg-[#ff3f3f] hover:text-white transition-colors duration-100 px-2" href="#">System</a>
+</nav>
+<div class="w-12 h-12 bauhaus-border overflow-hidden bg-secondary-container">
+<img class="w-full h-full object-cover" data-alt="close up portrait of a professional man with sharp features wearing a minimalist black turtleneck against a neutral studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAV_YyxmE5oI1I4qsy1fK9weRVhZs-gwSqoMKapcT1p1a7aB_B9zaVtJrrJcgSPFWx3W_1WmOzO4x1GN5SKqD5dBsM0WhZMhsd3dfRfRif_m9GsYhtJvQfhgWLjSU4vD2HHty0Smv9L37M1XUUWoM35S6lb8ZyuPeKMy736JYXa1F9PHjBfKH9vjEa2ESDzQmnocg958qCbGLRHklhHziApu-1DzyMZQOlAqlW5AjHbvuQ8Pz4b7Y9mLTKaQ9AiAoPTNWxVsr3nHOO6"/>
+</div>
+</div>
+</header>
+<!-- NavigationDrawer -->
+<aside class="fixed left-0 top-0 h-screen flex flex-col pt-24 bg-[#f5f0e8] border-r-4 border-[#1a1a1a] w-72 hidden md:flex z-40">
+<div class="px-6 mb-8">
+<span class="text-2xl font-black font-['Space_Grotesk'] uppercase">MENU</span>
+</div>
+<nav class="flex flex-col gap-2 font-['Space_Grotesk'] font-bold uppercase">
+<a class="bg-[#ff3f3f] text-white border-2 border-[#1a1a1a] mx-2 my-1 px-4 py-3 shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] flex items-center gap-3" href="#">
+<span class="material-symbols-outlined">dashboard</span> Dashboard
+            </a>
+<a class="text-[#1a1a1a] px-4 py-3 hover:translate-x-1 hover:bg-[#0055ff] hover:text-white transition-all duration-75 flex items-center gap-3" href="#">
+<span class="material-symbols-outlined">folder_open</span> Projects
+            </a>
+<a class="text-[#1a1a1a] px-4 py-3 hover:translate-x-1 hover:bg-[#0055ff] hover:text-white transition-all duration-75 flex items-center gap-3" href="#">
+<span class="material-symbols-outlined">description</span> Contracts
+            </a>
+<a class="text-[#1a1a1a] px-4 py-3 hover:translate-x-1 hover:bg-[#0055ff] hover:text-white transition-all duration-75 flex items-center gap-3" href="#">
+<span class="material-symbols-outlined">request_quote</span> Quotes
+            </a>
+<a class="text-[#1a1a1a] px-4 py-3 hover:translate-x-1 hover:bg-[#0055ff] hover:text-white transition-all duration-75 flex items-center gap-3" href="#">
+<span class="material-symbols-outlined">notifications</span> Notifications
+            </a>
+<a class="text-[#1a1a1a] px-4 py-3 hover:translate-x-1 hover:bg-[#0055ff] hover:text-white transition-all duration-75 flex items-center gap-3" href="#">
+<span class="material-symbols-outlined">shield_person</span> Admin
+            </a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="md:ml-72 pt-32 px-6 pb-24 max-w-[1600px]">
+<!-- Dashboard Header -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
+<div>
+<h2 class="text-6xl md:text-8xl font-black font-headline uppercase leading-[0.85] tracking-tighter mb-4">
+                    ADMIN<br/>DASHBOARD
+                </h2>
+<p class="font-body text-xl font-medium border-l-4 border-tertiary pl-4">Real-time designer metrics &amp; oversight.</p>
+</div>
+<div class="flex gap-4">
+<button class="bg-[#ff3f3f] text-white px-8 py-4 bauhaus-border bauhaus-shadow-sm font-headline font-bold uppercase active:translate-x-1 active:translate-y-1 active:shadow-none transition-all">
+                    Export Report
+                </button>
+</div>
+</div>
+<!-- Metric Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+<!-- Daily New Designers -->
+<div class="md:col-span-2 bg-white bauhaus-border bauhaus-shadow p-8 flex flex-col justify-between min-h-[300px]">
+<div class="flex justify-between items-start">
+<span class="font-headline font-black text-2xl uppercase italic">Daily New Designers</span>
+<span class="material-symbols-outlined text-4xl">person_add</span>
+</div>
+<div class="flex items-baseline gap-4 mt-8">
+<span class="text-8xl font-headline font-black tracking-tighter">124</span>
+<span class="text-[#0055ff] font-headline font-bold text-2xl">+12%</span>
+</div>
+<div class="h-24 w-full flex items-end gap-2 mt-4">
+<div class="bg-primary w-full h-[40%]" title="Mon"></div>
+<div class="bg-primary w-full h-[65%]" title="Tue"></div>
+<div class="bg-[#ff3f3f] w-full h-[90%]" title="Wed"></div>
+<div class="bg-primary w-full h-[55%]" title="Thu"></div>
+<div class="bg-primary w-full h-[75%]" title="Fri"></div>
+<div class="bg-primary w-full h-[60%]" title="Sat"></div>
+<div class="bg-primary w-full h-[85%]" title="Sun"></div>
+</div>
+</div>
+<!-- Total Volume -->
+<div class="bg-secondary-container bauhaus-border bauhaus-shadow p-8 flex flex-col justify-between">
+<div>
+<span class="font-headline font-black text-xl uppercase">Total Volume</span>
+<div class="text-5xl font-headline font-black mt-4 leading-tight">$2.4M</div>
+</div>
+<div class="mt-8 border-t-2 border-[#1a1a1a] pt-4">
+<p class="font-body text-sm font-bold uppercase">Target: $3.0M</p>
+<div class="w-full h-8 bg-white bauhaus-border mt-2 relative">
+<div class="h-full bg-[#0055ff] w-[80%]"></div>
+</div>
+</div>
+</div>
+<!-- Active Disputes -->
+<div class="bg-[#e63b2e] text-white bauhaus-border bauhaus-shadow p-8 flex flex-col justify-between">
+<div>
+<span class="font-headline font-black text-xl uppercase">Unpaid Disputes</span>
+<div class="text-7xl font-headline font-black mt-4">18</div>
+</div>
+<div class="mt-4">
+<button class="w-full py-3 bg-white text-[#1a1a1a] font-headline font-bold uppercase bauhaus-border text-sm">Review Now</button>
+</div>
+</div>
+</div>
+<!-- Main Content Split -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- User Management List -->
+<div class="lg:col-span-2 space-y-6">
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-4xl font-black font-headline uppercase italic">Designer Verification</h3>
+<div class="flex gap-2">
+<button class="p-2 bauhaus-border bg-white hover:bg-secondary-container"><span class="material-symbols-outlined">filter_list</span></button>
+<button class="p-2 bauhaus-border bg-white hover:bg-secondary-container"><span class="material-symbols-outlined">search</span></button>
+</div>
+</div>
+<div class="bg-white bauhaus-border overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead class="bg-[#1a1a1a] text-white font-headline uppercase text-sm">
+<tr>
+<th class="p-4">Designer</th>
+<th class="p-4">Portfolio</th>
+<th class="p-4">Status</th>
+<th class="p-4 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="font-body divide-y-2 divide-[#1a1a1a]">
+<tr class="hover:bg-surface-container transition-colors">
+<td class="p-4 flex items-center gap-3">
+<div class="w-10 h-10 bauhaus-border bg-tertiary-container">
+<img class="w-full h-full object-cover" data-alt="portrait of a creative man with designer glasses looking directly at the camera in a modern architectural space" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcRZv-NFW_P79bO-HrZa7S7Kjv8ub8c9vNKzjwtQQvEbml9HpSl66hDHPrNbgKO0C4qM8hWw7-l7gKM8UZfEdIU39AueQ8vxFUXgmQ6sl1Kjs0aNwuVOgpsNh-ZDMH3vSAI4Ng2wH-9ejICcf59JXpoAwS4YQt5lfPstxQ57vzGgtUg8Rl1u4qZqcuUZXDWpkING6H9DMSM-Rg8iUVpeYNBrkKelYoYNsvHdTnWVUkQGn3dEXk18oOabg6OCtk35eZ7It7wXUUWcuP"/>
+</div>
+<div>
+<div class="font-bold">Anton Vogler</div>
+<div class="text-xs text-primary">Berlin, DE</div>
+</div>
+</td>
+<td class="p-4 font-mono text-sm underline">behance.net/vogler_a</td>
+<td class="p-4">
+<span class="px-2 py-1 bg-secondary-container bauhaus-border text-[10px] font-black uppercase">Pending</span>
+</td>
+<td class="p-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-1 text-green-600 hover:bg-green-50"><span class="material-symbols-outlined">check_circle</span></button>
+<button class="p-1 text-[#e63b2e] hover:bg-red-50"><span class="material-symbols-outlined">cancel</span></button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors">
+<td class="p-4 flex items-center gap-3">
+<div class="w-10 h-10 bauhaus-border bg-secondary-fixed">
+<img class="w-full h-full object-cover" data-alt="professional portrait of a confident woman designer with colorful fashion accessories in a bright workspace" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHWjYV3gPXX0ZzxbmgoEIHHNxy9jjSphqpvo7H-kKlPr9MCictT71aIwC77tVtgrsahXc-pMrXhMoJqXTHnqgJcQcicPkajiZUycelXAKI38Z01Nklb0xcH53cghBhnNHysxicmr1mQamtAbddtI-7EWwioHzEkj-tVo8yzzTY9SeXt1LWAoDaCISyRbzhimcRJi3_sed29gUUzCzOs996w57ScG-DWFdP9A3r2RTlpiJPljGyEsIIEl-G5K7ocbjh3pEFYg0xqcu2"/>
+</div>
+<div>
+<div class="font-bold">Elena Rossi</div>
+<div class="text-xs text-primary">Milan, IT</div>
+</div>
+</td>
+<td class="p-4 font-mono text-sm underline">elenarossi.studio</td>
+<td class="p-4">
+<span class="px-2 py-1 bg-secondary-container bauhaus-border text-[10px] font-black uppercase">Pending</span>
+</td>
+<td class="p-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-1 text-green-600 hover:bg-green-50"><span class="material-symbols-outlined">check_circle</span></button>
+<button class="p-1 text-[#e63b2e] hover:bg-red-50"><span class="material-symbols-outlined">cancel</span></button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors">
+<td class="p-4 flex items-center gap-3">
+<div class="w-10 h-10 bauhaus-border bg-primary-container">
+<img class="w-full h-full object-cover" data-alt="smiling male professional in a creative studio setting with industrial lighting and warm atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6e7SDzeVnRywNvMwa87d0Z7O4yXzDwkoS_7wA8ZmG-NijkXk-1oMPZwO9Bi39fBJjM8qi9hw4-xrugYm18WP5_qPPaX-W1tqEX2MKvEx9WWGu1zdOLFe5t-eoQsDxLvl3Aqe4gFXiqOV6_hpF_vyjsEWIf3Z35IzyuN-wH0tWhQTer0MwsFC5qg0xKpSYG8EqVM4gha3TRiigkRVkmPEmry0AZbr1UKyRlBvtt-vjaBp8jbKF7y5M2LlvbyY3yxqH68AHCfLsxplF"/>
+</div>
+<div>
+<div class="font-bold">Marcus Chen</div>
+<div class="text-xs text-primary">Tokyo, JP</div>
+</div>
+</td>
+<td class="p-4 font-mono text-sm underline">chen_m.design</td>
+<td class="p-4">
+<span class="px-2 py-1 bg-secondary-container bauhaus-border text-[10px] font-black uppercase">Pending</span>
+</td>
+<td class="p-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-1 text-green-600 hover:bg-green-50"><span class="material-symbols-outlined">check_circle</span></button>
+<button class="p-1 text-[#e63b2e] hover:bg-red-50"><span class="material-symbols-outlined">cancel</span></button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Dispute Handling Section -->
+<div class="space-y-6">
+<h3 class="text-4xl font-black font-headline uppercase italic">Disputes</h3>
+<div class="space-y-4">
+<!-- Dispute Card 1 -->
+<div class="bg-white bauhaus-border bauhaus-shadow-sm p-6 relative">
+<div class="absolute -top-3 -right-3 bg-[#e63b2e] text-white px-3 py-1 bauhaus-border text-[10px] font-black uppercase">High Priority</div>
+<div class="flex justify-between items-start mb-4">
+<div>
+<span class="font-body text-xs font-bold text-primary">ID: #88219</span>
+<h4 class="font-headline font-black text-lg uppercase">Unpaid Service Fee</h4>
+</div>
+<span class="text-xl font-headline font-bold">$1,200</span>
+</div>
+<p class="font-body text-sm mb-4">Designer 'K_Vance' claims project 'Hyperion' was completed but client 'NeoCorp' has withheld final payment for 14 days.</p>
+<div class="flex gap-2">
+<button class="flex-1 py-2 bg-[#1a1a1a] text-white font-headline text-xs uppercase hover:bg-tertiary transition-colors">Arbitrate</button>
+<button class="p-2 bauhaus-border hover:bg-secondary-container"><span class="material-symbols-outlined">more_vert</span></button>
+</div>
+</div>
+<!-- Dispute Card 2 -->
+<div class="bg-white bauhaus-border bauhaus-shadow-sm p-6">
+<div class="flex justify-between items-start mb-4">
+<div>
+<span class="font-body text-xs font-bold text-primary">ID: #88224</span>
+<h4 class="font-headline font-black text-lg uppercase">Revision Limit Breach</h4>
+</div>
+<span class="text-xl font-headline font-bold">$450</span>
+</div>
+<p class="font-body text-sm mb-4">Client 'Zenith' requests additional revisions outside of the signed smart contract parameters.</p>
+<div class="flex gap-2">
+<button class="flex-1 py-2 bg-[#1a1a1a] text-white font-headline text-xs uppercase hover:bg-tertiary transition-colors">Arbitrate</button>
+<button class="p-2 bauhaus-border hover:bg-secondary-container"><span class="material-symbols-outlined">more_vert</span></button>
+</div>
+</div>
+</div>
+<!-- System Health Widget -->
+<div class="bg-[#0055ff] text-white bauhaus-border p-6 mt-8">
+<span class="font-headline font-black uppercase">System Status</span>
+<div class="flex items-center gap-2 mt-2">
+<div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+<span class="font-body text-sm font-bold">ALL NODES OPERATIONAL</span>
+</div>
+<div class="mt-4 grid grid-cols-2 gap-4">
+<div class="border-t border-white/30 pt-2">
+<div class="text-xs font-bold opacity-70">CPU</div>
+<div class="font-headline text-xl">22%</div>
+</div>
+<div class="border-t border-white/30 pt-2">
+<div class="text-xs font-bold opacity-70">Latency</div>
+<div class="font-headline text-xl">14ms</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center bg-[#f5f0e8] border-t-4 border-[#1a1a1a] h-16">
+<a class="bg-[#ff3f3f] text-white h-full flex items-center justify-center w-full active:invert" href="#">
+<span class="material-symbols-outlined">home</span>
+</a>
+<a class="text-[#1a1a1a] h-full flex items-center justify-center w-full hover:bg-[#e63b2e] active:invert" href="#">
+<span class="material-symbols-outlined">search</span>
+</a>
+<a class="text-[#1a1a1a] h-full flex items-center justify-center w-full hover:bg-[#e63b2e] active:invert" href="#">
+<span class="material-symbols-outlined">add_box</span>
+</a>
+<a class="text-[#1a1a1a] h-full flex items-center justify-center w-full hover:bg-[#e63b2e] active:invert" href="#">
+<span class="material-symbols-outlined">star</span>
+</a>
+<a class="text-[#1a1a1a] h-full flex items-center justify-center w-full hover:bg-[#e63b2e] active:invert" href="#">
+<span class="material-symbols-outlined">person</span>
+</a>
+</nav>
+</body></html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+
+<html lang="zh-Hant"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-variant": "#e8e3da",
+              "on-surface": "#1a1a1a",
+              "secondary-fixed": "#ffdad6",
+              "secondary": "#e63b2e",
+              "inverse-surface": "#1a1a1a",
+              "on-background": "#1a1a1a",
+              "surface": "#f5f0e8",
+              "surface-tint": "#1a1a1a",
+              "error-container": "#ffdad6",
+              "surface-dim": "#d6d1c9",
+              "on-error": "#ffffff",
+              "on-tertiary-fixed-variant": "#1a1a1a",
+              "on-tertiary": "#ffffff",
+              "on-primary-fixed": "#1a1a1a",
+              "tertiary-container": "#d6e3ff",
+              "on-tertiary-container": "#1a1a1a",
+              "error": "#cc0000",
+              "on-surface-variant": "#4a4a4a",
+              "background": "#f5f0e8",
+              "tertiary-fixed": "#d6e3ff",
+              "secondary-container": "#ffdad6",
+              "inverse-on-surface": "#f5f0e8",
+              "surface-container-highest": "#e2ddd4",
+              "on-secondary": "#1a1a1a",
+              "on-primary-container": "#1a1a1a",
+              "tertiary-fixed-dim": "#a8c6ff",
+              "tertiary": "#0055ff",
+              "primary": "#1a1a1a",
+              "on-error-container": "#93000a",
+              "secondary-fixed-dim": "#ffb3ab",
+              "primary-fixed": "#ffcc00",
+              "outline-variant": "#d0cbc3",
+              "surface-container": "#eee9e0",
+              "primary-container": "#ffcc00",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary-fixed": "#1a1a1a",
+              "on-secondary-fixed-variant": "#1a1a1a",
+              "surface-bright": "#faf7f2",
+              "inverse-primary": "#f5f0e8",
+              "outline": "#1a1a1a",
+              "on-secondary-container": "#1a1a1a",
+              "on-primary-fixed-variant": "#1a1a1a",
+              "surface-container-low": "#f2ede5",
+              "primary-fixed-dim": "#e6b800",
+              "surface-container-high": "#e8e3da",
+              "on-tertiary-fixed": "#1a1a1a",
+              "on-primary": "#ffffff"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Inter"],
+              "label": ["Space Grotesk"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .neo-shadow {
+            box-shadow: 8px 8px 0px 0px rgba(26, 26, 26, 1);
+        }
+        .neo-shadow-sm {
+            box-shadow: 4px 4px 0px 0px rgba(26, 26, 26, 1);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background font-body text-on-background min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 py-4 bg-[#f5f0e8] dark:bg-[#1a1a1a] border-b-4 border-[#1a1a1a] dark:border-[#f5f0e8] shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] dark:shadow-[4px_4px_0px_0px_rgba(245,240,232,1)]">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-[#1a1a1a] dark:text-[#f5f0e8] hover:bg-[#ffcc00] hover:text-[#1a1a1a] transition-colors duration-100 p-2 active:translate-x-1 active:translate-y-1 active:shadow-none">
+                menu
+            </button>
+<h1 class="text-3xl font-black text-[#1a1a1a] dark:text-[#f5f0e8] italic font-headline uppercase tracking-tighter">
+                OBSCURE
+            </h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-[#1a1a1a] dark:text-[#f5f0e8] hover:bg-[#ffcc00] hover:text-[#1a1a1a] transition-colors duration-100 p-2 active:translate-x-1 active:translate-y-1 active:shadow-none">
+                account_circle
+            </button>
+</div>
+</header>
+<main class="pt-32 pb-20 px-6 max-w-4xl mx-auto">
+<!-- Asymmetric Bauhaus Grid Header -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-16">
+<div class="md:col-span-8">
+<h2 class="font-headline font-black text-6xl md:text-8xl leading-none uppercase tracking-tighter mb-6">
+                    開始 <br/> 尋找你的需求
+                </h2>
+<div class="h-4 w-32 bg-primary-container border-2 border-outline mb-4"></div>
+</div>
+<div class="md:col-span-4 flex flex-col justify-end">
+<div class="bg-tertiary p-6 border-4 border-outline neo-shadow mb-4">
+<p class="text-white font-headline font-bold uppercase text-xl leading-tight">
+                        Form follows <br/> function.
+                    </p>
+</div>
+</div>
+</div>
+<section class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<!-- Left Side: Visual/Context -->
+<div class="relative group">
+<div class="absolute -top-4 -left-4 w-full h-full bg-secondary border-4 border-outline"></div>
+<div class="relative bg-surface border-4 border-outline aspect-[4/5] flex items-center justify-center overflow-hidden">
+<img alt="Bauhaus abstract pattern" class="w-full h-full object-cover mix-blend-multiply grayscale hover:grayscale-0 transition-all duration-500" data-alt="Abstract Bauhaus geometric shapes and patterns" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6hqM6kjygrAi9EaWO1B8c0VZQX3DDoZ9RgQZBdJkDwLc8Fv8NLIEaEPjyI9VM-8g-L3fV8Ds8RqKAgnhJ8VOWBXcngDjFufIGKZhV5IO4VHX3Zxlh-uScQW-oy2qSAOl6NsdSac5Yi2fN-DEfFeUisIdMqln1QNpfGtuye_hB7i2qIOBqBLKR9qLj9d_bPMutdYsHQP_-eOcVf0d7_5c-M1QdmVKhFuFkiyA84SVQkkxzklsj8O7jYdqvARdAV0DqiK0gaW7BqVoM"/>
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<span class="text-white font-headline font-black text-9xl opacity-20 select-none">FORM</span>
+</div>
+</div>
+<div class="mt-8 space-y-4">
+<div class="flex items-center gap-4">
+<span class="w-12 h-12 bg-primary-container border-2 border-outline flex items-center justify-center font-black">01</span>
+<p class="font-bold uppercase">Define your vision</p>
+</div>
+<div class="flex items-center gap-4">
+<span class="w-12 h-12 bg-tertiary-container border-2 border-outline flex items-center justify-center font-black">02</span>
+<p class="font-bold uppercase">Submit parameters</p>
+</div>
+<div class="flex items-center gap-4">
+<span class="w-12 h-12 bg-secondary-container border-2 border-outline flex items-center justify-center font-black">03</span>
+<p class="font-bold uppercase">Begin execution</p>
+</div>
+</div>
+</div>
+<!-- Right Side: Form -->
+<div class="flex flex-col">
+<form class="space-y-8">
+<!-- Name Input -->
+<div class="group">
+<label class="block font-headline font-bold uppercase text-sm tracking-widest mb-2">姓名/暱稱</label>
+<input class="w-full bg-transparent border-b-4 border-outline p-4 focus:ring-0 focus:outline-none focus:border-primary-fixed transition-colors text-2xl font-bold placeholder:opacity-30" placeholder="ENTER NAME" type="text"/>
+</div>
+<!-- Phone Input -->
+<div class="group">
+<label class="block font-headline font-bold uppercase text-sm tracking-widest mb-2">電話</label>
+<input class="w-full bg-transparent border-b-4 border-outline p-4 focus:ring-0 focus:outline-none focus:border-tertiary transition-colors text-2xl font-bold placeholder:opacity-30" placeholder="PHONE NUMBER" type="tel"/>
+</div>
+<!-- Requirements Textarea -->
+<div class="group">
+<label class="block font-headline font-bold uppercase text-sm tracking-widest mb-2">你的需求內容</label>
+<textarea class="w-full bg-transparent border-4 border-outline p-4 focus:ring-0 focus:outline-none focus:border-secondary transition-colors text-xl font-bold placeholder:opacity-30 resize-none" placeholder="DESCRIBE YOUR VISION" rows="4"></textarea>
+</div>
+<!-- Submit Button -->
+<button class="w-full py-8 bg-primary text-white font-headline font-black text-3xl uppercase tracking-tighter border-4 border-outline neo-shadow hover:bg-primary-fixed hover:text-primary transition-all active:translate-x-2 active:translate-y-2 active:shadow-none group flex items-center justify-center gap-4" type="submit">
+                        開始合作
+                        <span class="material-symbols-outlined text-4xl group-hover:rotate-45 transition-transform">arrow_forward</span>
+</button>
+</form>
+<div class="mt-12 p-8 border-4 border-outline border-dashed">
+<p class="text-sm font-bold uppercase leading-relaxed">
+                        Notice: All submissions are processed through the Obscure Protocol. We prioritize structural integrity over decorative flourish.
+                    </p>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Suppressed for focused Transactional screen as per rules, but included if top-level) -->
+<!-- The page intent is "Customer Signup" (Transactional/Linear) - Suppressing per "Automatic Suppression" rule -->
+<!-- Decorative Bauhaus Element -->
+<div class="fixed bottom-10 right-10 -z-10 opacity-10 pointer-events-none hidden lg:block">
+<div class="flex gap-4">
+<div class="w-20 h-20 bg-primary-fixed border-4 border-outline rotate-12"></div>
+<div class="w-20 h-20 bg-secondary border-4 border-outline -rotate-12 rounded-full"></div>
+<div class="w-20 h-20 bg-tertiary border-4 border-outline rotate-45"></div>
+</div>
+</div>
+</body></html>

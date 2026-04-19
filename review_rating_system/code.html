@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>OBSCURE | Review &amp; Rating</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "outline-variant": "#b7b2a1",
+              "inverse-surface": "#0f0e0a",
+              "on-primary": "#faf7f6",
+              "surface-container-lowest": "#ffffff",
+              "secondary-fixed": "#f7e471",
+              "secondary-fixed-dim": "#e9d564",
+              "on-tertiary": "#f3f2ff",
+              "surface-container": "#f3ede1",
+              "on-tertiary-container": "#ffffff",
+              "tertiary": "#004be4",
+              "on-tertiary-container": "#ffffff",
+              "tertiary-container": "#0356ff",
+              "tertiary-dim": "#0044d0",
+              "on-surface-variant": "#625f51",
+              "primary-container": "#e5e2e1",
+              "inverse-on-surface": "#a09c96",
+              "inverse-primary": "#ffffff",
+              "on-surface": "#353327",
+              "surface-bright": "#fef9f1",
+              "on-secondary": "#fff9e8",
+              "primary": "#5f5e5e",
+              "on-secondary-container": "#5d5200",
+              "error-dim": "#4e0309",
+              "tertiary-fixed": "#0356ff",
+              "primary-fixed-dim": "#d6d4d3",
+              "primary-dim": "#535252",
+              "on-tertiary-fixed-variant": "#cad3ff",
+              "error": "#9f403d",
+              "on-primary-fixed-variant": "#5c5b5b",
+              "on-background": "#353327",
+              "error-container": "#fe8983",
+              "secondary-dim": "#5f5300",
+              "on-primary-fixed": "#403f3f",
+              "surface-container-high": "#eee8d9",
+              "primary-fixed": "#e5e2e1",
+              "on-secondary-fixed-variant": "#685c00",
+              "secondary-container": "#f7e471",
+              "surface": "#fef9f1",
+              "surface-dim": "#e0dac6",
+              "tertiary-fixed-dim": "#004be4",
+              "background": "#fef9f1",
+              "surface-container-highest": "#e8e2d1",
+              "on-error": "#fff7f6",
+              "secondary": "#6c5f00",
+              "on-secondary-fixed": "#483f00",
+              "surface-container-low": "#f8f3e9",
+              "on-error-container": "#752121",
+              "on-primary-container": "#525151",
+              "surface-variant": "#e8e2d1",
+              "surface-tint": "#5f5e5e",
+              "outline": "#7f7b6c"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Inter"],
+              "label": ["Space Grotesk"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      body {
+        background-color: #f5f0e8;
+        font-family: 'Inter', sans-serif;
+      }
+      .bauhaus-shadow {
+        box-shadow: 6px 6px 0px 0px #1a1a1a;
+      }
+      .bauhaus-shadow-small {
+        box-shadow: 4px 4px 0px 0px #1a1a1a;
+      }
+      .bauhaus-border {
+        border: 3px solid #1a1a1a;
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-[#f5f0e8] text-[#1a1a1a]">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full border-b-4 border-[#1a1a1a] bg-[#f5f0e8] flex justify-between items-center px-6 h-20 z-50 shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-3xl">grid_view</span>
+<h1 class="text-4xl font-black text-[#1a1a1a] italic font-['Space_Grotesk'] tracking-tighter">OBSCURE</h1>
+</div>
+<div class="flex items-center gap-6 font-['Space_Grotesk'] font-bold uppercase">
+<nav class="hidden md:flex gap-8">
+<a class="text-[#1a1a1a] hover:bg-[#ff3f3f] hover:text-white px-2 transition-colors" href="#">Dashboard</a>
+<a class="text-[#1a1a1a] hover:bg-[#ff3f3f] hover:text-white px-2 transition-colors" href="#">Projects</a>
+<a class="text-[#ff3f3f] underline decoration-4 px-2" href="#">Notifications</a>
+</nav>
+<div class="w-10 h-10 bauhaus-border bg-[#ff3f3f] flex items-center justify-center text-white">
+<span class="material-symbols-outlined">person</span>
+</div>
+</div>
+</header>
+<!-- NavigationDrawer (Desktop Only) -->
+<aside class="hidden md:flex fixed left-0 top-0 h-screen w-72 border-r-4 border-[#1a1a1a] bg-[#f5f0e8] flex-col pt-24 z-40">
+<div class="px-6 mb-8">
+<h2 class="font-['Space_Grotesk'] font-black text-2xl mb-8">MENU</h2>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="text-[#1a1a1a] px-4 py-3 hover:translate-x-1 hover:bg-[#0055ff] hover:text-white transition-all duration-75 font-['Space_Grotesk'] font-bold uppercase flex items-center gap-4" href="#">
+<span class="material-symbols-outlined">dashboard</span> Dashboard
+            </a>
+<a class="text-[#1a1a1a] px-4 py-3 hover:translate-x-1 hover:bg-[#0055ff] hover:text-white transition-all duration-75 font-['Space_Grotesk'] font-bold uppercase flex items-center gap-4" href="#">
+<span class="material-symbols-outlined">folder_open</span> Projects
+            </a>
+<a class="text-[#1a1a1a] px-4 py-3 hover:translate-x-1 hover:bg-[#0055ff] hover:text-white transition-all duration-75 font-['Space_Grotesk'] font-bold uppercase flex items-center gap-4" href="#">
+<span class="material-symbols-outlined">description</span> Contracts
+            </a>
+<a class="bg-[#ff3f3f] text-white border-2 border-[#1a1a1a] mx-2 my-1 px-4 py-3 shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] font-['Space_Grotesk'] font-bold uppercase flex items-center gap-4" href="#">
+<span class="material-symbols-outlined">notifications</span> Notifications
+            </a>
+<a class="text-[#1a1a1a] px-4 py-3 hover:translate-x-1 hover:bg-[#0055ff] hover:text-white transition-all duration-75 font-['Space_Grotesk'] font-bold uppercase flex items-center gap-4" href="#">
+<span class="material-symbols-outlined">shield_person</span> Admin
+            </a>
+</nav>
+</aside>
+<!-- Main Content -->
+<main class="pt-28 pb-20 md:pl-80 px-4 md:pr-8 max-w-7xl mx-auto">
+<!-- Header Section -->
+<section class="mb-12">
+<div class="inline-block bg-[#ff3f3f] text-white px-4 py-1 mb-4 bauhaus-border font-['Space_Grotesk'] font-bold uppercase">
+                Project Success
+            </div>
+<h2 class="text-6xl md:text-8xl font-black font-['Space_Grotesk'] uppercase leading-none tracking-tighter mb-6">
+                Rate Your <br/>Experience.
+            </h2>
+<p class="text-xl font-medium max-w-2xl border-l-4 border-[#1a1a1a] pl-6 py-2">
+                Your feedback loops directly into the professional profile of <span class="text-[#0055ff] font-bold">Studio_Noir</span>. 
+                Be honest, be bold, and help the community grow.
+            </p>
+</section>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Rating Form Area -->
+<div class="lg:col-span-7 space-y-8">
+<div class="bg-white bauhaus-border bauhaus-shadow p-8">
+<h3 class="font-['Space_Grotesk'] font-black text-2xl uppercase mb-8 border-b-2 border-[#1a1a1a] pb-2">Feedback Submission</h3>
+<!-- Star Rating Groups -->
+<div class="space-y-8 mb-8">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<span class="font-['Space_Grotesk'] font-bold uppercase tracking-wider text-lg">Professionalism</span>
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-[#ff3f3f] text-4xl cursor-pointer" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[#ff3f3f] text-4xl cursor-pointer" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[#ff3f3f] text-4xl cursor-pointer" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[#ff3f3f] text-4xl cursor-pointer" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[#1a1a1a] text-4xl cursor-pointer">star</span>
+</div>
+</div>
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<span class="font-['Space_Grotesk'] font-bold uppercase tracking-wider text-lg">Communication</span>
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-[#ff3f3f] text-4xl cursor-pointer" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[#ff3f3f] text-4xl cursor-pointer" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[#ff3f3f] text-4xl cursor-pointer" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[#ff3f3f] text-4xl cursor-pointer" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[#ff3f3f] text-4xl cursor-pointer" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<span class="font-['Space_Grotesk'] font-bold uppercase tracking-wider text-lg">Punctuality</span>
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-[#ff3f3f] text-4xl cursor-pointer" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[#ff3f3f] text-4xl cursor-pointer" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[#ff3f3f] text-4xl cursor-pointer" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[#1a1a1a] text-4xl cursor-pointer">star</span>
+<span class="material-symbols-outlined text-[#1a1a1a] text-4xl cursor-pointer">star</span>
+</div>
+</div>
+</div>
+<!-- Text Area -->
+<div class="mb-8">
+<label class="block font-['Space_Grotesk'] font-bold uppercase mb-2">Detailed Comments</label>
+<textarea class="w-full bg-[#f5f0e8] border-b-4 border-[#1a1a1a] focus:ring-0 focus:border-[#ff3f3f] p-4 font-body text-lg" placeholder="How did the project evolve? Be specific..." rows="6"></textarea>
+</div>
+<!-- Image Upload -->
+<div class="mb-10">
+<label class="block font-['Space_Grotesk'] font-bold uppercase mb-2">Finished Product Photos</label>
+<div class="border-4 border-dashed border-[#1a1a1a] p-10 text-center bg-[#f5f0e8] hover:bg-white transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-5xl mb-2">add_a_photo</span>
+<p class="font-['Space_Grotesk'] font-bold">DRAG OR CLICK TO UPLOAD</p>
+<p class="text-sm opacity-60">High-res PNG, JPG or TIFF</p>
+</div>
+</div>
+<button class="w-full bg-[#1a1a1a] text-white font-['Space_Grotesk'] font-black text-2xl py-6 uppercase hover:bg-[#ff3f3f] transition-colors bauhaus-shadow-small active:translate-x-1 active:translate-y-1 active:shadow-none">
+                        Submit Review
+                    </button>
+</div>
+</div>
+<!-- Stats & Previous Reviews -->
+<div class="lg:col-span-5 space-y-8">
+<!-- Feedback Loop Stats -->
+<div class="bg-[#0055ff] text-white bauhaus-border bauhaus-shadow p-6">
+<h3 class="font-['Space_Grotesk'] font-black text-2xl uppercase mb-6 border-b-2 border-white pb-2">Profile Stats Impact</h3>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-white text-[#1a1a1a] p-4 bauhaus-border">
+<p class="text-xs font-bold uppercase">Reputation</p>
+<p class="text-4xl font-black font-['Space_Grotesk']">+14</p>
+</div>
+<div class="bg-white text-[#1a1a1a] p-4 bauhaus-border">
+<p class="text-xs font-bold uppercase">Trust Score</p>
+<p class="text-4xl font-black font-['Space_Grotesk']">98%</p>
+</div>
+</div>
+</div>
+<!-- Live Preview/Recent Review Card -->
+<div class="bg-white bauhaus-border bauhaus-shadow p-6">
+<div class="flex items-center gap-4 mb-4">
+<div class="w-12 h-12 bauhaus-border overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="portrait of a creative professional man with glasses in a minimalist studio setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqAIjWbz4yPdFp07qO6Hvac3CHGyYUW6izKudxgzmvRSSQthdnRe4EaGnwstmqWqZ7CHi8cwnGsq3-vIL8sjjfsRMJn34KAdUEm7HMPqj5wdbpAu60ruNBRid1Qp6UEDDpPDsWwRxh8rby0GNa16sHihYF1daujdE7h_mkE9cmLcyCTOzBYUwU2XqHU2Q2IXg19cOTsIP981YCafLJPsgWSc365dQf8Z0SD3faHkRapgA1qGzEJPDK3JDtbuHEsaLnG-aaQwQSfLQN"/>
+</div>
+<div>
+<p class="font-['Space_Grotesk'] font-bold uppercase leading-none">Studio_Noir</p>
+<p class="text-xs uppercase font-medium opacity-60">Lead Architect</p>
+</div>
+</div>
+<div class="mb-4">
+<img class="w-full h-48 object-cover bauhaus-border mb-4" data-alt="brutalist architecture interior with raw concrete walls and sharp dramatic sunlight patterns" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0LUNfHD2JGdvmgtjTUQtiTNBqUQ9lxVpgRoA-7_ZVE_xCDWMw7luF7APS6rX1h0qEezjbT41yCzFIkZGe62T5vDWsKYhLmYyjYl6YrbQ291_UQ_pNi3jHz1JYtwrl1g1AwCagHMRL_X-edPraGG0_UwnjscicdLKxhxxtROSI_lMqZkmn2ap7IOaXx5PyZexeIwLavIW-VGNRx_aVKsITw0e3AYBkhvAb4sSahhgBCJ2h7D-pR9IXXSEC65h9_Jd0a5xH57Qol-P4"/>
+</div>
+<div class="border-l-4 border-[#ff3f3f] pl-4 mb-6">
+<p class="font-body italic text-sm">"The attention to detail on the brutalist staircase was exceptional. Communication was tight and we hit every deadline."</p>
+</div>
+<!-- Designer Reply Section -->
+<div class="bg-[#f5f0e8] p-4 border-l-4 border-[#0055ff]">
+<p class="text-[10px] font-bold uppercase mb-1 text-[#0055ff]">Reply from Studio_Noir:</p>
+<p class="text-xs font-body">"Thank you! It was a pleasure working on such a bold vision. Looking forward to the next one."</p>
+</div>
+</div>
+<!-- Bauhaus Graphic Element -->
+<div class="relative h-40 bg-[#ff3f3f] bauhaus-border overflow-hidden hidden lg:block">
+<div class="absolute top-0 right-0 w-20 h-full bg-[#1a1a1a]"></div>
+<div class="absolute bottom-0 left-0 w-full h-10 bg-[#0055ff]"></div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-['Space_Grotesk'] font-black text-6xl opacity-20 rotate-12">
+                        OBSCURE
+                    </div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile) -->
+<footer class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 bg-[#f5f0e8] border-t-4 border-[#1a1a1a]">
+<a class="text-[#1a1a1a] h-full flex items-center justify-center w-full active:invert" href="#">
+<span class="material-symbols-outlined">home</span>
+</a>
+<a class="text-[#1a1a1a] h-full flex items-center justify-center w-full active:invert" href="#">
+<span class="material-symbols-outlined">search</span>
+</a>
+<a class="bg-[#ff3f3f] text-white h-full flex items-center justify-center w-full active:invert" href="#">
+<span class="material-symbols-outlined">add_box</span>
+</a>
+<a class="text-[#1a1a1a] h-full flex items-center justify-center w-full active:invert" href="#">
+<span class="material-symbols-outlined">star</span>
+</a>
+<a class="text-[#1a1a1a] h-full flex items-center justify-center w-full active:invert" href="#">
+<span class="material-symbols-outlined">person</span>
+</a>
+</footer>
+</body></html>

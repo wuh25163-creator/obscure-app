@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>OBSCURE | Notifications</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "outline-variant": "#b7b2a1",
+              "inverse-surface": "#0f0e0a",
+              "on-primary": "#faf7f6",
+              "surface-container-lowest": "#ffffff",
+              "secondary-fixed": "#f7e471",
+              "secondary-fixed-dim": "#e9d564",
+              "on-tertiary": "#f3f2ff",
+              "surface-container": "#f3ede1",
+              "on-tertiary-container": "#ffffff",
+              "tertiary": "#004be4",
+              "on-tertiary-container": "#ffffff",
+              "tertiary-container": "#0356ff",
+              "tertiary-dim": "#0044d0",
+              "on-surface-variant": "#625f51",
+              "primary-container": "#e5e2e1",
+              "inverse-on-surface": "#a09c96",
+              "inverse-primary": "#ffffff",
+              "on-surface": "#353327",
+              "surface-bright": "#fef9f1",
+              "on-secondary": "#fff9e8",
+              "primary": "#5f5e5e",
+              "on-secondary-container": "#5d5200",
+              "error-dim": "#4e0309",
+              "tertiary-fixed": "#0356ff",
+              "primary-fixed-dim": "#d6d4d3",
+              "primary-dim": "#535252",
+              "on-tertiary-fixed-variant": "#cad3ff",
+              "error": "#9f403d",
+              "on-primary-fixed-variant": "#5c5b5b",
+              "on-background": "#353327",
+              "error-container": "#fe8983",
+              "secondary-dim": "#5f5300",
+              "on-primary-fixed": "#403f3f",
+              "surface-container-high": "#eee8d9",
+              "primary-fixed": "#e5e2e1",
+              "on-secondary-fixed-variant": "#685c00",
+              "secondary-container": "#f7e471",
+              "surface": "#fef9f1",
+              "surface-dim": "#e0dac6",
+              "tertiary-fixed-dim": "#004be4",
+              "background": "#fef9f1",
+              "surface-container-highest": "#e8e2d1",
+              "on-error": "#fff7f6",
+              "secondary": "#6c5f00",
+              "on-secondary-fixed": "#483f00",
+              "surface-container-low": "#f8f3e9",
+              "on-error-container": "#752121",
+              "on-primary-container": "#525151",
+              "surface-variant": "#e8e2d1",
+              "surface-tint": "#5f5e5e",
+              "outline": "#7f7b6c"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Inter"],
+              "label": ["Space Grotesk"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #f5f0e8;
+            color: #1a1a1a;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body antialiased">
+<!-- TopAppBar -->
+<header class="bg-[#f5f0e8] dark:bg-zinc-900 text-[#1a1a1a] dark:text-zinc-100 font-['Space_Grotesk'] font-bold uppercase tracking-tighter fixed top-0 w-full border-b-4 border-[#1a1a1a] dark:border-zinc-800 shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] flex justify-between items-center px-6 h-20 z-50">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-3xl">grid_view</span>
+<h1 class="text-4xl font-black text-[#1a1a1a] dark:text-zinc-100 italic">OBSCURE</h1>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex gap-8 text-lg">
+<a class="text-[#1a1a1a] dark:text-zinc-400 hover:bg-[#ff3f3f] hover:text-white transition-colors duration-100 px-2" href="#">Dashboard</a>
+<a class="text-[#1a1a1a] dark:text-zinc-400 hover:bg-[#ff3f3f] hover:text-white transition-colors duration-100 px-2" href="#">Projects</a>
+<a class="text-[#ff3f3f] underline decoration-4 px-2" href="#">Notifications</a>
+</nav>
+<div class="w-10 h-10 border-2 border-[#1a1a1a] overflow-hidden">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="minimalist silhouette avatar on a solid bold yellow background in bauhaus style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwJPZmz1HnTX7-jQmGMb11uR4xiEofgAKB3H3bcMBGFf05HqN8IIfL3Jf2dnjOshcgbGn3NHbHi6_ni2sDudlLg9E1nYwTXEwiwTJlnMWR62rg--57Lg63_zjhSin63VonCtiWHdF0TBnuD3v89jKL857UscoLA3tQXYDr3CFEyr1DvYpk2BmbD7caidMVtsZDeDNuMrhXFWjOmdw8vLNSYKlCxpQq-O-EdEgr1WIGBJh6RExERYTQZxhnN68OnstlXTxgyU1Sbcgw"/>
+</div>
+</div>
+</header>
+<!-- NavigationDrawer -->
+<aside class="hidden md:flex fixed left-0 top-0 h-screen flex-col pt-24 bg-[#f5f0e8] dark:bg-zinc-900 text-[#1a1a1a] dark:text-zinc-100 font-['Space_Grotesk'] font-bold uppercase h-full border-r-4 border-[#1a1a1a] w-72 z-40">
+<div class="text-2xl font-black mb-8 px-6">MENU</div>
+<nav class="flex flex-col gap-1">
+<a class="text-[#1a1a1a] dark:text-zinc-300 px-4 py-3 hover:translate-x-1 hover:bg-[#0055ff] hover:text-white transition-all duration-75 flex items-center gap-3" href="#">
+<span class="material-symbols-outlined">dashboard</span> Dashboard
+            </a>
+<a class="text-[#1a1a1a] dark:text-zinc-300 px-4 py-3 hover:translate-x-1 hover:bg-[#0055ff] hover:text-white transition-all duration-75 flex items-center gap-3" href="#">
+<span class="material-symbols-outlined">folder_open</span> Projects
+            </a>
+<a class="text-[#1a1a1a] dark:text-zinc-300 px-4 py-3 hover:translate-x-1 hover:bg-[#0055ff] hover:text-white transition-all duration-75 flex items-center gap-3" href="#">
+<span class="material-symbols-outlined">description</span> Contracts
+            </a>
+<a class="text-[#1a1a1a] dark:text-zinc-300 px-4 py-3 hover:translate-x-1 hover:bg-[#0055ff] hover:text-white transition-all duration-75 flex items-center gap-3" href="#">
+<span class="material-symbols-outlined">request_quote</span> Quotes
+            </a>
+<a class="bg-[#ff3f3f] text-white border-2 border-[#1a1a1a] mx-2 my-1 px-4 py-3 shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] transition-all duration-75 flex items-center gap-3" href="#">
+<span class="material-symbols-outlined">notifications</span> Notifications
+            </a>
+<a class="text-[#1a1a1a] dark:text-zinc-300 px-4 py-3 hover:translate-x-1 hover:bg-[#0055ff] hover:text-white transition-all duration-75 flex items-center gap-3" href="#">
+<span class="material-symbols-outlined">shield_person</span> Admin
+            </a>
+</nav>
+</aside>
+<!-- Main Content Canvas -->
+<main class="pt-28 pb-20 md:pl-80 px-6 min-h-screen">
+<div class="max-w-5xl mx-auto">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+<div>
+<h2 class="font-headline font-black text-6xl md:text-8xl uppercase tracking-tighter leading-none">Inbox</h2>
+<p class="font-body text-xl font-bold mt-2 uppercase">You have <span class="text-[#ff3f3f]">3 unread</span> alerts</p>
+</div>
+<button class="bg-[#0055ff] text-white border-4 border-[#1a1a1a] px-8 py-4 font-headline font-bold uppercase shadow-[6px_6px_0px_0px_rgba(26,26,26,1)] hover:bg-[#1a1a1a] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all">
+                    Mark all as read
+                </button>
+</div>
+<!-- Tab Navigation (Bento Style) -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+<button class="bg-[#ff3f3f] text-white border-4 border-[#1a1a1a] p-4 font-headline font-black uppercase text-center shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]">
+                    All
+                </button>
+<button class="bg-white border-4 border-[#1a1a1a] p-4 font-headline font-bold uppercase text-center hover:bg-[#f7e471] transition-colors">
+                    Commission
+                </button>
+<button class="bg-white border-4 border-[#1a1a1a] p-4 font-headline font-bold uppercase text-center hover:bg-[#f7e471] transition-colors">
+                    System
+                </button>
+<button class="bg-white border-4 border-[#1a1a1a] p-4 font-headline font-bold uppercase text-center hover:bg-[#f7e471] transition-colors">
+                    Payment
+                </button>
+</div>
+<!-- Notification List -->
+<div class="flex flex-col gap-6">
+<!-- Notification Item 1 (Payment) -->
+<div class="group relative bg-white border-4 border-[#1a1a1a] p-6 shadow-[8px_8px_0px_0px_rgba(0,85,255,1)] flex flex-col md:flex-row items-start md:items-center gap-6 hover:-translate-y-1 transition-transform cursor-pointer">
+<div class="bg-[#f7e471] border-4 border-[#1a1a1a] w-16 h-16 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-4xl">payments</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="bg-[#0055ff] text-white text-xs font-black uppercase px-2 py-0.5">Payment</span>
+<span class="font-body text-sm font-bold opacity-50 uppercase">2 mins ago</span>
+</div>
+<h3 class="font-headline font-black text-2xl uppercase leading-tight">Ms. Lin paid deposit</h3>
+<p class="font-body text-lg mt-1 font-medium italic">Project: 'Neo-Noir Illustration Set'</p>
+</div>
+<div class="flex items-center gap-4 w-full md:w-auto">
+<a class="flex-1 md:flex-none text-center bg-[#1a1a1a] text-white px-6 py-3 font-headline font-bold uppercase hover:bg-[#ff3f3f] transition-colors" href="#">
+                            Income Dashboard
+                        </a>
+<button class="p-2 hover:text-[#ff3f3f]">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Notification Item 2 (System/Featured) -->
+<div class="group relative bg-[#f7e471] border-4 border-[#1a1a1a] p-6 shadow-[8px_8px_0px_0px_rgba(26,26,26,1)] flex flex-col md:flex-row items-start md:items-center gap-6 hover:-translate-y-1 transition-transform cursor-pointer">
+<div class="bg-white border-4 border-[#1a1a1a] w-16 h-16 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="bg-[#ff3f3f] text-white text-xs font-black uppercase px-2 py-0.5">Featured</span>
+<span class="font-body text-sm font-bold opacity-50 uppercase">1 hour ago</span>
+</div>
+<h3 class="font-headline font-black text-2xl uppercase leading-tight">New featured work live</h3>
+<p class="font-body text-lg mt-1 font-medium">Your piece 'Structural Decay' is on the front page.</p>
+</div>
+<div class="flex items-center gap-4 w-full md:w-auto">
+<a class="flex-1 md:flex-none text-center bg-[#0055ff] text-white px-6 py-3 font-headline font-bold uppercase hover:bg-[#1a1a1a] transition-colors" href="#">
+                            View Work
+                        </a>
+<button class="p-2 hover:text-white">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Notification Item 3 (Commission) -->
+<div class="group relative bg-white border-4 border-[#1a1a1a] p-6 shadow-[8px_8px_0px_0px_rgba(230,59,46,1)] flex flex-col md:flex-row items-start md:items-center gap-6 hover:-translate-y-1 transition-transform cursor-pointer">
+<div class="bg-[#0055ff] text-white border-4 border-[#1a1a1a] w-16 h-16 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-4xl">architecture</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="bg-[#1a1a1a] text-white text-xs font-black uppercase px-2 py-0.5">Commission</span>
+<span class="font-body text-sm font-bold opacity-50 uppercase">Yesterday</span>
+</div>
+<h3 class="font-headline font-black text-2xl uppercase leading-tight">Contract Signed</h3>
+<p class="font-body text-lg mt-1 font-medium italic">Agency X accepted the Brutalist Web proposal.</p>
+</div>
+<div class="flex items-center gap-4 w-full md:w-auto">
+<a class="flex-1 md:flex-none text-center bg-[#f7e471] text-[#1a1a1a] px-6 py-3 border-2 border-[#1a1a1a] font-headline font-bold uppercase hover:bg-[#1a1a1a] hover:text-white transition-colors" href="#">
+                            View Contract
+                        </a>
+<button class="p-2 hover:text-[#ff3f3f]">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Notification Item 4 (System) -->
+<div class="group relative bg-white border-4 border-[#1a1a1a] p-6 shadow-[8px_8px_0px_0px_rgba(26,26,26,0.2)] opacity-60 flex flex-col md:flex-row items-start md:items-center gap-6 grayscale cursor-default">
+<div class="bg-zinc-200 border-4 border-[#1a1a1a] w-16 h-16 flex items-center justify-center shrink-0 text-zinc-600">
+<span class="material-symbols-outlined text-4xl">settings</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="bg-zinc-400 text-white text-xs font-black uppercase px-2 py-0.5">System</span>
+<span class="font-body text-sm font-bold opacity-50 uppercase">2 days ago</span>
+</div>
+<h3 class="font-headline font-black text-2xl uppercase leading-tight">Account verification complete</h3>
+<p class="font-body text-lg mt-1 font-medium">Identity verified by global compliance team.</p>
+</div>
+<div class="flex items-center gap-4 w-full md:w-auto">
+<button class="p-2">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Footer Stats / Insights (Asymmetric Section) -->
+<div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-0 border-4 border-[#1a1a1a]">
+<div class="p-8 bg-[#0055ff] text-white md:border-r-4 border-b-4 md:border-b-0 border-[#1a1a1a]">
+<span class="font-headline font-black text-5xl leading-none">84%</span>
+<p class="font-headline font-bold uppercase mt-2">Response Rate</p>
+</div>
+<div class="p-8 bg-white border-b-4 md:border-b-0 md:border-r-4 border-[#1a1a1a]">
+<span class="font-headline font-black text-5xl leading-none">12</span>
+<p class="font-headline font-bold uppercase mt-2">Open Projects</p>
+</div>
+<div class="p-8 bg-[#f7e471]">
+<span class="font-headline font-black text-5xl leading-none">$4.2k</span>
+<p class="font-headline font-bold uppercase mt-2">Pending Invoices</p>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center bg-[#f5f0e8] dark:bg-zinc-950 text-[#1a1a1a] dark:text-zinc-100 font-['Space_Grotesk'] font-bold text-[10px] border-t-4 border-[#1a1a1a] h-16">
+<a class="text-[#1a1a1a] dark:text-zinc-400 h-full flex items-center justify-center w-full hover:bg-[#e63b2e] transition-colors" href="#">
+<span class="material-symbols-outlined">home</span>
+</a>
+<a class="text-[#1a1a1a] dark:text-zinc-400 h-full flex items-center justify-center w-full hover:bg-[#e63b2e] transition-colors" href="#">
+<span class="material-symbols-outlined">search</span>
+</a>
+<a class="text-[#1a1a1a] dark:text-zinc-400 h-full flex items-center justify-center w-full hover:bg-[#e63b2e] transition-colors" href="#">
+<span class="material-symbols-outlined">add_box</span>
+</a>
+<a class="bg-[#ff3f3f] text-white h-full flex items-center justify-center w-full transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">notifications</span>
+</a>
+<a class="text-[#1a1a1a] dark:text-zinc-400 h-full flex items-center justify-center w-full hover:bg-[#e63b2e] transition-colors" href="#">
+<span class="material-symbols-outlined">person</span>
+</a>
+</nav>
+</body></html>

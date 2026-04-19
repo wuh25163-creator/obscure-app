@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>OBSCURE - Discovery Feed</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-variant": "#e8e3da",
+              "on-surface": "#1a1a1a",
+              "secondary-fixed": "#ffdad6",
+              "secondary": "#e63b2e",
+              "inverse-surface": "#1a1a1a",
+              "on-background": "#1a1a1a",
+              "surface": "#f5f0e8",
+              "surface-tint": "#1a1a1a",
+              "error-container": "#ffdad6",
+              "surface-dim": "#d6d1c9",
+              "on-error": "#ffffff",
+              "on-tertiary-fixed-variant": "#1a1a1a",
+              "on-tertiary": "#ffffff",
+              "on-primary-fixed": "#1a1a1a",
+              "tertiary-container": "#d6e3ff",
+              "on-tertiary-container": "#1a1a1a",
+              "error": "#cc0000",
+              "on-surface-variant": "#4a4a4a",
+              "background": "#f5f0e8",
+              "tertiary-fixed": "#d6e3ff",
+              "secondary-container": "#ffdad6",
+              "inverse-on-surface": "#f5f0e8",
+              "surface-container-highest": "#e2ddd4",
+              "on-secondary": "#1a1a1a",
+              "on-primary-container": "#1a1a1a",
+              "tertiary-fixed-dim": "#a8c6ff",
+              "tertiary": "#0055ff",
+              "primary": "#1a1a1a",
+              "on-error-container": "#93000a",
+              "secondary-fixed-dim": "#ffb3ab",
+              "primary-fixed": "#ffcc00",
+              "outline-variant": "#d0cbc3",
+              "surface-container": "#eee9e0",
+              "primary-container": "#ffcc00",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary-fixed": "#1a1a1a",
+              "on-secondary-fixed-variant": "#1a1a1a",
+              "surface-bright": "#faf7f2",
+              "inverse-primary": "#f5f0e8",
+              "outline": "#1a1a1a",
+              "on-secondary-container": "#1a1a1a",
+              "on-primary-fixed-variant": "#1a1a1a",
+              "surface-container-low": "#f2ede5",
+              "primary-fixed-dim": "#e6b800",
+              "surface-container-high": "#e8e3da",
+              "on-tertiary-fixed": "#1a1a1a",
+              "on-primary": "#ffffff"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Inter"],
+              "label": ["Space Grotesk"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .neo-shadow {
+            box-shadow: 4px 4px 0px 0px rgba(26,26,26,1);
+        }
+        .neo-shadow-active {
+            box-shadow: 0px 0px 0px 0px rgba(26,26,26,1);
+            transform: translate(4px, 4px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 py-4 bg-[#f5f0e8] dark:bg-[#1a1a1a] border-b-4 border-[#1a1a1a] dark:border-[#f5f0e8] shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] dark:shadow-[4px_4px_0px_0px_rgba(245,240,232,1)]">
+<div class="flex items-center gap-4">
+<button class="flex items-center justify-center p-2 text-[#1a1a1a] dark:text-[#f5f0e8] hover:bg-[#ffcc00] hover:text-[#1a1a1a] transition-colors duration-100 active:translate-x-1 active:translate-y-1 active:shadow-none">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="text-3xl font-black text-[#1a1a1a] dark:text-[#f5f0e8] italic font-['Space_Grotesk'] uppercase tracking-tighter">OBSCURE</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex items-center justify-center p-2 text-[#1a1a1a] dark:text-[#f5f0e8] hover:bg-[#ffcc00] hover:text-[#1a1a1a] transition-colors duration-100 active:translate-x-1 active:translate-y-1 active:shadow-none">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+<button class="flex items-center justify-center p-2 text-[#1a1a1a] dark:text-[#f5f0e8] hover:bg-[#ffcc00] hover:text-[#1a1a1a] transition-colors duration-100 active:translate-x-1 active:translate-y-1 active:shadow-none">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="flex items-center justify-center p-2 text-[#1a1a1a] dark:text-[#f5f0e8] hover:bg-[#ffcc00] hover:text-[#1a1a1a] transition-colors duration-100 active:translate-x-1 active:translate-y-1 active:shadow-none">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<main class="pt-28 px-6 max-w-7xl mx-auto">
+<!-- Hero Section -->
+<section class="mb-12 border-4 border-primary bg-primary-container p-8 neo-shadow">
+<h2 class="font-headline font-black text-6xl uppercase leading-none tracking-tighter mb-4">DISCOVER<br/>THE UNSEEN.</h2>
+<p class="font-body text-xl max-w-xl border-l-4 border-primary pl-4">Curated avant-garde design, architecture, and visual experiments from the global underground.</p>
+</section>
+<!-- Category Pills -->
+<div class="flex flex-wrap gap-4 mb-12">
+<button class="px-6 py-2 bg-primary text-surface font-headline font-bold uppercase border-2 border-primary neo-shadow active:translate-x-1 active:translate-y-1 active:shadow-none">ALL WORKS</button>
+<button class="px-6 py-2 bg-surface text-primary font-headline font-bold uppercase border-2 border-primary hover:bg-tertiary-container transition-colors">BRUTALISM</button>
+<button class="px-6 py-2 bg-surface text-primary font-headline font-bold uppercase border-2 border-primary hover:bg-secondary-container transition-colors">NEO-GROTESK</button>
+<button class="px-6 py-2 bg-surface text-primary font-headline font-bold uppercase border-2 border-primary hover:bg-primary-fixed transition-colors">TYPOGRAPHY</button>
+<button class="px-6 py-2 bg-surface text-primary font-headline font-bold uppercase border-2 border-primary hover:bg-tertiary-fixed-dim transition-colors">EXPERIMENTAL</button>
+</div>
+<!-- Asymmetrical Waterfall Feed -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pb-12">
+<!-- Item 1: Tall -->
+<div class="group relative bg-surface border-4 border-primary neo-shadow row-span-2 overflow-hidden">
+<div class="aspect-[3/4] w-full overflow-hidden">
+<img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" data-alt="Abstract brutalist architecture detail with sharp shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0bJp36Fpk62Rkw-vIAkSL0u63VNQ3TmaLUcdMYd8AZjsrBY6IOC-I3iCCYYe1_EiXfylYhpGGux967b-AceZNv2MP1clPxEYxPiqMAWiEbCycGN-_C2H2bRw92ziIgaiRvEDXl3afnkAkDV9VicyUHnIM0NtJ72GdN5SDGJHlWk9YtzRFIv8s0Y3zZ6iog0nX7PHmwBovBjFxZozOao7IMkg0eLXeg9mupONBNi7j1_ggNf2aSgquPDyZnx9mnb9AEzHva8PtM_QG"/>
+</div>
+<div class="p-6 bg-surface border-t-4 border-primary">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline font-black text-2xl uppercase leading-none">THE MONOLITH STRUCTURE</h3>
+<span class="bg-secondary text-surface px-2 py-1 text-xs font-bold uppercase">NEW</span>
+</div>
+<p class="text-sm font-medium opacity-80 mb-4">Architectural study of heavy concrete forms and light interaction.</p>
+<div class="flex justify-between items-center">
+<span class="font-headline font-bold text-lg">§ 01</span>
+<button class="p-2 border-2 border-primary hover:bg-primary hover:text-surface transition-colors">
+<span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Item 2: Square -->
+<div class="group relative bg-tertiary text-surface border-4 border-primary neo-shadow overflow-hidden">
+<div class="p-8 h-full flex flex-col justify-between">
+<div>
+<span class="material-symbols-outlined text-4xl mb-4" data-icon="terminal">terminal</span>
+<h3 class="font-headline font-black text-4xl uppercase leading-none mb-4 italic">CODE AS <br/>CULTURE.</h3>
+</div>
+<div class="aspect-square w-full bg-primary mb-6 flex items-center justify-center border-4 border-surface">
+<span class="font-headline font-black text-7xl text-surface">02</span>
+</div>
+<button class="w-full py-4 bg-primary-fixed text-primary font-headline font-bold uppercase border-2 border-primary neo-shadow active:translate-x-1 active:translate-y-1 active:shadow-none">READ MANIFESTO</button>
+</div>
+</div>
+<!-- Item 3: Wide/Standard -->
+<div class="group relative bg-surface border-4 border-primary neo-shadow overflow-hidden">
+<div class="aspect-video w-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Abstract flowing liquid gradient in high contrast" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQFSg6yFKlLj1UnCWOQ2vrbMg2z-Vlo_O7JcF0QQMYS8XY46AvrH_3LprlbaPKLeChGJCuKfhQmfR4tijUWIBo_afR0jKf5NlYhIfp30o-p8aAllVuTEGQRSuYDjbv_jO-JuIBmZr1uOiCXw641aO6iRTs3hrpSXQhawGIIVjeeaqOISTOs2vA22AbwL4t6zpbPtCXUWXT22thRna_nW1SuItzvFGBAe4O53Rn4tFYYlPRuTbbwrlK05HjX5WEVXnMqZX5a43CByI-"/>
+</div>
+<div class="p-6">
+<div class="flex items-center gap-2 mb-2">
+<div class="w-2 h-2 bg-secondary rounded-full"></div>
+<span class="font-headline font-bold text-xs uppercase tracking-widest">DIGITAL FLUX</span>
+</div>
+<h3 class="font-headline font-black text-2xl uppercase mb-4">VIRTUAL TOPOGRAPHY</h3>
+<div class="flex gap-2">
+<div class="px-3 py-1 bg-surface-container border border-primary text-[10px] font-bold uppercase">3D RENDERING</div>
+<div class="px-3 py-1 bg-surface-container border border-primary text-[10px] font-bold uppercase">MOTION</div>
+</div>
+</div>
+</div>
+<!-- Item 4: Tall/Image Heavy -->
+<div class="group relative bg-primary text-surface border-4 border-primary neo-shadow overflow-hidden lg:col-start-2">
+<div class="aspect-[2/3] w-full overflow-hidden relative">
+<img class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity" data-alt="Geometric minimalist fashion editorial in black and white" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDes_oP9_7_9ksrLSM112Ns1ubg8E6Qe_oZaBRyokk0ZPsEkm2lLj6AonKVjfaupj0MGXTKcshvklaJr3x2JH0_Mltb9Y3rK3bXVezGpaoA3jQT-qEuhw9qa5JoPGRKglfKPfG452Q6ePwSdJsh-LBEYr3UyNOobK84gVsnirRPmNpoKrHMxTOC9RasWzM-O7gG3GExTWChm1t61xJUYBpr92vEKRXnJMYVFjs81EIBpz0U9pyuWrb7Qsel0U_G6k9VsjoWL3pY40Be"/>
+<div class="absolute inset-0 flex flex-col justify-end p-8 bg-gradient-to-t from-primary to-transparent">
+<h3 class="font-headline font-black text-5xl uppercase leading-none mb-2">SHAPE OF<br/>SILENCE</h3>
+<p class="font-body text-sm font-medium mb-4">A visual essay on negative space and editorial minimalism.</p>
+<div class="h-1 w-24 bg-primary-fixed"></div>
+</div>
+</div>
+</div>
+<!-- Item 5: Content Rich -->
+<div class="group relative bg-secondary-container text-on-secondary-container border-4 border-primary neo-shadow">
+<div class="p-6">
+<h3 class="font-headline font-black text-3xl uppercase leading-none mb-6">WEEKLY <br/>SUBMISSIONS</h3>
+<div class="space-y-4">
+<div class="flex items-center gap-4 p-3 bg-surface border-2 border-primary">
+<div class="w-12 h-12 bg-primary-fixed border-2 border-primary flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="draw">draw</span>
+</div>
+<div>
+<p class="font-headline font-bold uppercase text-sm">Analog Sketches</p>
+<p class="text-xs opacity-70">24 New Items</p>
+</div>
+</div>
+<div class="flex items-center gap-4 p-3 bg-surface border-2 border-primary">
+<div class="w-12 h-12 bg-tertiary-fixed border-2 border-primary flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="photo_camera">photo_camera</span>
+</div>
+<div>
+<p class="font-headline font-bold uppercase text-sm">Street Brutalism</p>
+<p class="text-xs opacity-70">12 New Items</p>
+</div>
+</div>
+<div class="flex items-center gap-4 p-3 bg-surface border-2 border-primary">
+<div class="w-12 h-12 bg-secondary-fixed border-2 border-primary flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="font_download">font_download</span>
+</div>
+<div>
+<p class="font-headline font-bold uppercase text-sm">Kinetic Type</p>
+<p class="text-xs opacity-70">08 New Items</p>
+</div>
+</div>
+</div>
+<button class="mt-8 w-full py-4 bg-primary text-surface font-headline font-bold uppercase border-2 border-primary hover:bg-secondary transition-colors">SUBMIT YOUR WORK</button>
+</div>
+</div>
+<!-- Item 6: Small Highlight -->
+<div class="group relative bg-[#ffcc00] border-4 border-primary neo-shadow p-6 flex flex-col justify-between">
+<div>
+<h3 class="font-headline font-black text-2xl uppercase mb-2">ARTIST OF THE MONTH</h3>
+<p class="text-sm font-bold opacity-80 mb-4">REDACTED_PROJECT</p>
+</div>
+<div class="flex justify-between items-end">
+<div class="w-16 h-16 bg-primary"></div>
+<span class="material-symbols-outlined text-4xl" data-icon="verified">verified</span>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-20 px-4 pb-safe bg-[#f5f0e8] dark:bg-[#1a1a1a] border-t-4 border-[#1a1a1a] dark:border-[#f5f0e8]">
+<a class="flex flex-col items-center justify-center w-16 h-16 bg-[#ffcc00] text-[#1a1a1a] border-2 border-[#1a1a1a] scale-110 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="home" style="font-variation-settings: 'FILL' 1;">home</span>
+</a>
+<a class="flex flex-col items-center justify-center w-16 h-16 text-[#1a1a1a] dark:text-[#f5f0e8] opacity-80 hover:bg-[#0055ff] hover:text-white active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</a>
+<a class="flex flex-col items-center justify-center w-16 h-16 text-[#1a1a1a] dark:text-[#f5f0e8] opacity-80 hover:bg-[#0055ff] hover:text-white active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="mail">mail</span>
+</a>
+<a class="flex flex-col items-center justify-center w-16 h-16 text-[#1a1a1a] dark:text-[#f5f0e8] opacity-80 hover:bg-[#0055ff] hover:text-white active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</a>
+</nav>
+</body></html>
