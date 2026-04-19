@@ -1,4 +1,4 @@
-﻿name: Flutter CI / CD
+name: Flutter CI / CD
 
 on:
   push:
@@ -41,15 +41,18 @@ jobs:
         run: flutter test --coverage
 
       - name: Install lcov
+        continue-on-error: true
         run: |
           sudo apt-get update
           sudo apt-get install -y lcov
 
       - name: Generate HTML coverage report
+        continue-on-error: true
         working-directory: ./flutter_app
         run: genhtml coverage/lcov.info -o coverage/html
 
       - name: Upload coverage report artifact
+        continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
           name: flutter-coverage-report
