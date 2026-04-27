@@ -11,6 +11,7 @@ class LoginVerificationScreen extends StatefulWidget {
 }
 
 class _LoginVerificationScreenState extends State<LoginVerificationScreen> {
+  bool _usePhone = true;
   bool _isPasswordVisible = false;
   final TextEditingController _passwordController = TextEditingController();
   int _passwordLength = 0;
@@ -40,21 +41,19 @@ class _LoginVerificationScreenState extends State<LoginVerificationScreen> {
         actions: [SizedBox.shrink()],
       ),
       body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                // Login Card
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(20.0),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Login Card
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.all(18.0),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(color: AppTheme.primary, width: 2.5),
-                    boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(5, 5))],
+                    boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(4, 4))],
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -66,262 +65,289 @@ class _LoginVerificationScreenState extends State<LoginVerificationScreen> {
                       const SizedBox(height: 2),
                       Text(
                         '輸入訪問憑證 ENTER ACCESS CREDENTIALS',
-                        style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 10, fontWeight: FontWeight.bold, color: AppTheme.primary.withValues(alpha: 0.7), letterSpacing: 0),
+                        style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 9, fontWeight: FontWeight.bold, color: AppTheme.primary.withValues(alpha: 0.6)),
                       ),
-                      const SizedBox(height: 24),
+                      const SizedBox(height: 14),
 
-                      // Mobile Number Field
-                      const Text(
-                        '手機號碼 MOBILE NUMBER',
-                        style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 10, fontWeight: FontWeight.w900, letterSpacing: 0),
-                      ),
-                      const SizedBox(height: 4),
-                      TextField(
-                        decoration: InputDecoration(
-                          hintText: '+886 0900 000 000',
-                          hintStyle: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, color: AppTheme.primary.withValues(alpha: 0.3)),
-                          enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: AppTheme.primary, width: 2), borderRadius: BorderRadius.zero),
-                          focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: AppTheme.accentRed, width: 2), borderRadius: BorderRadius.zero),
-                          suffixIcon: Center(child: AppIcons.smartphone(color: AppTheme.accentRed, size: 24)),
-                          suffixIconConstraints: const BoxConstraints(maxWidth: 48, maxHeight: 48),
-                          contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-                          isDense: true,
-                        ),
-                        style: const TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 16),
-
-                      NeoButton(
-                        onTap: () {},
-                        color: AppTheme.accentRed,
-                        shadowColor: AppTheme.primary,
-                        depth: 3.0,
-                        child: Container(
-                          height: 44,
-                          alignment: Alignment.center,
-                          child: const Text(
-                            '發送驗證碼 SEND OTP',
-                            style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 14, fontWeight: FontWeight.w900, color: Colors.white),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-
-                      // Social Logins
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          _buildSocialIcon(AppIcons.google(size: 24)),
-                          _buildSocialIcon(AppIcons.apple(size: 24)),
-                          _buildSocialIcon(AppIcons.instagram(size: 24)),
-                          _buildSocialIcon(AppIcons.threads(size: 24)),
-                          _buildSocialIcon(AppIcons.line(size: 24)),
-                        ],
-                      ),
-                      const SizedBox(height: 20),
-
-                      // Divider
+                      // Tab switcher
                       Row(
                         children: [
-                          Expanded(child: Container(height: 2, color: AppTheme.primary)),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 12.0),
-                            child: Text('或使用電子郵件 OR EMAIL', style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 10, fontWeight: FontWeight.w900, color: AppTheme.primary)),
-                          ),
-                          Expanded(child: Container(height: 2, color: AppTheme.primary)),
+                          _buildTab('手機號碼', _usePhone, () => setState(() => _usePhone = true)),
+                          const SizedBox(width: 6),
+                          _buildTab('電子郵件', !_usePhone, () => setState(() => _usePhone = false)),
                         ],
                       ),
-                      const SizedBox(height: 24),
+                      const SizedBox(height: 14),
 
-                      // Email Field
-                      const Text(
-                        '電子郵件 EMAIL ADDRESS',
-                        style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 10, fontWeight: FontWeight.w900, letterSpacing: 0),
-                      ),
-                      const SizedBox(height: 4),
-                      TextField(
-                        decoration: InputDecoration(
-                          hintText: 'USER@OBSCURE.IO',
-                          hintStyle: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, color: AppTheme.primary.withValues(alpha: 0.3)),
-                          enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: AppTheme.primary, width: 2), borderRadius: BorderRadius.zero),
-                          focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: AppTheme.accentRed, width: 2), borderRadius: BorderRadius.zero),
-                          suffixIcon: AppIcons.at(color: AppTheme.accentRed, size: 24),
-                          suffixIconConstraints: const BoxConstraints(minWidth: 40, minHeight: 0),
-                          contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-                          isDense: true,
-                        ),
-                        style: const TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 4),
-                      const Text(
-                        'ⓘ 格式偵測錯誤 INVALID FORMAT DETECTION',
-                        style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 10, fontWeight: FontWeight.bold, color: AppTheme.accentRed),
-                      ),
-                      const SizedBox(height: 16),
-
-                      // Password Field
-                      const Text(
-                        '密碼 PASSWORD',
-                        style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 10, fontWeight: FontWeight.w900, letterSpacing: 0),
-                      ),
-                      const SizedBox(height: 4),
-                      TextField(
-                        obscureText: !_isPasswordVisible,
-                        controller: _passwordController,
-                        decoration: InputDecoration(
-                          hintText: '輸入至少 8 個字元長度',
-                          hintStyle: TextStyle(color: AppTheme.primary.withValues(alpha: 0.3)),
-                          enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: AppTheme.primary, width: 2), borderRadius: BorderRadius.zero),
-                          focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: AppTheme.accentRed, width: 2), borderRadius: BorderRadius.zero),
-                          suffixIcon: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _isPasswordVisible = !_isPasswordVisible;
-                              });
-                            },
-                            child: Center(
-                              child: _isPasswordVisible
-                                  ? AppIcons.eye(color: AppTheme.primary, size: 24)
-                                  : AppIcons.eyeOff(color: AppTheme.primary, size: 24),
-                            ),
-                          ),
-                          suffixIconConstraints: const BoxConstraints(maxWidth: 48, maxHeight: 48),
-                          contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-                          isDense: true,
-                        ),
-                        style: const TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 16),
-
-                      // Strength Meter
-                      _buildStrengthMeter(),
-                      const SizedBox(height: 48),
-
-                      NeoButton(
-                        onTap: () {
-                          Navigator.pushReplacementNamed(context, '/identity_selection');
-                        },
-                        color: AppTheme.primary,
-                        shadowColor: AppTheme.accentRed,
-                        depth: 8.0,
-                        child: Container(
-                          height: 64,
-                          alignment: Alignment.center,
-                          child: const Text(
-                            '登入',
-                            style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 20, fontWeight: FontWeight.w900, color: Colors.white),
-                          ),
-                        ),
-                      ),
-
-                      const SizedBox(height: 48),
-                      const Text('忘記存取密鑰？', style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 14, fontWeight: FontWeight.bold, decoration: TextDecoration.underline, decorationThickness: 2, letterSpacing: 0)),
-                      const SizedBox(height: 16),
-                      Container(height: 2, width: 48, color: AppTheme.primary),
-                      const SizedBox(height: 16),
-                      RichText(
-                        text: const TextSpan(
-                          style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 14, fontWeight: FontWeight.bold, color: AppTheme.primary, letterSpacing: 0),
-                          children: [
-                            TextSpan(text: '新用戶？ '),
-                            TextSpan(text: '申請存取權限', style: TextStyle(color: AppTheme.accentBlue)),
-                          ],
-                        ),
+                      // Content based on tab
+                      Expanded(
+                        child: _usePhone ? _buildPhoneSection() : _buildEmailSection(),
                       ),
                     ],
                   ),
                 ),
+              ),
 
-                const SizedBox(height: 32),
+              const SizedBox(height: 10),
 
-                // Verification Ticker
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: AppTheme.accentRed,
-                    border: Border.all(color: AppTheme.primary, width: 2),
-                    boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(3, 3))],
-                  ),
-                  child: Row(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(6),
-                        color: Colors.white,
-                        child: const Icon(Icons.security, color: AppTheme.primary, size: 20),
-                      ),
-                      const SizedBox(width: 12),
-                      const Expanded(
-                          child: Text(
-                            '系統狀態：\n已加密且驗證中',
-                            style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white, height: 1.3, letterSpacing: 0.5),
-                          ),
-                      ),
-                    ],
-                  ),
+              // Security banner
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                decoration: BoxDecoration(
+                  color: AppTheme.accentRed,
+                  border: Border.all(color: AppTheme.primary, width: 2),
+                  boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(3, 3))],
                 ),
-              ],
-            ),
+                child: Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(5),
+                      color: Colors.white,
+                      child: const Icon(Icons.security, color: AppTheme.primary, size: 16),
+                    ),
+                    const SizedBox(width: 10),
+                    const Expanded(
+                      child: Text(
+                        '系統狀態：已加密且驗證中',
+                        style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 11, fontWeight: FontWeight.bold, color: Colors.white, letterSpacing: 0),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
       ),
     );
   }
 
-  Widget _buildStrengthMeter() {
-    int strengthLevel = 0;
-    if (_passwordLength > 0 && _passwordLength <= 4) {
-      strengthLevel = 1; // Weak
-    } else if (_passwordLength > 4 && _passwordLength < 8) {
-      strengthLevel = 2; // Medium
-    } else if (_passwordLength >= 8) {
-      strengthLevel = 4; // Strong (all 4 bars)
-    }
+  Widget _buildTab(String label, bool isActive, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+        decoration: BoxDecoration(
+          color: isActive ? AppTheme.primary : Colors.transparent,
+          border: Border.all(color: AppTheme.primary, width: 1.5),
+        ),
+        child: Text(
+          label,
+          style: TextStyle(
+            fontFamily: 'Space Grotesk',
+            fontWeight: FontWeight.w700,
+            fontSize: 12,
+            color: isActive ? Colors.white : AppTheme.primary,
+          ),
+        ),
+      ),
+    );
+  }
 
-    String strengthText = '無';
-    Color strengthColor = AppTheme.primary.withValues(alpha: 0.3);
-    if (strengthLevel == 1) {
-      strengthText = '弱';
-      strengthColor = AppTheme.accentRed;
-    } else if (strengthLevel == 2) {
-      strengthText = '中';
-      strengthColor = AppTheme.accentYellow;
-    } else if (strengthLevel == 4) {
-      strengthText = '強';
-      strengthColor = AppTheme.accentBlue;
-    }
-
+  Widget _buildPhoneSection() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Text('安全性強度', style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 12, fontWeight: FontWeight.bold, letterSpacing: 0)),
-            Text(strengthText, style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 12, fontWeight: FontWeight.bold, color: strengthColor, letterSpacing: 0)),
-          ],
-        ),
+        // Phone field
+        const Text('手機號碼 MOBILE NUMBER', style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 10, fontWeight: FontWeight.w900, letterSpacing: 0)),
         const SizedBox(height: 4),
-        Row(
-          children: [
-            Expanded(child: Container(height: 8, decoration: BoxDecoration(color: strengthLevel >= 1 ? strengthColor : AppTheme.primary.withValues(alpha: 0.1), border: Border.all(color: AppTheme.primary)))),
-            const SizedBox(width: 8),
-            Expanded(child: Container(height: 8, decoration: BoxDecoration(color: strengthLevel >= 2 ? strengthColor : AppTheme.primary.withValues(alpha: 0.1), border: Border.all(color: AppTheme.primary)))),
-            const SizedBox(width: 8),
-            Expanded(child: Container(height: 8, decoration: BoxDecoration(color: strengthLevel >= 4 ? strengthColor : AppTheme.primary.withValues(alpha: 0.1), border: Border.all(color: AppTheme.primary)))),
-            const SizedBox(width: 8),
-            Expanded(child: Container(height: 8, decoration: BoxDecoration(color: strengthLevel >= 4 ? strengthColor : AppTheme.primary.withValues(alpha: 0.1), border: Border.all(color: AppTheme.primary)))),
-          ],
+        TextField(
+          keyboardType: TextInputType.phone,
+          decoration: InputDecoration(
+            hintText: '+886 0900 000 000',
+            hintStyle: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, fontSize: 13, color: AppTheme.primary.withValues(alpha: 0.3)),
+            enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: AppTheme.primary, width: 2), borderRadius: BorderRadius.zero),
+            focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: AppTheme.accentRed, width: 2), borderRadius: BorderRadius.zero),
+            suffixIcon: Center(child: AppIcons.smartphone(color: AppTheme.accentRed, size: 20)),
+            suffixIconConstraints: const BoxConstraints(maxWidth: 40, maxHeight: 40),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+            isDense: true,
+          ),
+          style: const TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, fontSize: 14),
         ),
+        const SizedBox(height: 10),
+
+        // OTP Button
+        NeoButton(
+          onTap: () {},
+          color: AppTheme.accentRed,
+          shadowColor: AppTheme.primary,
+          depth: 3.0,
+          child: Container(
+            height: 42,
+            alignment: Alignment.center,
+            child: const Text('發送驗證碼 SEND OTP', style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 13, fontWeight: FontWeight.w900, color: Colors.white)),
+          ),
+        ),
+        const SizedBox(height: 14),
+
+        // Social Logins
+        _buildSocialRow(),
+        const Spacer(),
+
+        // Login button
+        NeoButton(
+          onTap: () => Navigator.pushReplacementNamed(context, '/identity_selection'),
+          color: AppTheme.primary,
+          shadowColor: AppTheme.accentRed,
+          depth: 4.0,
+          child: Container(
+            height: 46,
+            alignment: Alignment.center,
+            child: const Text('登入', style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 16, fontWeight: FontWeight.w900, color: Colors.white)),
+          ),
+        ),
+        const SizedBox(height: 10),
+        _buildFooterLinks(),
+      ],
+    );
+  }
+
+  Widget _buildEmailSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        // Email field
+        const Text('電子郵件 EMAIL', style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 10, fontWeight: FontWeight.w900, letterSpacing: 0)),
+        const SizedBox(height: 4),
+        TextField(
+          keyboardType: TextInputType.emailAddress,
+          decoration: InputDecoration(
+            hintText: 'USER@OBSCURE.IO',
+            hintStyle: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, fontSize: 13, color: AppTheme.primary.withValues(alpha: 0.3)),
+            enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: AppTheme.primary, width: 2), borderRadius: BorderRadius.zero),
+            focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: AppTheme.accentRed, width: 2), borderRadius: BorderRadius.zero),
+            suffixIcon: AppIcons.at(color: AppTheme.accentRed, size: 20),
+            suffixIconConstraints: const BoxConstraints(minWidth: 36),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+            isDense: true,
+          ),
+          style: const TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, fontSize: 14),
+        ),
+        const SizedBox(height: 10),
+
+        // Password field
+        const Text('密碼 PASSWORD', style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 10, fontWeight: FontWeight.w900, letterSpacing: 0)),
+        const SizedBox(height: 4),
+        TextField(
+          obscureText: !_isPasswordVisible,
+          controller: _passwordController,
+          decoration: InputDecoration(
+            hintText: '輸入至少 8 個字元',
+            hintStyle: TextStyle(fontFamily: 'Space Grotesk', fontSize: 13, color: AppTheme.primary.withValues(alpha: 0.3)),
+            enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: AppTheme.primary, width: 2), borderRadius: BorderRadius.zero),
+            focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: AppTheme.accentRed, width: 2), borderRadius: BorderRadius.zero),
+            suffixIcon: GestureDetector(
+              onTap: () => setState(() => _isPasswordVisible = !_isPasswordVisible),
+              child: Center(child: _isPasswordVisible ? AppIcons.eye(color: AppTheme.primary, size: 20) : AppIcons.eyeOff(color: AppTheme.primary, size: 20)),
+            ),
+            suffixIconConstraints: const BoxConstraints(maxWidth: 40, maxHeight: 40),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+            isDense: true,
+          ),
+          style: const TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, fontSize: 14),
+        ),
+        const SizedBox(height: 8),
+        _buildStrengthMeter(),
+        const SizedBox(height: 10),
+
+        // Social Logins
+        _buildSocialRow(),
+        const Spacer(),
+
+        // Login button
+        NeoButton(
+          onTap: () => Navigator.pushReplacementNamed(context, '/identity_selection'),
+          color: AppTheme.primary,
+          shadowColor: AppTheme.accentRed,
+          depth: 4.0,
+          child: Container(
+            height: 46,
+            alignment: Alignment.center,
+            child: const Text('登入', style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 16, fontWeight: FontWeight.w900, color: Colors.white)),
+          ),
+        ),
+        const SizedBox(height: 10),
+        _buildFooterLinks(),
+      ],
+    );
+  }
+
+  Widget _buildSocialRow() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        _buildSocialIcon(AppIcons.google(size: 22)),
+        _buildSocialIcon(AppIcons.apple(size: 22)),
+        _buildSocialIcon(AppIcons.instagram(size: 22)),
+        _buildSocialIcon(AppIcons.threads(size: 22)),
+        _buildSocialIcon(AppIcons.line(size: 22)),
       ],
     );
   }
 
   Widget _buildSocialIcon(Widget iconWidget) {
     return Container(
-      width: 42,
-      height: 42,
+      width: 40,
+      height: 40,
       decoration: BoxDecoration(border: Border.all(color: AppTheme.primary, width: 1.5), color: Colors.white),
       alignment: Alignment.center,
       child: iconWidget,
+    );
+  }
+
+  Widget _buildFooterLinks() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        const Text('忘記密碼？', style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 12, fontWeight: FontWeight.bold, decoration: TextDecoration.underline, decorationThickness: 1.5, letterSpacing: 0)),
+        RichText(
+          text: const TextSpan(
+            style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 12, fontWeight: FontWeight.bold, color: AppTheme.primary, letterSpacing: 0),
+            children: [
+              TextSpan(text: '新用戶？ '),
+              TextSpan(text: '申請存取', style: TextStyle(color: AppTheme.accentBlue)),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildStrengthMeter() {
+    int strengthLevel = 0;
+    if (_passwordLength > 0 && _passwordLength <= 4) strengthLevel = 1;
+    else if (_passwordLength > 4 && _passwordLength < 8) strengthLevel = 2;
+    else if (_passwordLength >= 8) strengthLevel = 4;
+
+    String strengthText = '無';
+    Color strengthColor = AppTheme.primary.withValues(alpha: 0.3);
+    if (strengthLevel == 1) { strengthText = '弱'; strengthColor = AppTheme.accentRed; }
+    else if (strengthLevel == 2) { strengthText = '中'; strengthColor = AppTheme.accentYellow; }
+    else if (strengthLevel == 4) { strengthText = '強'; strengthColor = AppTheme.accentBlue; }
+
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text('安全強度', style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 10, fontWeight: FontWeight.bold, letterSpacing: 0)),
+            Text(strengthText, style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 10, fontWeight: FontWeight.bold, color: strengthColor, letterSpacing: 0)),
+          ],
+        ),
+        const SizedBox(height: 3),
+        Row(
+          children: [
+            Expanded(child: Container(height: 6, decoration: BoxDecoration(color: strengthLevel >= 1 ? strengthColor : AppTheme.primary.withValues(alpha: 0.1), border: Border.all(color: AppTheme.primary)))),
+            const SizedBox(width: 6),
+            Expanded(child: Container(height: 6, decoration: BoxDecoration(color: strengthLevel >= 2 ? strengthColor : AppTheme.primary.withValues(alpha: 0.1), border: Border.all(color: AppTheme.primary)))),
+            const SizedBox(width: 6),
+            Expanded(child: Container(height: 6, decoration: BoxDecoration(color: strengthLevel >= 4 ? strengthColor : AppTheme.primary.withValues(alpha: 0.1), border: Border.all(color: AppTheme.primary)))),
+            const SizedBox(width: 6),
+            Expanded(child: Container(height: 6, decoration: BoxDecoration(color: strengthLevel >= 4 ? strengthColor : AppTheme.primary.withValues(alpha: 0.1), border: Border.all(color: AppTheme.primary)))),
+          ],
+        ),
+      ],
     );
   }
 }
