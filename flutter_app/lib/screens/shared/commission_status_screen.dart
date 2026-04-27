@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../core/app_icons.dart';
 import '../../core/app_theme.dart';
 
 class CommissionStatusScreen extends StatelessWidget {
@@ -11,7 +10,7 @@ class CommissionStatusScreen extends StatelessWidget {
       appBar: const ObscureAppBar(),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -20,46 +19,46 @@ class CommissionStatusScreen extends StatelessWidget {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                  Expanded(
-                    flex: 2,
-                    child: Container(
-                      decoration: const NeoBoxDecoration(color: AppTheme.accentYellow),
-                      padding: const EdgeInsets.all(24),
-                      child: const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('委託追蹤器', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 24, height: 1.1, letterSpacing: 0)),
-                          SizedBox(height: 8),
-                          Text('活躍專案監控系統 v1.0', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, letterSpacing: 0)),
-                        ],
+                    Expanded(
+                      flex: 2,
+                      child: Container(
+                        decoration: const NeoBoxDecoration(color: AppTheme.accentYellow),
+                        padding: const EdgeInsets.all(16),
+                        child: const Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('委託追蹤器', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 18, height: 1.1, letterSpacing: 0)),
+                            SizedBox(height: 4),
+                            Text('活躍專案監控系統 v1.0', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, letterSpacing: 0)),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    flex: 1,
-                    child: Container(
-                      decoration: const NeoBoxDecoration(color: AppTheme.surface),
-                      padding: const EdgeInsets.all(24),
-                      child: const Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('0', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 48)),
-                          Text('進行中總數', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, fontSize: 12, letterSpacing: 0)),
-                        ],
+                    const SizedBox(width: 12),
+                    Expanded(
+                      flex: 1,
+                      child: Container(
+                        decoration: const NeoBoxDecoration(color: AppTheme.surface),
+                        padding: const EdgeInsets.all(12),
+                        child: const Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('0', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 36)),
+                            Text('進行中', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, fontSize: 11, letterSpacing: 0)),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
                 ),
               ),
-              const SizedBox(height: 32),
+              const SizedBox(height: 20),
 
               // Tabs
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Container(
-                  decoration: const BoxDecoration(border: Border(bottom: BorderSide(color: AppTheme.primary, width: 4))),
+                  decoration: const BoxDecoration(border: Border(bottom: BorderSide(color: AppTheme.primary, width: 3))),
                   child: Row(
                     children: [
                       _buildTab('執行中', isActive: true),
@@ -69,96 +68,45 @@ class CommissionStatusScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 16),
 
               // Empty State
               Container(
                 width: double.infinity,
-                padding: const EdgeInsets.symmetric(vertical: 48, horizontal: 16),
+                padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 16),
                 decoration: BoxDecoration(
                   color: AppTheme.surface,
-                  border: Border.all(color: AppTheme.primary, width: 4),
+                  border: Border.all(color: AppTheme.primary, width: 2),
                 ),
                 child: const Column(
                   children: [
-                    Icon(Icons.search_off, size: 64, color: AppTheme.primary),
-                    SizedBox(height: 16),
+                    Icon(Icons.search_off, size: 48, color: AppTheme.primary),
+                    SizedBox(height: 12),
                     Text(
-                      '目前還沒有任務呢先來找看看好了!',
+                      '目前還沒有任務呢\n先來找看看好了!',
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 20, height: 1.4, letterSpacing: 0),
+                      style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 16, height: 1.5, letterSpacing: 0),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(height: 48),
+              const SizedBox(height: 24),
             ],
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        backgroundColor: AppTheme.accentYellow,
-        shape: const RoundedRectangleBorder(
-          side: BorderSide(color: AppTheme.primary, width: 4),
-          borderRadius: BorderRadius.zero,
-        ),
-        child: const Icon(Icons.add, color: AppTheme.primary, size: 32),
-      ),
-      bottomNavigationBar: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 4),
-          child: Container(
-            height: 64,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(32),
-              border: Border.all(color: AppTheme.primary, width: 3),
-              boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(4, 4))],
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _buildNavItem(context, 'home', AppTheme.isDesigner ? '/daily_planner' : '/discovery_feed'),
-                _buildNavItem(context, 'search', '/search_categories'),
-                _buildNavItem(context, 'shining', '/commission_status', isActive: true),
-                _buildNavItem(context, 'chat', '/message_inbox'),
-                _buildNavItem(context, 'user', '/designer_profile'),
-              ],
-            ),
-          ),
-        ),
-      ),
+      bottomNavigationBar: ObscureNavBar(pageContext: context, activeRoute: '/commission_status'),
     );
   }
 
   Widget _buildTab(String text, {bool isActive = false, bool isLast = false}) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
       decoration: BoxDecoration(
         color: isActive ? AppTheme.accentYellow : AppTheme.surface,
-        border: Border(right: BorderSide(color: AppTheme.primary, width: isLast ? 0 : 4)),
+        border: Border(right: BorderSide(color: AppTheme.primary, width: isLast ? 0 : 2)),
       ),
-      child: Text(text, style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: isActive ? FontWeight.w900 : FontWeight.bold, fontSize: 16, color: AppTheme.primary, letterSpacing: 0)),
-    );
-  }
-
-  Widget _buildNavItem(BuildContext context, String iconName, String route, {bool isActive = false}) {
-    return GestureDetector(
-      onTap: () {
-        if (!isActive) Navigator.pushReplacementNamed(context, route);
-      },
-      child: Container(
-        width: isActive ? 48 : 40,
-        height: isActive ? 48 : 40,
-        decoration: BoxDecoration(
-          color: isActive ? AppTheme.accentYellow : Colors.white,
-          shape: BoxShape.circle,
-        ),
-        alignment: Alignment.center,
-        child: AppIcons.fromName(iconName, color: AppTheme.primary, size: 28, isActive: isActive),
-      ),
+      child: Text(text, style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: isActive ? FontWeight.w900 : FontWeight.bold, fontSize: 14, color: AppTheme.primary, letterSpacing: 0)),
     );
   }
 }
-

@@ -1,32 +1,29 @@
 import 'package:flutter/material.dart';
-import '../../core/app_icons.dart';
-import 'package:flutter/gestures.dart';
 import '../../core/app_theme.dart';
+import 'package:flutter/gestures.dart';
 import '../../core/neo_button.dart';
 
 class DiscoveryFeedScreen extends StatelessWidget {
   const DiscoveryFeedScreen({super.key});
 
-  // Data for left and right masonry columns [height, label, tag, accent]
   static const List<Map<String, dynamic>> _leftItems = [
-    {'height': 280.0, 'label': '粗獷派形態', 'tag': '#建築', 'accent': AppTheme.accentYellow},
-    {'height': 160.0, 'label': '字體研究', 'tag': '#字體', 'accent': AppTheme.accentBlue},
-    {'height': 220.0, 'label': '墨水系列', 'tag': '#手繪', 'accent': AppTheme.accentRed},
-    {'height': 320.0, 'label': '虛實空間', 'tag': '#空間', 'accent': AppTheme.accentYellow},
-    {'height': 260.0, 'label': '材質研究', 'tag': '#材質', 'accent': AppTheme.accentBlue},
+    {'height': 200.0, 'label': '粗獷派形態', 'tag': '#建築', 'accent': AppTheme.accentYellow},
+    {'height': 130.0, 'label': '字體研究', 'tag': '#字體', 'accent': AppTheme.accentBlue},
+    {'height': 170.0, 'label': '墨水系列', 'tag': '#手繪', 'accent': AppTheme.accentRed},
+    {'height': 230.0, 'label': '虛實空間', 'tag': '#空間', 'accent': AppTheme.accentYellow},
+    {'height': 190.0, 'label': '材質研究', 'tag': '#材質', 'accent': AppTheme.accentBlue},
   ];
 
   static const List<Map<String, dynamic>> _rightItems = [
-    {'height': 180.0, 'label': '色彩理論', 'tag': '#色彩', 'accent': AppTheme.accentBlue},
-    {'height': 240.0, 'label': '網格系統', 'tag': '#版面', 'accent': AppTheme.accentRed},
-    {'height': 360.0, 'label': '動態研究', 'tag': '#動態', 'accent': AppTheme.accentYellow},
-    {'height': 140.0, 'label': '質感研究', 'tag': '#質感', 'accent': AppTheme.accentRed},
-    {'height': 200.0, 'label': '品牌識別', 'tag': '#品牌', 'accent': AppTheme.accentBlue},
+    {'height': 140.0, 'label': '色彩理論', 'tag': '#色彩', 'accent': AppTheme.accentBlue},
+    {'height': 190.0, 'label': '網格系統', 'tag': '#版面', 'accent': AppTheme.accentRed},
+    {'height': 270.0, 'label': '動態研究', 'tag': '#動態', 'accent': AppTheme.accentYellow},
+    {'height': 110.0, 'label': '質感研究', 'tag': '#質感', 'accent': AppTheme.accentRed},
+    {'height': 160.0, 'label': '品牌識別', 'tag': '#品牌', 'accent': AppTheme.accentBlue},
   ];
 
   @override
   Widget build(BuildContext context) {
-    // 角色守衛：客戶專屬主頁，設計師立即導向設計師主頁
     if (AppTheme.isDesigner) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         Navigator.pushReplacementNamed(context, '/daily_planner');
@@ -53,31 +50,30 @@ class DiscoveryFeedScreen extends StatelessWidget {
                 ),
                 child: Container(
                   color: AppTheme.background,
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
                         _buildPill('所有作品', isActive: true),
-                        const SizedBox(width: 10),
+                        const SizedBox(width: 8),
                         _buildPill('建築'),
-                        const SizedBox(width: 10),
+                        const SizedBox(width: 8),
                         _buildPill('字體'),
-                        const SizedBox(width: 10),
+                        const SizedBox(width: 8),
                         _buildPill('手繪'),
-                        const SizedBox(width: 10),
+                        const SizedBox(width: 8),
                         _buildPill('品牌'),
                       ],
                     ),
                   ),
                 ),
               ),
-              // Black separator line
-              Container(height: 4, color: AppTheme.primary),
+              Container(height: 3, color: AppTheme.primary),
 
               // Section header
               Padding(
-                padding: const EdgeInsets.fromLTRB(16, 20, 16, 16),
+                padding: const EdgeInsets.fromLTRB(14, 14, 14, 12),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
@@ -86,25 +82,25 @@ class DiscoveryFeedScreen extends StatelessWidget {
                       style: TextStyle(
                         fontFamily: 'Space Grotesk',
                         fontWeight: FontWeight.w900,
-                        fontSize: 32,
+                        fontSize: 22,
                         letterSpacing: 0,
                       ),
                     ),
-                    const SizedBox(width: 12),
+                    const SizedBox(width: 10),
                     Expanded(
                       child: Container(
-                        height: 4,
+                        height: 3,
                         color: AppTheme.primary,
-                        margin: const EdgeInsets.only(bottom: 6),
+                        margin: const EdgeInsets.only(bottom: 4),
                       ),
                     ),
-                    const SizedBox(width: 12),
+                    const SizedBox(width: 10),
                     const Text(
                       '10 個專案',
                       style: TextStyle(
                         fontFamily: 'Space Grotesk',
                         fontWeight: FontWeight.bold,
-                        fontSize: 12,
+                        fontSize: 11,
                         letterSpacing: 0,
                       ),
                     ),
@@ -114,7 +110,7 @@ class DiscoveryFeedScreen extends StatelessWidget {
 
               // Masonry grid
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -131,7 +127,7 @@ class DiscoveryFeedScreen extends StatelessWidget {
                             .toList(),
                       ),
                     ),
-                    const SizedBox(width: 12),
+                    const SizedBox(width: 10),
                     Expanded(
                       child: Column(
                         children: _rightItems
@@ -148,34 +144,14 @@ class DiscoveryFeedScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 16),
             ],
           ),
         ),
       ),
-      bottomNavigationBar: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 4),
-          child: Container(
-            height: 64,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(32),
-              border: Border.all(color: AppTheme.primary, width: 3),
-              boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(4, 4))],
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _buildNavItem(context, 'home', AppTheme.isDesigner ? '/daily_planner' : '/discovery_feed', isActive: true),
-                _buildNavItem(context, 'search', '/search_categories'),
-                _buildNavItem(context, 'shining', '/commission_status'),
-                _buildNavItem(context, 'chat', '/message_inbox'),
-                _buildNavItem(context, 'user', '/designer_profile'),
-              ],
-            ),
-          ),
-        ),
+      bottomNavigationBar: ObscureNavBar(
+        pageContext: context,
+        activeRoute: '/discovery_feed',
       ),
     );
   }
@@ -184,9 +160,9 @@ class DiscoveryFeedScreen extends StatelessWidget {
     return NeoButton(
       onTap: () {},
       color: isActive ? AppTheme.primary : AppTheme.surface,
-      depth: 3.0,
-      borderWidth: 2.0,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+      depth: 2.0,
+      borderWidth: 1.5,
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
       child: Text(
         text,
         style: TextStyle(
@@ -207,42 +183,40 @@ class DiscoveryFeedScreen extends StatelessWidget {
     required Color accent,
   }) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.only(bottom: 10),
       child: NeoButton(
         onTap: () {
           Navigator.pushNamed(context, '/project_detail');
         },
         color: AppTheme.surface,
-        depth: 4.0,
+        depth: 3.0,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Image placeholder area
             Container(
               height: height,
               color: const Color(0xFFEBEBEB),
               alignment: Alignment.topRight,
-              padding: const EdgeInsets.all(8),
+              padding: const EdgeInsets.all(6),
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
                 color: accent,
                 child: Text(
                   tag,
                   style: const TextStyle(
                     fontFamily: 'Space Grotesk',
                     fontWeight: FontWeight.bold,
-                    fontSize: 10,
+                    fontSize: 9,
                     color: AppTheme.primary,
                   ),
                 ),
               ),
             ),
-            // Label bar
             Container(
               decoration: const BoxDecoration(
-                border: Border(top: BorderSide(color: AppTheme.primary, width: 3)),
+                border: Border(top: BorderSide(color: AppTheme.primary, width: 2)),
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 7),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -259,7 +233,7 @@ class DiscoveryFeedScreen extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  const Icon(Icons.arrow_forward, size: 14, color: AppTheme.primary),
+                  const Icon(Icons.arrow_forward, size: 12, color: AppTheme.primary),
                 ],
               ),
             ),
@@ -268,25 +242,4 @@ class DiscoveryFeedScreen extends StatelessWidget {
       ),
     );
   }
-
-  Widget _buildNavItem(BuildContext context, String iconName, String route, {bool isActive = false}) {
-    return GestureDetector(
-      onTap: () {
-        if (!isActive) Navigator.pushReplacementNamed(context, route);
-      },
-      child: Container(
-        width: isActive ? 48 : 40,
-        height: isActive ? 48 : 40,
-        decoration: BoxDecoration(
-          color: isActive ? AppTheme.accentYellow : Colors.white,
-          shape: BoxShape.circle,
-        ),
-        alignment: Alignment.center,
-        child: AppIcons.fromName(iconName, color: AppTheme.primary, size: 28, isActive: isActive),
-      ),
-    );
-  }
 }
-
-
-

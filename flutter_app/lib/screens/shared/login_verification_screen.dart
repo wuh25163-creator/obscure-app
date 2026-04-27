@@ -42,7 +42,7 @@ class _LoginVerificationScreenState extends State<LoginVerificationScreen> {
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 48.0),
+            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
@@ -50,20 +50,20 @@ class _LoginVerificationScreenState extends State<LoginVerificationScreen> {
                 // Login Card
                 Container(
                   width: double.infinity,
-                  padding: const EdgeInsets.all(32.0),
+                  padding: const EdgeInsets.all(20.0),
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    border: Border.all(color: AppTheme.primary, width: 3),
-                    boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(8, 8))],
+                    border: Border.all(color: AppTheme.primary, width: 2.5),
+                    boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(5, 5))],
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       const Text(
                         '登入 LOGIN',
-                        style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 24, fontWeight: FontWeight.w900),
+                        style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 20, fontWeight: FontWeight.w900),
                       ),
-                      const SizedBox(height: 4),
+                      const SizedBox(height: 2),
                       Text(
                         '輸入訪問憑證 ENTER ACCESS CREDENTIALS',
                         style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 10, fontWeight: FontWeight.bold, color: AppTheme.primary.withValues(alpha: 0.7), letterSpacing: 0),
@@ -95,30 +95,30 @@ class _LoginVerificationScreenState extends State<LoginVerificationScreen> {
                         onTap: () {},
                         color: AppTheme.accentRed,
                         shadowColor: AppTheme.primary,
-                        depth: 4.0,
+                        depth: 3.0,
                         child: Container(
-                          height: 48,
+                          height: 44,
                           alignment: Alignment.center,
                           child: const Text(
                             '發送驗證碼 SEND OTP',
-                            style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 16, fontWeight: FontWeight.w900, color: Colors.white),
+                            style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 14, fontWeight: FontWeight.w900, color: Colors.white),
                           ),
                         ),
                       ),
-                      const SizedBox(height: 24),
+                      const SizedBox(height: 20),
 
                       // Social Logins
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          _buildSocialIcon(AppIcons.google(size: 28)),
-                          _buildSocialIcon(AppIcons.apple(size: 28)),
-                          _buildSocialIcon(AppIcons.instagram(size: 28)),
-                          _buildSocialIcon(AppIcons.threads(size: 28)),
-                          _buildSocialIcon(AppIcons.line(size: 28)),
+                          _buildSocialIcon(AppIcons.google(size: 24)),
+                          _buildSocialIcon(AppIcons.apple(size: 24)),
+                          _buildSocialIcon(AppIcons.instagram(size: 24)),
+                          _buildSocialIcon(AppIcons.threads(size: 24)),
+                          _buildSocialIcon(AppIcons.line(size: 24)),
                         ],
                       ),
-                      const SizedBox(height: 24),
+                      const SizedBox(height: 20),
 
                       // Divider
                       Row(
@@ -236,24 +236,24 @@ class _LoginVerificationScreenState extends State<LoginVerificationScreen> {
 
                 // Verification Ticker
                 Container(
-                  padding: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
                     color: AppTheme.accentRed,
-                    border: Border.all(color: AppTheme.primary, width: 3),
-                    boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(4, 4))],
+                    border: Border.all(color: AppTheme.primary, width: 2),
+                    boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(3, 3))],
                   ),
                   child: Row(
                     children: [
                       Container(
-                        padding: const EdgeInsets.all(8),
+                        padding: const EdgeInsets.all(6),
                         color: Colors.white,
-                        child: const Icon(Icons.security, color: AppTheme.primary),
+                        child: const Icon(Icons.security, color: AppTheme.primary, size: 20),
                       ),
-                      const SizedBox(width: 16),
+                      const SizedBox(width: 12),
                       const Expanded(
                           child: Text(
                             '系統狀態：\n已加密且驗證中',
-                            style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white, height: 1.3, letterSpacing: 0.5),
+                            style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white, height: 1.3, letterSpacing: 0.5),
                           ),
                       ),
                     ],
@@ -317,9 +317,9 @@ class _LoginVerificationScreenState extends State<LoginVerificationScreen> {
 
   Widget _buildSocialIcon(Widget iconWidget) {
     return Container(
-      width: 48, // Reduced from 56 to fit 5 icons across standard screen widths uniformly
-      height: 48,
-      decoration: BoxDecoration(border: Border.all(color: AppTheme.primary, width: 2), color: Colors.white),
+      width: 42,
+      height: 42,
+      decoration: BoxDecoration(border: Border.all(color: AppTheme.primary, width: 1.5), color: Colors.white),
       alignment: Alignment.center,
       child: iconWidget,
     );
