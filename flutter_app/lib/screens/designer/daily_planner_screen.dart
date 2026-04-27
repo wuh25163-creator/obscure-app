@@ -16,21 +16,14 @@ class _DailyPlannerScreenState extends State<DailyPlannerScreen> {
   late List<List<bool>> _checkedStatesByCategory;
   late List<List<FocusNode>> _taskFocusNodesByCategory;
   late List<int> _categoryDisplayOrder;
+  bool _isFocusMode = true;
 
-  final List<String> _headers = [
-    '今日急件!',
-    '這禮拜',
-    '這個月',
-    '今年',
-    '個人目標'
-  ];
+  final List<String> _headers = ['今日急件!', '這禮拜', '這個月', '今年', '個人目標'];
 
   @override
   void initState() {
     super.initState();
     _categoryDisplayOrder = [0, 1, 2, 3, 4];
-    
-    // 初始化任務
     _taskControllersByCategory = [
       [TextEditingController(text: '緊急！修復 OBSCURE 網站溢出 BUG'), TextEditingController(text: '')],
       [TextEditingController(text: '完成設計系統初稿'), TextEditingController(text: '客戶初步需求討論'), TextEditingController(text: '')],
@@ -45,13 +38,11 @@ class _DailyPlannerScreenState extends State<DailyPlannerScreen> {
       [false, false, false],
       [false, false, false],
     ];
-    
-    // 初始化 FocusNodes 並綁定 Backspace 監聽
     _taskFocusNodesByCategory = List.generate(
       _headers.length,
       (catIdx) => List.generate(
-        _taskControllersByCategory[catIdx].length, 
-        (taskIdx) => _createFocusNode(catIdx, taskIdx)
+        _taskControllersByCategory[catIdx].length,
+        (taskIdx) => _createFocusNode(catIdx, taskIdx),
       ),
     );
   }
@@ -60,8 +51,6 @@ class _DailyPlannerScreenState extends State<DailyPlannerScreen> {
     final node = FocusNode();
     node.onKeyEvent = (node, event) {
       if (event is KeyDownEvent && event.logicalKey == LogicalKeyboardKey.backspace) {
-        // 取得正確的現在索引，因為列表順序可能會變
-        // 在目前的結構中，我們通過 categoryIndex 與 taskIndex 綁定，但刪除時需同步
         final controller = _taskControllersByCategory[categoryIndex][taskIndex];
         if (controller.selection.baseOffset == 0) {
           _removeTaskRow(categoryIndex: categoryIndex, taskIndex: taskIndex);
@@ -75,15 +64,11 @@ class _DailyPlannerScreenState extends State<DailyPlannerScreen> {
 
   @override
   void dispose() {
-    for (final categoryControllers in _taskControllersByCategory) {
-      for (final controller in categoryControllers) {
-        controller.dispose();
-      }
+    for (final cat in _taskControllersByCategory) {
+      for (final c in cat) { c.dispose(); }
     }
-    for (final categoryFocusNodes in _taskFocusNodesByCategory) {
-      for (final node in categoryFocusNodes) {
-        node.dispose();
-      }
+    for (final cat in _taskFocusNodesByCategory) {
+      for (final n in cat) { n.dispose(); }
     }
     super.dispose();
   }
@@ -92,14 +77,9 @@ class _DailyPlannerScreenState extends State<DailyPlannerScreen> {
     setState(() {
       final active = <int>[];
       final empty = <int>[];
-
       for (int i = 0; i < _headers.length; i++) {
         bool hasText = _taskControllersByCategory[i].any((c) => c.text.trim().isNotEmpty);
-        if (hasText) {
-          active.add(i);
-        } else {
-          empty.add(i);
-        }
+        if (hasText) active.add(i); else empty.add(i);
       }
       _categoryDisplayOrder = [...active, ...empty];
     });
@@ -107,7 +87,6 @@ class _DailyPlannerScreenState extends State<DailyPlannerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // 角色守衛：設計師專屬頁面，非設計師立即導向客戶主頁
     if (!AppTheme.isDesigner) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         Navigator.pushReplacementNamed(context, '/discovery_feed');
@@ -116,8 +95,8 @@ class _DailyPlannerScreenState extends State<DailyPlannerScreen> {
     }
 
     final now = DateTime.now();
-    final months = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
-    final monthStr = '${now.year} ${months[now.month - 1]}';
+    final months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+    final monthStr = '${now.year} · ${months[now.month - 1]}';
     final weekdays = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
     final weekdayStr = weekdays[now.weekday - 1];
 
@@ -126,125 +105,88 @@ class _DailyPlannerScreenState extends State<DailyPlannerScreen> {
       appBar: const ObscureAppBar(),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              // Date display — reduced from fontSize 80 to 52
               Text(
                 '${now.month}/${now.day} $weekdayStr',
-                style: const TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 80, height: 1.0, letterSpacing: -4),
+                style: const TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 52, height: 1.0, letterSpacing: -2),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 2),
               Text(
                 monthStr,
-                style: const TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w800, fontSize: 24, letterSpacing: 2),
+                style: const TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w800, fontSize: 13, letterSpacing: 1.5),
               ),
-              const SizedBox(height: 32),
+              const SizedBox(height: 14),
+
+              // Focus mode toggle
               GestureDetector(
                 onTap: () => setState(() => _isFocusMode = !_isFocusMode),
                 child: Container(
                   width: double.infinity,
-                  decoration: NeoBoxDecoration(
-                    color: _isFocusMode ? AppTheme.primary : AppTheme.surface,
-                  ),
-                  padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+                  decoration: NeoBoxDecoration(color: _isFocusMode ? AppTheme.primary : AppTheme.surface),
+                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 14),
                   child: Text(
                     _isFocusMode ? '專注模式：已開啟 (FOCUS ON)' : '專注模式：已關閉 (FOCUS OFF)',
                     style: TextStyle(
                       color: _isFocusMode ? Colors.white : AppTheme.primary,
                       fontFamily: 'Space Grotesk',
                       fontWeight: FontWeight.w900,
-                      fontSize: 20,
+                      fontSize: 14,
                       fontStyle: FontStyle.italic,
                       letterSpacing: 0,
                     ),
                   ),
                 ),
               ),
-              const SizedBox(height: 32),
-              const Divider(color: AppTheme.primary, thickness: 4),
-              const SizedBox(height: 32),
+              const SizedBox(height: 14),
+              const Divider(color: AppTheme.primary, thickness: 2),
+              const SizedBox(height: 14),
 
               ..._categoryDisplayOrder.map((catIndex) {
                 final isLast = catIndex == _categoryDisplayOrder.last;
                 return Column(
                   children: [
                     _buildCategorizedSection(catIndex),
-                    if (!isLast) const SizedBox(height: 16),
+                    if (!isLast) const SizedBox(height: 10),
                   ],
                 );
               }),
-
-              const SizedBox(height: 48),
+              const SizedBox(height: 24),
             ],
           ),
         ),
       ),
-      bottomNavigationBar: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 4),
-          child: Container(
-            height: 64,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(32),
-              border: Border.all(color: AppTheme.primary, width: 3),
-              boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(4, 4))],
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _buildNavItem(context, 'home', AppTheme.isDesigner ? '/daily_planner' : '/discovery_feed', isActive: true),
-                _buildNavItem(context, 'search', '/search_categories'),
-                _buildNavItem(context, 'shining', '/commission_status'),
-                _buildNavItem(context, 'chat', '/message_inbox'),
-                _buildNavItem(context, 'user', '/designer_profile'),
-              ],
-            ),
-          ),
-        ),
-      ),
+      bottomNavigationBar: ObscureNavBar(pageContext: context, activeRoute: '/daily_planner'),
     );
   }
 
-  bool _isFocusMode = true;
-
   Widget _buildCategorizedSection(int index) {
     switch (index) {
-      case 0:
-        return _buildCategoryItem(0, headerColor: Colors.white, boxColor: AppTheme.accentRed, textColor: Colors.white);
-      case 1:
-        return _buildCategoryItem(1, boxColor: AppTheme.accentYellow);
-      case 2:
-        return _buildCategoryItem(2, boxColor: AppTheme.accentBlue, headerColor: Colors.white, textColor: Colors.white);
-      case 3:
-        return _buildCategoryItem(3, boxColor: AppTheme.surface);
-      case 4:
-        return _buildCategoryItem(4, boxColor: AppTheme.primary, headerColor: Colors.white, textColor: Colors.white);
-      default:
-        return const SizedBox.shrink();
+      case 0: return _buildCategoryItem(0, headerColor: Colors.white, boxColor: AppTheme.accentRed, textColor: Colors.white);
+      case 1: return _buildCategoryItem(1, boxColor: AppTheme.accentYellow);
+      case 2: return _buildCategoryItem(2, boxColor: AppTheme.accentBlue, headerColor: Colors.white, textColor: Colors.white);
+      case 3: return _buildCategoryItem(3, boxColor: AppTheme.surface);
+      case 4: return _buildCategoryItem(4, boxColor: AppTheme.primary, headerColor: Colors.white, textColor: Colors.white);
+      default: return const SizedBox.shrink();
     }
   }
 
   Widget _buildCategoryItem(int index, {Color? headerColor, Color? boxColor, Color? textColor}) {
     return Container(
       decoration: NeoBoxDecoration(color: boxColor ?? AppTheme.surface),
-      padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+      padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 14),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             _headers[index],
-            style: TextStyle(
-              fontFamily: 'Space Grotesk',
-              fontWeight: FontWeight.w900,
-              fontSize: 24,
-              color: headerColor ?? AppTheme.primary,
-              letterSpacing: 0,
-            ),
+            style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 18, color: headerColor ?? AppTheme.primary, letterSpacing: 0),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 10),
           Column(
             children: List.generate(_taskControllersByCategory[index].length, (taskIndex) {
               final isChecked = _checkedStatesByCategory[index][taskIndex];
@@ -252,30 +194,26 @@ class _DailyPlannerScreenState extends State<DailyPlannerScreen> {
               final displayTextColor = textColor ?? AppTheme.primary;
 
               return Padding(
-                padding: const EdgeInsets.only(bottom: 12),
+                padding: const EdgeInsets.only(bottom: 10),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     if (!isLastItem)
                       NeoButton(
-                        onTap: () {
-                          _toggleChecked(index, taskIndex);
-                        },
+                        onTap: () => _toggleChecked(index, taskIndex),
                         color: isChecked ? AppTheme.accentYellow : Colors.white,
                         depth: 2.0,
-                        borderWidth: 2.5,
+                        borderWidth: 2.0,
                         child: Container(
-                          width: 24,
-                          height: 24,
+                          width: 20,
+                          height: 20,
                           alignment: Alignment.center,
-                          child: isChecked
-                              ? const Icon(Icons.check, size: 16, color: AppTheme.primary)
-                              : null,
+                          child: isChecked ? const Icon(Icons.check, size: 13, color: AppTheme.primary) : null,
                         ),
                       )
                     else
-                      const SizedBox(width: 32),
-                    const SizedBox(width: 12),
+                      const SizedBox(width: 24),
+                    const SizedBox(width: 10),
                     Expanded(
                       child: TextField(
                         focusNode: _taskFocusNodesByCategory[index][taskIndex],
@@ -286,14 +224,14 @@ class _DailyPlannerScreenState extends State<DailyPlannerScreen> {
                         style: TextStyle(
                           fontFamily: 'Space Grotesk',
                           fontWeight: FontWeight.w800,
-                          fontSize: 18,
+                          fontSize: 14,
                           color: isChecked ? displayTextColor.withValues(alpha: 0.5) : displayTextColor,
                           decoration: isChecked ? TextDecoration.lineThrough : null,
                           letterSpacing: 0,
                         ),
                         decoration: InputDecoration(
                           hintText: isLastItem ? '新增項目...' : null,
-                          hintStyle: TextStyle(color: displayTextColor.withValues(alpha: 0.4)),
+                          hintStyle: TextStyle(color: displayTextColor.withValues(alpha: 0.4), fontSize: 14),
                           border: InputBorder.none,
                           isDense: true,
                           contentPadding: EdgeInsets.zero,
@@ -316,21 +254,17 @@ class _DailyPlannerScreenState extends State<DailyPlannerScreen> {
     setState(() {
       final isChecked = !(_checkedStatesByCategory[categoryIndex][taskIndex]);
       _checkedStatesByCategory[categoryIndex][taskIndex] = isChecked;
-
       if (isChecked) {
         final controller = _taskControllersByCategory[categoryIndex].removeAt(taskIndex);
         final checked = _checkedStatesByCategory[categoryIndex].removeAt(taskIndex);
         final focus = _taskFocusNodesByCategory[categoryIndex].removeAt(taskIndex);
-
         final lastBlankIndex = _taskControllersByCategory[categoryIndex].indexWhere((c) => c.text.isEmpty);
         final insertIndex = lastBlankIndex != -1 ? lastBlankIndex : _taskControllersByCategory[categoryIndex].length;
-
         _taskControllersByCategory[categoryIndex].insert(insertIndex, controller);
         _checkedStatesByCategory[categoryIndex].insert(insertIndex, checked);
         _taskFocusNodesByCategory[categoryIndex].insert(insertIndex, focus);
       }
     });
-
     _updateCategoryOrdering();
   }
 
@@ -340,21 +274,18 @@ class _DailyPlannerScreenState extends State<DailyPlannerScreen> {
       _checkedStatesByCategory[categoryIndex].add(false);
       _taskFocusNodesByCategory[categoryIndex].add(_createFocusNode(categoryIndex, _taskControllersByCategory[categoryIndex].length - 1));
     });
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final newIndex = _taskControllersByCategory[categoryIndex].length - 1;
       if (newIndex >= 0 && newIndex < _taskFocusNodesByCategory[categoryIndex].length) {
         _taskFocusNodesByCategory[categoryIndex][newIndex].requestFocus();
       }
     });
-
     _updateCategoryOrdering();
   }
 
   void _removeTaskRow({required int categoryIndex, required int taskIndex}) {
     final removedController = _taskControllersByCategory[categoryIndex][taskIndex];
     final removedFocusNode = _taskFocusNodesByCategory[categoryIndex][taskIndex];
-
     setState(() {
       if (_taskControllersByCategory[categoryIndex].length <= 1) {
         _taskControllersByCategory[categoryIndex][0].clear();
@@ -363,21 +294,14 @@ class _DailyPlannerScreenState extends State<DailyPlannerScreen> {
         _taskControllersByCategory[categoryIndex].removeAt(taskIndex);
         _checkedStatesByCategory[categoryIndex].removeAt(taskIndex);
         _taskFocusNodesByCategory[categoryIndex].removeAt(taskIndex);
-        
         removedController.dispose();
         removedFocusNode.dispose();
-        
-        // 重新同步剩餘的 FocusNodes 索引（非常重要，因為閉包中存的是 taskIndex）
         for (int i = 0; i < _taskFocusNodesByCategory[categoryIndex].length; i++) {
-          final newNode = _createFocusNode(categoryIndex, i);
-          _taskFocusNodesByCategory[categoryIndex][i] = newNode;
-          // 無法輕易地把舊項目的狀態轉給新 Node，但既然我們在 rebuild，這是最安全的方式。
+          _taskFocusNodesByCategory[categoryIndex][i] = _createFocusNode(categoryIndex, i);
         }
       }
     });
-
     _updateCategoryOrdering();
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final len = _taskControllersByCategory[categoryIndex].length;
       if (len == 0) return;
@@ -386,23 +310,5 @@ class _DailyPlannerScreenState extends State<DailyPlannerScreen> {
         _taskFocusNodesByCategory[categoryIndex][newIndex].requestFocus();
       }
     });
-  }
-
-  Widget _buildNavItem(BuildContext context, String iconName, String route, {bool isActive = false}) {
-    return GestureDetector(
-      onTap: () {
-        if (!isActive) Navigator.pushReplacementNamed(context, route);
-      },
-      child: Container(
-        width: isActive ? 48 : 40,
-        height: isActive ? 48 : 40,
-        decoration: BoxDecoration(
-          color: isActive ? AppTheme.accentYellow : Colors.white,
-          shape: BoxShape.circle,
-        ),
-        alignment: Alignment.center,
-        child: AppIcons.fromName(iconName, color: AppTheme.primary, size: 28, isActive: isActive),
-      ),
-    );
   }
 }

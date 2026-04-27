@@ -13,150 +13,111 @@ class NotificationCenterScreen extends StatelessWidget {
       appBar: ObscureAppBar(
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right: 16.0),
+            padding: const EdgeInsets.only(right: 12.0),
             child: IconButton(
-              icon: AppIcons.notification(color: AppTheme.primary, size: 24, isFill: true),
+              icon: AppIcons.notification(color: AppTheme.primary, size: 22, isFill: true),
               splashColor: Colors.transparent,
               highlightColor: Colors.transparent,
-              onPressed: () {
-                Navigator.pop(context);
-              },
+              onPressed: () => Navigator.pop(context),
             ),
           )
         ],
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24.0),
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Header Section
+              // Header
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          '收件箱',
-                          style: TextStyle(
-                            fontFamily: 'Space Grotesk',
-                            fontSize: 40,
-                            fontWeight: FontWeight.w900,
-                            letterSpacing: 0,
-                            height: 1.1,
-                          ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        '收件箱',
+                        style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 26, fontWeight: FontWeight.w900, letterSpacing: 0, height: 1.1),
+                      ),
+                      const SizedBox(height: 2),
+                      RichText(
+                        text: const TextSpan(
+                          style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 12, fontWeight: FontWeight.bold, color: AppTheme.primary),
+                          children: [
+                            TextSpan(text: '您有 '),
+                            TextSpan(text: '3 則未讀', style: TextStyle(color: AppTheme.accentRed)),
+                            TextSpan(text: ' 通知'),
+                          ],
                         ),
-                        const SizedBox(height: 8),
-                        RichText(
-                          text: const TextSpan(
-                            style: TextStyle(fontFamily: 'Inter', fontSize: 16, fontWeight: FontWeight.bold, color: AppTheme.primary),
-                            children: [
-                              TextSpan(text: '您有 '),
-                              TextSpan(text: '3 則未讀', style: TextStyle(color: AppTheme.accentRed)),
-                              TextSpan(text: ' 通知', style: TextStyle(letterSpacing: 0)),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                   NeoButton(
                     onTap: () {},
                     color: AppTheme.accentBlue,
-                    depth: 4.0,
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                    child: const Text('標記為已讀', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, color: Colors.white, fontSize: 14, letterSpacing: 0)),
+                    depth: 3.0,
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    child: const Text('全部已讀', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, color: Colors.white, fontSize: 12, letterSpacing: 0)),
                   ),
                 ],
               ),
-              const SizedBox(height: 32),
+              const SizedBox(height: 14),
 
-              // Tab Navigation
+              // Tabs — 2x2 grid
               Row(
                 children: [
                   Expanded(child: _buildTab('全部', isActive: true)),
-                  const SizedBox(width: 8),
+                  const SizedBox(width: 6),
                   Expanded(child: _buildTab('委託')),
-                ],
-              ),
-              const SizedBox(height: 8),
-              Row(
-                children: [
+                  const SizedBox(width: 6),
                   Expanded(child: _buildTab('系統')),
-                  const SizedBox(width: 8),
+                  const SizedBox(width: 6),
                   Expanded(child: _buildTab('付款')),
                 ],
               ),
-              const SizedBox(height: 32),
+              const SizedBox(height: 14),
 
-              // Notification List
+              // Notification items
               _buildNotificationItem(
-                icon: Icons.payments,
-                iconBgColor: AppTheme.accentYellow,
-                badgeText: '付款',
-                badgeColor: AppTheme.accentBlue,
-                time: '2 分鐘前',
-                title: '林小姐已支付訂金',
+                icon: Icons.payments, iconBgColor: AppTheme.accentYellow,
+                badgeText: '付款', badgeColor: AppTheme.accentBlue,
+                time: '2 分鐘前', title: '林小姐已支付訂金',
                 subtitle: "專案：'新黑色風格插畫集'",
-                actionColor: AppTheme.primary,
-                actionText: '收入儀表板',
-                shadowColor: AppTheme.accentBlue,
+                actionColor: AppTheme.primary, actionText: '收入儀表板', shadowColor: AppTheme.accentBlue,
               ),
-              const SizedBox(height: 24),
-
+              const SizedBox(height: 10),
               _buildNotificationItem(
-                icon: Icons.star,
-                iconBgColor: Colors.white,
-                badgeText: '精選',
-                badgeColor: AppTheme.accentRed,
-                time: '1 小時前',
-                title: '新精選作品上線',
+                icon: Icons.star, iconBgColor: Colors.white,
+                badgeText: '精選', badgeColor: AppTheme.accentRed,
+                time: '1 小時前', title: '新精選作品上線',
                 subtitle: "您的作品 'Structural Decay' 已登上首頁。",
-                actionColor: AppTheme.accentBlue,
-                actionText: '查看作品',
-                bgColor: AppTheme.accentYellow,
-                shadowColor: AppTheme.primary,
+                actionColor: AppTheme.accentBlue, actionText: '查看作品',
+                bgColor: AppTheme.accentYellow, shadowColor: AppTheme.primary,
               ),
-              const SizedBox(height: 24),
-
+              const SizedBox(height: 10),
               _buildNotificationItem(
-                icon: Icons.architecture,
-                iconBgColor: AppTheme.accentBlue,
-                iconColor: Colors.white,
-                badgeText: '委託',
-                badgeColor: AppTheme.primary,
-                time: '昨天',
-                title: '合約已簽署',
+                icon: Icons.architecture, iconBgColor: AppTheme.accentBlue, iconColor: Colors.white,
+                badgeText: '委託', badgeColor: AppTheme.primary,
+                time: '昨天', title: '合約已簽署',
                 subtitle: "Agency X 已接受粗獷主義網頁提案。",
-                actionColor: AppTheme.accentYellow,
-                actionText: '查看合約',
-                actionTextColor: AppTheme.primary,
-                shadowColor: AppTheme.accentRed,
+                actionColor: AppTheme.accentYellow, actionText: '查看合約',
+                actionTextColor: AppTheme.primary, shadowColor: AppTheme.accentRed,
               ),
-              const SizedBox(height: 24),
-
+              const SizedBox(height: 10),
               _buildNotificationItem(
-                icon: Icons.settings,
-                iconBgColor: Colors.grey[200]!,
-                badgeText: '系統',
-                badgeColor: Colors.grey,
-                time: '2 天前',
-                title: '帳號驗證完成',
+                icon: Icons.settings, iconBgColor: const Color(0xFFE0E0E0),
+                badgeText: '系統', badgeColor: Colors.grey,
+                time: '2 天前', title: '帳號驗證完成',
                 subtitle: "身份已由全球合規團隊驗證。",
-                isSystem: true,
-                shadowColor: Colors.transparent,
+                isSystem: true, shadowColor: Colors.transparent,
               ),
-              const SizedBox(height: 48),
+              const SizedBox(height: 20),
 
               // Footer Stats
               Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: AppTheme.primary, width: 4),
-                ),
+                decoration: BoxDecoration(border: Border.all(color: AppTheme.primary, width: 2)),
                 child: Column(
                   children: [
                     _buildStatBox('84%', '回覆率', AppTheme.accentBlue, Colors.white),
@@ -165,6 +126,7 @@ class NotificationCenterScreen extends StatelessWidget {
                   ],
                 ),
               ),
+              const SizedBox(height: 24),
             ],
           ),
         ),
@@ -176,19 +138,13 @@ class NotificationCenterScreen extends StatelessWidget {
     return NeoButton(
       onTap: () {},
       color: isActive ? AppTheme.accentRed : Colors.white,
-      depth: isActive ? 4.0 : 2.0,
+      depth: isActive ? 3.0 : 2.0,
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 16),
+        padding: const EdgeInsets.symmetric(vertical: 8),
         alignment: Alignment.center,
         child: Text(
           title,
-          style: TextStyle(
-            fontFamily: 'Space Grotesk',
-            fontWeight: FontWeight.w900,
-            color: isActive ? Colors.white : AppTheme.primary,
-            fontSize: 16,
-            letterSpacing: 0,
-          ),
+          style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, color: isActive ? Colors.white : AppTheme.primary, fontSize: 12, letterSpacing: 0),
         ),
       ),
     );
@@ -213,11 +169,11 @@ class NotificationCenterScreen extends StatelessWidget {
     return Opacity(
       opacity: isSystem ? 0.6 : 1.0,
       child: Container(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
           color: bgColor,
-          border: Border.all(color: AppTheme.primary, width: 4),
-          boxShadow: shadowColor != Colors.transparent ? [BoxShadow(color: shadowColor, offset: const Offset(6, 6))] : null,
+          border: Border.all(color: AppTheme.primary, width: 2),
+          boxShadow: shadowColor != Colors.transparent ? [BoxShadow(color: shadowColor, offset: const Offset(3, 3))] : null,
         ),
         child: Column(
           children: [
@@ -225,15 +181,12 @@ class NotificationCenterScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  width: 56,
-                  height: 56,
-                  decoration: BoxDecoration(
-                    color: iconBgColor,
-                    border: Border.all(color: AppTheme.primary, width: 4),
-                  ),
-                  child: Icon(icon, color: iconColor, size: 32),
+                  width: 44,
+                  height: 44,
+                  decoration: BoxDecoration(color: iconBgColor, border: Border.all(color: AppTheme.primary, width: 2)),
+                  child: Icon(icon, color: iconColor, size: 22),
                 ),
-                const SizedBox(width: 16),
+                const SizedBox(width: 12),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -242,64 +195,46 @@ class NotificationCenterScreen extends StatelessWidget {
                         children: [
                           Container(
                             color: badgeColor,
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                            child: Text(
-                              badgeText,
-                              style: const TextStyle(fontFamily: 'Space Grotesk', fontSize: 12, fontWeight: FontWeight.w900, color: Colors.white, letterSpacing: 0),
-                            ),
+                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                            child: Text(badgeText, style: const TextStyle(fontFamily: 'Space Grotesk', fontSize: 10, fontWeight: FontWeight.w900, color: Colors.white, letterSpacing: 0)),
                           ),
-                          const SizedBox(width: 8),
-                          Text(
-                            time,
-                            style: TextStyle(fontFamily: 'Inter', fontSize: 14, fontWeight: FontWeight.bold, color: AppTheme.primary.withValues(alpha: 0.5), letterSpacing: 0),
-                          ),
+                          const SizedBox(width: 6),
+                          Text(time, style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 11, fontWeight: FontWeight.bold, color: AppTheme.primary.withValues(alpha: 0.5), letterSpacing: 0)),
                         ],
                       ),
-                      const SizedBox(height: 8),
-                      Text(
-                        title,
-                        style: const TextStyle(fontFamily: 'Space Grotesk', fontSize: 18, fontWeight: FontWeight.w900, height: 1.2, letterSpacing: 0),
-                      ),
                       const SizedBox(height: 4),
-                      Text(
-                        subtitle,
-                        style: const TextStyle(fontFamily: 'Inter', fontSize: 14, fontStyle: FontStyle.italic, fontWeight: FontWeight.w500, letterSpacing: 0),
-                      ),
+                      Text(title, style: const TextStyle(fontFamily: 'Space Grotesk', fontSize: 14, fontWeight: FontWeight.w900, height: 1.2, letterSpacing: 0)),
+                      const SizedBox(height: 2),
+                      Text(subtitle, style: const TextStyle(fontFamily: 'Space Grotesk', fontSize: 12, fontStyle: FontStyle.italic, fontWeight: FontWeight.w500, letterSpacing: 0)),
                     ],
                   ),
                 ),
               ],
             ),
             if (actionText != null && actionColor != null) ...[
-              const SizedBox(height: 16),
+              const SizedBox(height: 10),
               Row(
                 children: [
                   Expanded(
                     child: NeoButton(
                       onTap: () {},
                       color: actionColor,
-                      depth: 4.0,
+                      depth: 3.0,
                       child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        padding: const EdgeInsets.symmetric(vertical: 9),
                         alignment: Alignment.center,
-                        child: Text(
-                          actionText,
-                          style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, color: actionTextColor, fontSize: 16, letterSpacing: 0),
-                        ),
+                        child: Text(actionText, style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, color: actionTextColor, fontSize: 13, letterSpacing: 0)),
                       ),
                     ),
                   ),
                   const SizedBox(width: 8),
-                  const Icon(Icons.more_vert),
+                  const Icon(Icons.more_vert, size: 20),
                 ],
               )
             ],
             if (isSystem) ...[
-              const SizedBox(height: 16),
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Icon(Icons.delete_outline),
-              )
+              const SizedBox(height: 10),
+              const Align(alignment: Alignment.centerLeft, child: Icon(Icons.delete_outline, size: 20)),
             ]
           ],
         ),
@@ -310,23 +245,16 @@ class NotificationCenterScreen extends StatelessWidget {
   Widget _buildStatBox(String value, String label, Color bgColor, Color textColor, {bool isLast = false}) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
       decoration: BoxDecoration(
         color: bgColor,
-        border: !isLast ? const Border(bottom: BorderSide(color: AppTheme.primary, width: 4)) : null,
+        border: !isLast ? const Border(bottom: BorderSide(color: AppTheme.primary, width: 2)) : null,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            value,
-            style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 36, fontWeight: FontWeight.w900, color: textColor, height: 1.1, letterSpacing: 0),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            label,
-            style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 14, fontWeight: FontWeight.bold, color: textColor, letterSpacing: 0),
-          ),
+          Text(label, style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 13, fontWeight: FontWeight.bold, color: textColor, letterSpacing: 0)),
+          Text(value, style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 22, fontWeight: FontWeight.w900, color: textColor, letterSpacing: 0)),
         ],
       ),
     );

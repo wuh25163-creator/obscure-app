@@ -37,31 +37,31 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                 children: [
                   _buildBackgroundDecorations(),
                   ListView(
-                    padding: const EdgeInsets.fromLTRB(24, 24, 24, 100),
+                    padding: const EdgeInsets.fromLTRB(16, 16, 16, 100),
                     children: [
                       _buildDateHeader('今天'),
-                      const SizedBox(height: 24),
+                      const SizedBox(height: 16),
                       _buildReceivedMessage(
                         message: "嘿！我一直在審閱春季號的最新編輯版面。你覺得專題故事的非對稱網格如何？",
                         time: "09:41 AM",
                       ),
-                      const SizedBox(height: 24),
+                      const SizedBox(height: 16),
                       _buildSentMessage(
                         message: "我很喜歡。它比之前的結構感覺高階許多。留白確實讓照片有了喘息的空間。",
                         time: "09:43 AM",
                         isRead: true,
                       ),
-                      const SizedBox(height: 24),
+                      const SizedBox(height: 16),
                       _buildReceivedMessageWithImage(
                         message: "這是我想要的氛圍。非常「空靈編輯感」。",
                         time: "09:45 AM",
                       ),
-                      const SizedBox(height: 24),
+                      const SizedBox(height: 16),
                       _buildSentMessageBrief(
                         message: "完美。讓我們朝這個方向繼續前進。 ✨",
                         time: "09:46 AM",
                       ),
-                      const SizedBox(height: 24),
+                      const SizedBox(height: 16),
                       _buildTypingIndicator(),
                     ],
                   ),
@@ -77,11 +77,11 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
 
   Widget _buildAppBar(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: const BoxDecoration(
         color: AppTheme.surface,
-        border: Border(bottom: BorderSide(color: AppTheme.primary, width: 4)),
-        boxShadow: [BoxShadow(color: AppTheme.primary, offset: Offset(0, 4))],
+        border: Border(bottom: BorderSide(color: AppTheme.primary, width: 2)),
+        boxShadow: [BoxShadow(color: AppTheme.primary, offset: Offset(0, 2))],
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -91,35 +91,35 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
               GestureDetector(
                 onTap: () => Navigator.pop(context),
                 child: Container(
-                  padding: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(6),
                   decoration: BoxDecoration(
                     color: Colors.transparent,
                     border: Border.all(color: Colors.transparent, width: 2),
                   ),
-                  child: const Icon(Icons.arrow_back, color: AppTheme.primary, size: 28),
+                  child: const Icon(Icons.arrow_back, color: AppTheme.primary, size: 24),
                 ),
               ),
-              const SizedBox(width: 8),
+              const SizedBox(width: 4),
               Row(
                 children: [
                   Stack(
                     clipBehavior: Clip.none,
                     children: [
                       Container(
-                        width: 48,
-                        height: 48,
+                        width: 36,
+                        height: 36,
                         decoration: BoxDecoration(
                           border: Border.all(color: AppTheme.primary, width: 2),
                           color: Colors.grey[300],
                         ),
-                        child: const Icon(Icons.person, color: Colors.white, size: 32),
+                        child: const Icon(Icons.person, color: Colors.white, size: 24),
                       ),
                       Positioned(
-                        bottom: -4,
-                        right: -4,
+                        bottom: -2,
+                        right: -2,
                         child: Container(
-                          width: 14,
-                          height: 14,
+                          width: 10,
+                          height: 10,
                           decoration: BoxDecoration(
                             color: Colors.greenAccent,
                             border: Border.all(color: AppTheme.primary, width: 2),
@@ -130,30 +130,30 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                   ),
                   const SizedBox(width: 12),
                   Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.contactName.toUpperCase(),
-                        style: const TextStyle(
-                          fontFamily: 'Space Grotesk',
-                          fontWeight: FontWeight.w900,
-                          fontSize: 18,
-                          letterSpacing: 0,
-                          height: 1.1,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        widget.contactStatus.toUpperCase(),
-                        style: TextStyle(
-                          fontFamily: 'Space Grotesk',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                          letterSpacing: 1.0,
-                          color: AppTheme.primary.withValues(alpha: 0.6),
-                        ),
-                      ),
-                    ],
+                     crossAxisAlignment: CrossAxisAlignment.start,
+                     children: [
+                       Text(
+                         widget.contactName.toUpperCase(),
+                         style: const TextStyle(
+                           fontFamily: 'Space Grotesk',
+                           fontWeight: FontWeight.w900,
+                           fontSize: 16,
+                           letterSpacing: 0,
+                           height: 1.1,
+                         ),
+                       ),
+                       const SizedBox(height: 2),
+                       Text(
+                         widget.contactStatus.toUpperCase(),
+                         style: TextStyle(
+                           fontFamily: 'Space Grotesk',
+                           fontWeight: FontWeight.bold,
+                           fontSize: 11,
+                           letterSpacing: 1.0,
+                           color: AppTheme.primary.withValues(alpha: 0.6),
+                         ),
+                       ),
+                     ],
                   ),
                 ],
               ),
@@ -162,11 +162,11 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
           Row(
             children: [
               IconButton(
-                icon: const Icon(Icons.videocam, color: AppTheme.primary, size: 28),
+                icon: const Icon(Icons.videocam, color: AppTheme.primary, size: 24),
                 onPressed: () {},
               ),
               IconButton(
-                icon: const Icon(Icons.more_vert, color: AppTheme.primary, size: 28),
+                icon: const Icon(Icons.more_vert, color: AppTheme.primary, size: 24),
                 onPressed: () {},
               ),
             ],
@@ -181,7 +181,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
       child: Transform.rotate(
         angle: -0.05,
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 6),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
           decoration: BoxDecoration(
             color: AppTheme.primary,
             border: Border.all(color: AppTheme.primary, width: 2),
@@ -191,7 +191,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
             style: const TextStyle(
               fontFamily: 'Space Grotesk',
               fontWeight: FontWeight.bold,
-              fontSize: 14,
+              fontSize: 12,
               color: Colors.white,
               letterSpacing: 1.0,
             ),
@@ -210,17 +210,17 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
             return ConstrainedBox(
               constraints: BoxConstraints(maxWidth: constraints.maxWidth * 0.8),
               child: Container(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  border: Border.all(color: AppTheme.primary, width: 4),
-                  boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(4, 4))],
+                  border: Border.all(color: AppTheme.primary, width: 2),
+                  boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(2, 2))],
                 ),
                 child: Text(
                   message,
                   style: const TextStyle(
                     fontFamily: 'Inter',
-                    fontSize: 16,
+                    fontSize: 14,
                     fontWeight: FontWeight.w500,
                     height: 1.4,
                     letterSpacing: 0,
@@ -230,7 +230,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
             );
           }
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 6),
         Padding(
           padding: const EdgeInsets.only(left: 4),
           child: Text(
@@ -238,7 +238,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
             style: TextStyle(
               fontFamily: 'Space Grotesk',
               fontWeight: FontWeight.bold,
-              fontSize: 12,
+              fontSize: 11,
               letterSpacing: 1.0,
               color: AppTheme.primary.withValues(alpha: 0.5),
             ),
@@ -257,17 +257,17 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
             return ConstrainedBox(
               constraints: BoxConstraints(maxWidth: constraints.maxWidth * 0.8),
               child: Container(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   color: Colors.grey[200], // primary-container
-                  border: Border.all(color: AppTheme.primary, width: 4),
-                  boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(4, 4))],
+                  border: Border.all(color: AppTheme.primary, width: 2),
+                  boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(2, 2))],
                 ),
                 child: Text(
                   message,
                   style: const TextStyle(
                     fontFamily: 'Inter',
-                    fontSize: 16,
+                    fontSize: 14,
                     fontWeight: FontWeight.bold,
                     height: 1.4,
                     letterSpacing: 0,
@@ -277,7 +277,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
             );
           }
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 6),
         Padding(
           padding: const EdgeInsets.only(right: 4),
           child: Row(
@@ -288,14 +288,14 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                 style: TextStyle(
                   fontFamily: 'Space Grotesk',
                   fontWeight: FontWeight.bold,
-                  fontSize: 12,
+                  fontSize: 11,
                   letterSpacing: 1.0,
                   color: AppTheme.primary.withValues(alpha: 0.5),
                 ),
               ),
               if (isRead) ...[
                 const SizedBox(width: 4),
-                const Icon(Icons.done_all, size: 16, color: AppTheme.accentBlue),
+                const Icon(Icons.done_all, size: 14, color: AppTheme.accentBlue),
               ],
             ],
           ),
@@ -316,8 +316,8 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  border: Border.all(color: AppTheme.primary, width: 4),
-                  boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(4, 4))],
+                  border: Border.all(color: AppTheme.primary, width: 2),
+                  boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(2, 2))],
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -330,7 +330,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                         border: Border.all(color: AppTheme.primary, width: 2),
                       ),
                       child: const Center(
-                        child: Icon(Icons.image, size: 48, color: Colors.grey),
+                        child: Icon(Icons.image, size: 36, color: Colors.grey),
                       ),
                     ),
                     Container(
@@ -343,7 +343,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                         message,
                         style: const TextStyle(
                           fontFamily: 'Inter',
-                          fontSize: 16,
+                          fontSize: 14,
                           fontWeight: FontWeight.w500,
                           height: 1.4,
                           letterSpacing: 0,
@@ -356,7 +356,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
             );
           }
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 6),
         Padding(
           padding: const EdgeInsets.only(left: 4),
           child: Text(
@@ -364,7 +364,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
             style: TextStyle(
               fontFamily: 'Space Grotesk',
               fontWeight: FontWeight.bold,
-              fontSize: 12,
+              fontSize: 11,
               letterSpacing: 1.0,
               color: AppTheme.primary.withValues(alpha: 0.5),
             ),
@@ -383,17 +383,17 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
             return ConstrainedBox(
               constraints: BoxConstraints(maxWidth: constraints.maxWidth * 0.8),
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 decoration: BoxDecoration(
                   color: AppTheme.accentBlue, // tertiary
-                  border: Border.all(color: AppTheme.primary, width: 4),
-                  boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(4, 4))],
+                  border: Border.all(color: AppTheme.primary, width: 2),
+                  boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(2, 2))],
                 ),
                 child: Text(
                   message,
                   style: const TextStyle(
                     fontFamily: 'Space Grotesk',
-                    fontSize: 16,
+                    fontSize: 14,
                     color: Colors.white,
                     letterSpacing: 0,
                   ),
@@ -402,7 +402,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
             );
           }
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 6),
         Padding(
           padding: const EdgeInsets.only(right: 4),
           child: Text(
@@ -410,7 +410,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
             style: TextStyle(
               fontFamily: 'Space Grotesk',
               fontWeight: FontWeight.bold,
-              fontSize: 12,
+              fontSize: 11,
               letterSpacing: 1.0,
               color: AppTheme.primary.withValues(alpha: 0.5),
             ),
@@ -433,20 +433,20 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               _buildDot(0),
-              const SizedBox(width: 6),
+              const SizedBox(width: 4),
               _buildDot(150),
-              const SizedBox(width: 6),
+              const SizedBox(width: 4),
               _buildDot(300),
             ],
           ),
         ),
-        const SizedBox(width: 12),
+        const SizedBox(width: 8),
         Text(
           "${widget.contactName.split(' ')[0].toUpperCase()} 正在輸入",
           style: const TextStyle(
             fontFamily: 'Space Grotesk',
             fontWeight: FontWeight.w900,
-            fontSize: 12,
+            fontSize: 11,
             letterSpacing: 1.0,
             color: AppTheme.primary,
           ),
@@ -457,8 +457,8 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
 
   Widget _buildDot(int delayMillis) {
     return Container(
-      width: 8,
-      height: 8,
+      width: 6,
+      height: 6,
       decoration: const BoxDecoration(
         color: Colors.white,
         shape: BoxShape.rectangle, 
@@ -468,34 +468,34 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
 
   Widget _buildBottomBar() {
     return Container(
-      padding: const EdgeInsets.fromLTRB(24, 16, 24, 24),
+      padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
       decoration: const BoxDecoration(
         color: AppTheme.surface,
-        border: Border(top: BorderSide(color: AppTheme.primary, width: 4)),
+        border: Border(top: BorderSide(color: AppTheme.primary, width: 2)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Container(
-            width: 56,
-            height: 56,
+            width: 44,
+            height: 44,
             decoration: BoxDecoration(
               color: Colors.white,
-              border: Border.all(color: AppTheme.primary, width: 4),
+              border: Border.all(color: AppTheme.primary, width: 2),
               boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(2, 2))],
             ),
             child: IconButton(
-              icon: const Icon(Icons.add, size: 28, color: AppTheme.primary),
+              icon: const Icon(Icons.add, size: 24, color: AppTheme.primary),
               onPressed: () {},
             ),
           ),
-          const SizedBox(width: 16),
+          const SizedBox(width: 12),
           Expanded(
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               decoration: BoxDecoration(
                 color: Colors.white,
-                border: Border.all(color: AppTheme.primary, width: 4),
+                border: Border.all(color: AppTheme.primary, width: 2),
                 boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(2, 2))],
               ),
               child: Row(
@@ -517,33 +517,33 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                           fontFamily: 'Space Grotesk',
                           fontWeight: FontWeight.w500,
                           fontSize: 14,
-                          letterSpacing: 2.0,
+                          letterSpacing: 1.0,
                           color: AppTheme.primary.withValues(alpha: 0.4),
                         ),
                         border: InputBorder.none,
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                       ),
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.mood, color: AppTheme.primary),
+                    icon: const Icon(Icons.mood, color: AppTheme.primary, size: 20),
                     onPressed: () {},
                   ),
                 ],
               ),
             ),
           ),
-          const SizedBox(width: 16),
+          const SizedBox(width: 12),
           Container(
-            width: 56,
-            height: 56,
+            width: 44,
+            height: 44,
             decoration: BoxDecoration(
               color: AppTheme.primary,
-              border: Border.all(color: AppTheme.primary, width: 4),
+              border: Border.all(color: AppTheme.primary, width: 2),
               boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(2, 2))],
             ),
             child: IconButton(
-              icon: const Icon(Icons.send, size: 24, color: Colors.white),
+              icon: const Icon(Icons.send, size: 20, color: Colors.white),
               onPressed: () {},
             ),
           ),
@@ -564,11 +564,11 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
               child: Transform.rotate(
                 angle: 0.2,
                 child: Container(
-                  width: 200,
-                  height: 200,
+                  width: 140,
+                  height: 140,
                   decoration: BoxDecoration(
                     color: Colors.grey[200],
-                    border: Border.all(color: AppTheme.primary, width: 4),
+                    border: Border.all(color: AppTheme.primary, width: 2),
                   ),
                 ),
               ),
@@ -577,12 +577,12 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
               bottom: 150,
               right: -50,
               child: Container(
-                width: 300,
-                height: 300,
+                width: 200,
+                height: 200,
                 decoration: BoxDecoration(
                   color: AppTheme.accentYellow,
                   shape: BoxShape.circle,
-                  border: Border.all(color: AppTheme.primary, width: 4),
+                  border: Border.all(color: AppTheme.primary, width: 2),
                 ),
               ),
             ),
@@ -592,11 +592,11 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
               child: Transform.rotate(
                 angle: -0.5,
                 child: Container(
-                  width: 150,
-                  height: 150,
+                  width: 100,
+                  height: 100,
                   decoration: BoxDecoration(
                     color: AppTheme.accentBlue,
-                    border: Border.all(color: AppTheme.primary, width: 4),
+                    border: Border.all(color: AppTheme.primary, width: 2),
                   ),
                 ),
               ),

@@ -137,7 +137,7 @@ class _NewWorkScreenState extends State<NewWorkScreen> {
         });
       },
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
           color: bgColor,
           border: Border.all(color: AppTheme.primary, width: 2),
@@ -145,7 +145,7 @@ class _NewWorkScreenState extends State<NewWorkScreen> {
         ),
         child: Text(
           text,
-          style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, fontSize: 14, color: textColor),
+          style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, fontSize: 13, color: textColor),
         ),
       ),
     );
@@ -160,12 +160,12 @@ class _NewWorkScreenState extends State<NewWorkScreen> {
           backgroundColor: AppTheme.surface,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.zero,
-            side: const BorderSide(color: AppTheme.primary, width: 3),
+            side: const BorderSide(color: AppTheme.primary, width: 2),
           ),
-          title: const Text('新增項目', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, color: AppTheme.primary)),
+          title: const Text('新增項目', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, color: AppTheme.primary, fontSize: 18)),
           content: TextField(
             autofocus: true,
-            style: const TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold),
+            style: const TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, fontSize: 14),
             decoration: const InputDecoration(
               hintText: '請輸入...',
               enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: AppTheme.primary, width: 2), borderRadius: BorderRadius.zero),
@@ -205,7 +205,7 @@ class _NewWorkScreenState extends State<NewWorkScreen> {
     return GestureDetector(
       onTap: () => _showAddDialog(targetList, targetSelectedList),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
           color: AppTheme.surface,
           border: Border.all(color: AppTheme.primary, width: 2),
@@ -214,9 +214,9 @@ class _NewWorkScreenState extends State<NewWorkScreen> {
         child: const Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.add, size: 16, color: AppTheme.primary),
+            Icon(Icons.add, size: 14, color: AppTheme.primary),
             SizedBox(width: 4),
-            Text('新增', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 14)),
+            Text('新增', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 13)),
           ],
         ),
       ),
@@ -231,7 +231,7 @@ class _NewWorkScreenState extends State<NewWorkScreen> {
         backgroundColor: AppTheme.background,
         elevation: 0,
         leading: Padding(
-          padding: const EdgeInsets.only(left: 16.0, top: 8, bottom: 8),
+          padding: const EdgeInsets.only(left: 16.0, top: 12, bottom: 12),
           child: Container(
             decoration: BoxDecoration(
               shape: BoxShape.circle,
@@ -239,89 +239,89 @@ class _NewWorkScreenState extends State<NewWorkScreen> {
             ),
             child: IconButton(
               padding: EdgeInsets.zero,
-              icon: const Icon(Icons.arrow_back, color: AppTheme.primary, size: 20),
+              icon: const Icon(Icons.arrow_back, color: AppTheme.primary, size: 16),
               onPressed: () => Navigator.pop(context),
             ),
           ),
         ),
-        title: const Text('OBSCURE', style: TextStyle(fontFamily: 'Space Grotesk', color: AppTheme.primary, fontWeight: FontWeight.w900, fontSize: 24, fontStyle: FontStyle.italic)),
+        title: const Text('OBSCURE', style: TextStyle(fontFamily: 'Space Grotesk', color: AppTheme.primary, fontWeight: FontWeight.w900, fontSize: 18, fontStyle: FontStyle.italic)),
         centerTitle: true,
         bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(4.0),
-          child: Container(color: AppTheme.primary, height: 4.0),
+          preferredSize: const Size.fromHeight(2.0),
+          child: Container(color: AppTheme.primary, height: 2.0),
         ),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const Text(
               '新增作品',
-              style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 48, letterSpacing: -2, height: 1.1),
+              style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 32, letterSpacing: -1, height: 1.1),
             ),
             Align(
               alignment: Alignment.centerLeft,
               child: Container(
-                margin: const EdgeInsets.only(top: 8, bottom: 32),
-                height: 6,
-                width: 96,
+                margin: const EdgeInsets.only(top: 8, bottom: 24),
+                height: 4,
+                width: 64,
                 color: AppTheme.accentRed,
               ),
             ),
-            const Text('名稱/品名', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 18)),
-            const SizedBox(height: 12),
+            const Text('名稱/品名', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 16)),
+            const SizedBox(height: 8),
             Container(
               decoration: const NeoBoxDecoration(color: AppTheme.surface),
               child: TextField(
                 controller: _nameController,
-                style: const TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold),
+                style: const TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, fontSize: 14),
                 decoration: const InputDecoration(
                   hintText: '輸入專案名稱...',
-                  hintStyle: TextStyle(color: Colors.grey, fontWeight: FontWeight.normal),
+                  hintStyle: TextStyle(color: Colors.grey, fontWeight: FontWeight.normal, fontSize: 14),
                   border: InputBorder.none,
-                  contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                 ),
               ),
             ),
-            const SizedBox(height: 32),
+            const SizedBox(height: 24),
 
-            const Text('相關領域', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 18)),
-            const SizedBox(height: 12),
+            const Text('相關領域', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 16)),
+            const SizedBox(height: 8),
             Wrap(
-              spacing: 12,
-              runSpacing: 12,
+              spacing: 8,
+              runSpacing: 8,
               children: [
                 ...fields.map((f) => _buildChip(f, selectedFields)),
                 _buildAddChip(fields, selectedFields),
               ],
             ),
-            const SizedBox(height: 32),
+            const SizedBox(height: 24),
 
             // Dashed border container
             Stack(
               children: [
                 Positioned.fill(
                    child: Transform.translate(
-                     offset: const Offset(4, 4),
+                     offset: const Offset(3, 3),
                      child: Container(color: AppTheme.primary),
                    ),
                 ),
                 GestureDetector(
                   onTap: _pickImage,
                   child: CustomPaint(
-                    painter: DashedRectPainter(color: AppTheme.primary, strokeWidth: 3, gap: 12),
+                    painter: DashedRectPainter(color: AppTheme.primary, strokeWidth: 2, gap: 8),
                     child: Container(
-                      height: 240,
+                      height: 180,
                       width: double.infinity,
                       color: AppTheme.surface,
                       child: _isAnalyzing
                           ? const Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                CircularProgressIndicator(color: AppTheme.primary),
-                                SizedBox(height: 24),
-                                Text('🤖 正在透過視覺分析風格...', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, fontSize: 16, color: AppTheme.primary)),
+                                SizedBox(height: 24, width: 24, child: CircularProgressIndicator(color: AppTheme.primary, strokeWidth: 3)),
+                                SizedBox(height: 16),
+                                Text('🤖 正在透過視覺分析風格...', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, fontSize: 14, color: AppTheme.primary)),
                               ],
                             )
                           : _uploadedImageBytes != null
@@ -335,12 +335,12 @@ class _NewWorkScreenState extends State<NewWorkScreen> {
                                     Column(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        const Icon(Icons.check_circle_outline, size: 48, color: AppTheme.accentYellow),
-                                        const SizedBox(height: 16),
+                                        const Icon(Icons.check_circle_outline, size: 36, color: AppTheme.accentYellow),
+                                        const SizedBox(height: 12),
                                         Container(
-                                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                                           color: AppTheme.primary,
-                                          child: const Text('更換圖片', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, color: Colors.white)),
+                                          child: const Text('更換圖片', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, color: Colors.white, fontSize: 12)),
                                         )
                                       ],
                                     ),
@@ -349,9 +349,9 @@ class _NewWorkScreenState extends State<NewWorkScreen> {
                               : const Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(Icons.add_photo_alternate_outlined, size: 48, color: AppTheme.primary),
-                                    SizedBox(height: 16),
-                                    Text('拖曳或點擊上傳圖片', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, color: AppTheme.primary)),
+                                    Icon(Icons.add_photo_alternate_outlined, size: 36, color: AppTheme.primary),
+                                    SizedBox(height: 12),
+                                    Text('拖曳或點擊上傳圖片', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, color: AppTheme.primary, fontSize: 14)),
                                   ],
                                 ),
                     ),
@@ -359,40 +359,40 @@ class _NewWorkScreenState extends State<NewWorkScreen> {
                 ),
               ],
             ),
-            const SizedBox(height: 32),
+            const SizedBox(height: 24),
 
             if (_isUploaded) ...[
-              const Text('風格標籤', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 18)),
-              const SizedBox(height: 12),
+              const Text('風格標籤', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 16)),
+              const SizedBox(height: 8),
               Wrap(
-                spacing: 12,
-                runSpacing: 12,
+                spacing: 8,
+                runSpacing: 8,
                 children: [
                   ...styles.map((s) => _buildChip(s, selectedStyles)),
                   _buildAddChip(styles, selectedStyles),
                 ],
               ),
-              const SizedBox(height: 32),
+              const SizedBox(height: 24),
             ],
 
-            const Text('設計理念', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 18)),
-            const SizedBox(height: 12),
+            const Text('設計理念', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 16)),
+            const SizedBox(height: 8),
             Container(
-              height: 180,
+              height: 140,
               decoration: const NeoBoxDecoration(color: AppTheme.surface),
               child: TextField(
                 controller: _conceptController,
                 maxLines: null,
-                style: const TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold),
+                style: const TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, fontSize: 14),
                 decoration: const InputDecoration(
                   hintText: '詳細描述您的創作背景與設計理念...',
-                  hintStyle: TextStyle(color: Colors.grey, fontWeight: FontWeight.normal),
+                  hintStyle: TextStyle(color: Colors.grey, fontWeight: FontWeight.normal, fontSize: 14),
                   border: InputBorder.none,
-                  contentPadding: EdgeInsets.all(16),
+                  contentPadding: EdgeInsets.all(12),
                 ),
               ),
             ),
-            const SizedBox(height: 48),
+            const SizedBox(height: 32),
 
             NeoButton(
               onTap: () {
@@ -408,11 +408,11 @@ class _NewWorkScreenState extends State<NewWorkScreen> {
                 Navigator.pop(context, projectData);
               },
               color: AppTheme.accentYellow,
-              depth: 6.0,
+              depth: 4.0,
               child: Container(
-                height: 64,
+                height: 48,
                 alignment: Alignment.center,
-                child: const Text('儲存專案', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 24, color: AppTheme.primary)),
+                child: const Text('儲存專案', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 18, color: AppTheme.primary)),
               ),
             ),
             const SizedBox(height: 24),
@@ -421,16 +421,16 @@ class _NewWorkScreenState extends State<NewWorkScreen> {
               children: [
                 GestureDetector(
                   onTap: () {},
-                  child: const Text('保存', style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 16, fontWeight: FontWeight.w900, decoration: TextDecoration.underline, decorationThickness: 2)),
+                  child: const Text('保存', style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 14, fontWeight: FontWeight.w900, decoration: TextDecoration.underline, decorationThickness: 2)),
                 ),
-                const SizedBox(width: 32),
+                const SizedBox(width: 24),
                 GestureDetector(
                   onTap: () {},
-                  child: const Text('預覽', style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 16, fontWeight: FontWeight.w900, decoration: TextDecoration.underline, decorationThickness: 2)),
+                  child: const Text('預覽', style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 14, fontWeight: FontWeight.w900, decoration: TextDecoration.underline, decorationThickness: 2)),
                 ),
               ],
             ),
-            const SizedBox(height: 48),
+            const SizedBox(height: 32),
           ],
         ),
       ),
@@ -443,7 +443,7 @@ class DashedRectPainter extends CustomPainter {
   final double strokeWidth;
   final double gap;
 
-  DashedRectPainter({this.color = AppTheme.primary, this.strokeWidth = 3, this.gap = 12});
+  DashedRectPainter({this.color = AppTheme.primary, this.strokeWidth = 2, this.gap = 8});
 
   @override
   void paint(Canvas canvas, Size size) {
