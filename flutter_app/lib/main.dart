@@ -71,6 +71,17 @@ class StitchApp extends StatelessWidget {
         }
         return FadeSlideRoute(page: const LoginVerificationScreen());
       },
+      builder: (context, child) {
+        return Container(
+          color: AppTheme.primary, // 當螢幕太寬時，兩側顯示黑色
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 480), // 強制符合手機尺寸
+              child: ClipRect(child: child!),
+            ),
+          ),
+        );
+      },
       debugShowCheckedModeBanner: false,
     );
   }
