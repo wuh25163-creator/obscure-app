@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'core/app_theme.dart';
+import 'core/fade_slide_route.dart';
 import 'screens/shared/identity_selection_screen.dart';
 import 'screens/customer/customer_signup_screen.dart';
 import 'screens/designer/daily_planner_screen.dart';
@@ -27,6 +28,27 @@ void main() {
 class StitchApp extends StatelessWidget {
   const StitchApp({super.key});
 
+  static final Map<String, WidgetBuilder> _screens = {
+    '/': (context) => const LoginVerificationScreen(),
+    '/identity_selection': (context) => const IdentitySelectionScreen(),
+    '/customer_signup': (context) => const CustomerSignupScreen(),
+    '/daily_planner': (context) => const DailyPlannerScreen(),
+    '/designer_profile': (context) => const DesignerProfileScreen(),
+    '/designer_signup': (context) => const DesignerSignupScreen(),
+    '/discovery_feed': (context) => const DiscoveryFeedScreen(),
+    '/commission_status': (context) => const CommissionStatusScreen(),
+    '/income_dashboard': (context) => const IncomeDashboardScreen(),
+    '/message_inbox': (context) => const MessageInboxScreen(),
+    '/portfolio_management': (context) => const PortfolioManagementScreen(),
+    '/search_categories': (context) => const SearchCategoriesScreen(),
+    '/notifications': (context) => const NotificationCenterScreen(),
+    '/project_detail': (context) => const ProjectDetailScreen(),
+    '/contract_quote': (context) => const ContractQuoteScreen(),
+    '/review_rating': (context) => const ReviewRatingScreen(),
+    '/admin_dashboard': (context) => const AdminDashboardScreen(),
+    '/new_work': (context) => const NewWorkScreen(),
+  };
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -42,28 +64,14 @@ class StitchApp extends StatelessWidget {
         },
       ),
       initialRoute: '/',
-      routes: {
-        '/': (context) => const LoginVerificationScreen(),
-        '/identity_selection': (context) => const IdentitySelectionScreen(),
-        '/customer_signup': (context) => const CustomerSignupScreen(),
-        '/daily_planner': (context) => const DailyPlannerScreen(),
-        '/designer_profile': (context) => const DesignerProfileScreen(),
-        '/designer_signup': (context) => const DesignerSignupScreen(),
-        '/discovery_feed': (context) => const DiscoveryFeedScreen(),
-        '/commission_status': (context) => const CommissionStatusScreen(),
-        '/income_dashboard': (context) => const IncomeDashboardScreen(),
-        '/message_inbox': (context) => const MessageInboxScreen(),
-        '/portfolio_management': (context) => const PortfolioManagementScreen(),
-        '/search_categories': (context) => const SearchCategoriesScreen(),
-        '/notifications': (context) => const NotificationCenterScreen(),
-        '/project_detail': (context) => const ProjectDetailScreen(),
-        '/contract_quote': (context) => const ContractQuoteScreen(),
-        '/review_rating': (context) => const ReviewRatingScreen(),
-        '/admin_dashboard': (context) => const AdminDashboardScreen(),
-        '/new_work': (context) => const NewWorkScreen(),
+      onGenerateRoute: (settings) {
+        final builder = _screens[settings.name];
+        if (builder != null) {
+          return FadeSlideRoute(page: Builder(builder: builder));
+        }
+        return FadeSlideRoute(page: const LoginVerificationScreen());
       },
       debugShowCheckedModeBanner: false,
     );
   }
 }
-
