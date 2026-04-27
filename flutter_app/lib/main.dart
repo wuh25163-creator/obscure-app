@@ -76,7 +76,7 @@ class StitchApp extends StatelessWidget {
           color: AppTheme.primary, // 當螢幕太寬時，兩側顯示黑色
           child: Center(
             child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 480), // 強制符合手機尺寸
+              constraints: const BoxConstraints(maxWidth: 390), // 更符合主流手機的寬度尺寸
               child: ClipRect(child: child!),
             ),
           ),
