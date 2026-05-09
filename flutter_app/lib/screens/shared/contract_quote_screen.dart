@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../core/app_icons.dart';
 import '../../core/app_theme.dart';
 
 class ContractQuoteScreen extends StatelessWidget {

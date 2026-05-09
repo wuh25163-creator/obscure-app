@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../core/app_icons.dart';
 import 'package:flutter/services.dart';
 import '../../core/app_theme.dart';
 import '../../core/neo_button.dart';
@@ -79,7 +78,7 @@ class _DailyPlannerScreenState extends State<DailyPlannerScreen> {
       final empty = <int>[];
       for (int i = 0; i < _headers.length; i++) {
         bool hasText = _taskControllersByCategory[i].any((c) => c.text.trim().isNotEmpty);
-        if (hasText) active.add(i); else empty.add(i);
+        if (hasText) { active.add(i); } else { empty.add(i); }
       }
       _categoryDisplayOrder = [...active, ...empty];
     });

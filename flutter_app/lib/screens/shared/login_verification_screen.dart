@@ -316,9 +316,9 @@ class _LoginVerificationScreenState extends State<LoginVerificationScreen> {
 
   Widget _buildStrengthMeter() {
     int strengthLevel = 0;
-    if (_passwordLength > 0 && _passwordLength <= 4) strengthLevel = 1;
-    else if (_passwordLength > 4 && _passwordLength < 8) strengthLevel = 2;
-    else if (_passwordLength >= 8) strengthLevel = 4;
+    if (_passwordLength > 0 && _passwordLength <= 4) { strengthLevel = 1; }
+    else if (_passwordLength > 4 && _passwordLength < 8) { strengthLevel = 2; }
+    else if (_passwordLength >= 8) { strengthLevel = 4; }
 
     String strengthText = '無';
     Color strengthColor = AppTheme.primary.withValues(alpha: 0.3);
