@@ -111,7 +111,7 @@ class _DailyPlannerScreenState extends State<DailyPlannerScreen> {
               // Date display
               Text(
                 '${now.month}/${now.day} $weekdayStr',
-                style: const TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 52, height: 1.05, letterSpacing: -2),
+                style: const TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 52, height: 1.0, letterSpacing: -2),
               ),
               const SizedBox(height: 4),
               Text(
@@ -140,9 +140,9 @@ class _DailyPlannerScreenState extends State<DailyPlannerScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 14),
+              const SizedBox(height: 6),
               const Divider(color: AppTheme.primary, thickness: 2),
-              const SizedBox(height: 14),
+              const SizedBox(height: 10),
 
               ..._categoryDisplayOrder.map((catIndex) {
                 final isLast = catIndex == _categoryDisplayOrder.last;

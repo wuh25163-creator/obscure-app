@@ -45,38 +45,24 @@ class _DesignerSignupScreenState extends State<DesignerSignupScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Text(
+                        '加入實驗室',
+                        style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, fontSize: 12, color: AppTheme.primary.withValues(alpha: 0.5), letterSpacing: 0),
+                      ),
+                      const SizedBox(height: 4),
                       const Text(
                         '加入實驗室',
-                        style: TextStyle(
-                          fontFamily: 'Space Grotesk',
-                          fontWeight: FontWeight.w900,
-                          fontSize: 36,
-                          height: 1.0,
-                          letterSpacing: -1.0,
-                        ),
+                        style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 36, height: 1.0, letterSpacing: -1.0),
                       ),
-                      const SizedBox(height: 6),
-                      Row(
-                        children: [
-                          Container(
-                            width: 56,
-                            height: 7,
-                            decoration: BoxDecoration(
-                              color: AppTheme.accentYellow,
-                              border: Border.all(color: AppTheme.primary, width: 1.5),
-                            ),
-                          ),
-                        ],
+                      Container(
+                        margin: const EdgeInsets.symmetric(vertical: 8),
+                        height: 6,
+                        width: 60,
+                        color: AppTheme.accentYellow,
                       ),
-                      const SizedBox(height: 8),
                       const Text(
                         '設計師入駐',
-                        style: TextStyle(
-                          fontFamily: 'Space Grotesk',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                          letterSpacing: 0,
-                        ),
+                        style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, fontSize: 14, letterSpacing: 0),
                       ),
                     ],
                   ),
