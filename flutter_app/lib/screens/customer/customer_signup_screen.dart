@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../core/app_theme.dart';
-import '../../core/neo_button.dart';
 
 class CustomerSignupScreen extends StatelessWidget {
   const CustomerSignupScreen({super.key});
@@ -18,24 +17,38 @@ class CustomerSignupScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Header
+              // Hero Header
               const Text(
-                '開始尋找你的需求',
+                '找尋你的需求',
                 style: TextStyle(
                   fontFamily: 'Space Grotesk',
                   fontWeight: FontWeight.w900,
-                  fontSize: 26,
-                  height: 1.1,
-                  letterSpacing: 0,
+                  fontSize: 36,
+                  height: 1.0,
+                  letterSpacing: -1.0,
                 ),
               ),
+              const SizedBox(height: 6),
+              Row(
+                children: [
+                  Container(
+                    width: 56,
+                    height: 7,
+                    decoration: BoxDecoration(
+                      color: AppTheme.accentYellow,
+                      border: Border.all(color: AppTheme.primary, width: 1.5),
+                    ),
+                  ),
+                ],
+              ),
               const SizedBox(height: 8),
-              Container(
-                width: 80,
-                height: 8,
-                decoration: BoxDecoration(
-                  color: AppTheme.accentYellow,
-                  border: Border.all(color: AppTheme.primary, width: 1.5),
+              const Text(
+                '找尋協作夥伴',
+                style: TextStyle(
+                  fontFamily: 'Space Grotesk',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                  letterSpacing: 0,
                 ),
               ),
               const SizedBox(height: 12),
@@ -80,13 +93,9 @@ class CustomerSignupScreen extends StatelessWidget {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Expanded(
-                          child: _buildField('姓名/暱稱', '輸入姓名'),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: _buildField('電話', '輸入電話'),
-                        ),
+                        Expanded(child: _buildField('姓名/暱稱', '輸入姓名')),
+                        const SizedBox(width: 16),
+                        Expanded(child: _buildField('電話', '輸入電話')),
                       ],
                     ),
                     const SizedBox(height: 10),
@@ -118,26 +127,28 @@ class CustomerSignupScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 10),
 
-                    // Submit button
-                    NeoButton(
+                    // Submit button — outline style
+                    GestureDetector(
                       onTap: () {
                         AppTheme.isDesigner = false;
                         Navigator.pushReplacementNamed(context, '/discovery_feed');
                       },
-                      color: AppTheme.primary,
-                      shadowColor: AppTheme.accentYellow,
-                      depth: 4.0,
                       child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 13),
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(color: AppTheme.primary, width: 2),
+                          boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(3, 3))],
+                        ),
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
                               '開始合作',
-                              style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 16, color: Colors.white, letterSpacing: 0),
+                              style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 16, color: AppTheme.primary, letterSpacing: 0),
                             ),
                             SizedBox(width: 10),
-                            Icon(Icons.arrow_forward, color: Colors.white, size: 20),
+                            Icon(Icons.arrow_forward, color: AppTheme.primary, size: 20),
                           ],
                         ),
                       ),

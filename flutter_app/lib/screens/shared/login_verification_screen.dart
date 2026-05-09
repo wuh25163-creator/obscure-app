@@ -275,20 +275,20 @@ class _LoginVerificationScreenState extends State<LoginVerificationScreen> {
 
   Widget _buildSocialRow() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        _buildSocialIcon(AppIcons.google(size: 22)),
-        _buildSocialIcon(AppIcons.apple(size: 22)),
-        _buildSocialIcon(AppIcons.instagram(size: 22)),
-        _buildSocialIcon(AppIcons.threads(size: 22)),
-        _buildSocialIcon(AppIcons.line(size: 22)),
+        Expanded(child: _buildSocialIcon(AppIcons.google(size: 24))),
+        const SizedBox(width: 8),
+        Expanded(child: _buildSocialIcon(AppIcons.apple(size: 24))),
+        const SizedBox(width: 8),
+        Expanded(child: _buildSocialIcon(AppIcons.instagram(size: 24))),
+        const SizedBox(width: 8),
+        Expanded(child: _buildSocialIcon(AppIcons.threads(size: 24))),
       ],
     );
   }
 
   Widget _buildSocialIcon(Widget iconWidget) {
     return Container(
-      width: 40,
       height: 40,
       decoration: BoxDecoration(border: Border.all(color: AppTheme.primary, width: 1.5), color: Colors.white),
       alignment: Alignment.center,

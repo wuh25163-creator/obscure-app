@@ -129,7 +129,37 @@ class _DesignerProfileScreenState extends State<DesignerProfileScreen> {
               ),
               const SizedBox(height: 14),
 
-              // Action Buttons
+              // Action Buttons — 2-column × 2-row grid
+              Row(
+                children: [
+                  Expanded(
+                    child: NeoButton(
+                      onTap: () => Navigator.pushNamed(context, '/income_dashboard'),
+                      color: AppTheme.accentYellow,
+                      depth: 3.0,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 11),
+                        alignment: Alignment.center,
+                        child: const Text('收入儀表板', style: TextStyle(color: AppTheme.primary, fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 13)),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: NeoButton(
+                      onTap: () => Navigator.pushNamed(context, '/new_work'),
+                      color: AppTheme.surface,
+                      depth: 3.0,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 11),
+                        alignment: Alignment.center,
+                        child: const Text('新增專案', style: TextStyle(color: AppTheme.primary, fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 13)),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
               Row(
                 children: [
                   Expanded(
@@ -138,9 +168,9 @@ class _DesignerProfileScreenState extends State<DesignerProfileScreen> {
                       color: AppTheme.accentBlue,
                       depth: 3.0,
                       child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        padding: const EdgeInsets.symmetric(vertical: 11),
                         alignment: Alignment.center,
-                        child: const Text('追蹤', style: TextStyle(color: Colors.white, fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 15)),
+                        child: const Text('追蹤', style: TextStyle(color: Colors.white, fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 13)),
                       ),
                     ),
                   ),
@@ -151,28 +181,14 @@ class _DesignerProfileScreenState extends State<DesignerProfileScreen> {
                       color: AppTheme.surface,
                       depth: 3.0,
                       child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        padding: const EdgeInsets.symmetric(vertical: 11),
                         alignment: Alignment.center,
-                        child: const Text('傳送訊息', style: TextStyle(color: AppTheme.primary, fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 15)),
+                        child: const Text('傳送訊息', style: TextStyle(color: AppTheme.primary, fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 13)),
                       ),
                     ),
                   ),
                 ],
               ),
-              if (AppTheme.isDesigner) ...[
-                const SizedBox(height: 10),
-                NeoButton(
-                  onTap: () => Navigator.pushNamed(context, '/income_dashboard'),
-                  color: AppTheme.accentYellow,
-                  depth: 3.0,
-                  child: Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                    alignment: Alignment.center,
-                    child: const Text('收入儀表板', style: TextStyle(color: AppTheme.primary, fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 15)),
-                  ),
-                ),
-              ],
               const SizedBox(height: 24),
 
               // Projects

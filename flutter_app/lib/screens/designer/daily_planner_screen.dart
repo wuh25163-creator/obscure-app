@@ -108,17 +108,17 @@ class _DailyPlannerScreenState extends State<DailyPlannerScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Date display — reduced from fontSize 80 to 52
+              // Date display
               Text(
                 '${now.month}/${now.day} $weekdayStr',
-                style: const TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 52, height: 1.0, letterSpacing: -2),
+                style: const TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 52, height: 1.05, letterSpacing: -2),
               ),
-              const SizedBox(height: 2),
+              const SizedBox(height: 4),
               Text(
                 monthStr,
-                style: const TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w800, fontSize: 13, letterSpacing: 1.5),
+                style: const TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w800, fontSize: 13, letterSpacing: 1.5, height: 1.0),
               ),
-              const SizedBox(height: 14),
+              const SizedBox(height: 16),
 
               // Focus mode toggle
               GestureDetector(
