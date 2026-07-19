@@ -16,9 +16,9 @@ class NeoButton extends StatefulWidget {
     super.key,
     required this.child,
     required this.onTap,
-    this.color = Colors.white,
+    this.color = AppTheme.paper,
     this.shadowColor,
-    this.depth = 6.0,
+    this.depth = 3.0,
     this.borderWidth = 3.0,
     this.padding,
     this.borderRadius,
@@ -51,14 +51,18 @@ class _NeoButtonState extends State<NeoButton> {
     final decoration = BoxDecoration(
       color: widget.color,
       shape: widget.isCircle ? BoxShape.circle : BoxShape.rectangle,
-      borderRadius: widget.isCircle ? null : (widget.borderRadius ?? BorderRadius.zero),
+      borderRadius: widget.isCircle
+          ? null
+          : (widget.borderRadius ?? BorderRadius.zero),
       border: Border.all(color: AppTheme.primary, width: widget.borderWidth),
     );
 
     final shadowDecoration = BoxDecoration(
       color: sColor,
       shape: widget.isCircle ? BoxShape.circle : BoxShape.rectangle,
-      borderRadius: widget.isCircle ? null : (widget.borderRadius ?? BorderRadius.zero),
+      borderRadius: widget.isCircle
+          ? null
+          : (widget.borderRadius ?? BorderRadius.zero),
       border: Border.all(color: AppTheme.primary, width: widget.borderWidth),
     );
 
@@ -73,9 +77,7 @@ class _NeoButtonState extends State<NeoButton> {
           Positioned.fill(
             child: Transform.translate(
               offset: Offset(widget.depth, widget.depth),
-              child: Container(
-                decoration: shadowDecoration,
-              ),
+              child: Container(decoration: shadowDecoration),
             ),
           ),
           // Interactive Top Layer

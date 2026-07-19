@@ -1,25 +1,26 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+
 import 'core/app_theme.dart';
 import 'core/fade_slide_route.dart';
-import 'screens/shared/identity_selection_screen.dart';
+import 'screens/admin/admin_dashboard_screen.dart';
 import 'screens/customer/customer_signup_screen.dart';
+import 'screens/customer/discovery_feed_screen.dart';
+import 'screens/customer/search_categories_screen.dart';
 import 'screens/designer/daily_planner_screen.dart';
 import 'screens/designer/designer_profile_screen.dart';
 import 'screens/designer/designer_signup_screen.dart';
-import 'screens/customer/discovery_feed_screen.dart';
-import 'screens/shared/commission_status_screen.dart';
 import 'screens/designer/income_dashboard_screen.dart';
-import 'screens/shared/message_inbox_screen.dart';
+import 'screens/designer/new_work_screen.dart';
 import 'screens/designer/portfolio_management_screen.dart';
-import 'screens/customer/search_categories_screen.dart';
+import 'screens/shared/commission_status_screen.dart';
+import 'screens/shared/contract_quote_screen.dart';
+import 'screens/shared/identity_selection_screen.dart';
 import 'screens/shared/login_verification_screen.dart';
+import 'screens/shared/message_inbox_screen.dart';
 import 'screens/shared/notification_center_screen.dart';
 import 'screens/shared/project_detail_screen.dart';
-import 'screens/shared/contract_quote_screen.dart';
 import 'screens/shared/review_rating_screen.dart';
-import 'screens/admin/admin_dashboard_screen.dart';
-import 'screens/designer/new_work_screen.dart';
 
 void main() {
   runApp(const StitchApp());
@@ -72,14 +73,22 @@ class StitchApp extends StatelessWidget {
         return FadeSlideRoute(page: const LoginVerificationScreen());
       },
       builder: (context, child) {
-        return Container(
-          color: AppTheme.primary, // 當螢幕太寬時，兩側顯示黑色
-          child: Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 390), // 更符合主流手機的寬度尺寸
-              child: ClipRect(child: child!),
-            ),
-          ),
+        return LayoutBuilder(
+          builder: (context, constraints) {
+            final frameWidth = AppBreakpoints.appFrameWidthFor(
+              constraints.maxWidth,
+            );
+
+            return Container(
+              color: AppTheme.primary,
+              child: Center(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(maxWidth: frameWidth),
+                  child: ClipRect(child: child!),
+                ),
+              ),
+            );
+          },
         );
       },
       debugShowCheckedModeBanner: false,

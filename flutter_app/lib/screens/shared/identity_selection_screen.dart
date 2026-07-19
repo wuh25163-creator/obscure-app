@@ -14,33 +14,10 @@ class IdentitySelectionScreen extends StatelessWidget {
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          padding: const EdgeInsets.all(15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const Text(
-                '請選擇',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: 'Space Grotesk',
-                  fontWeight: FontWeight.w900,
-                  fontSize: 32,
-                  height: 1.1,
-                  letterSpacing: 0,
-                ),
-              ),
-              const SizedBox(height: 10),
-              Center(
-                child: Container(
-                  width: 72,
-                  height: 10,
-                  decoration: BoxDecoration(
-                    color: AppTheme.accentRed,
-                    border: Border.all(color: AppTheme.primary, width: 1.5),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
               Expanded(
                 child: _buildIdentityCard(
                   context,
@@ -55,7 +32,7 @@ class IdentitySelectionScreen extends StatelessWidget {
                   onTap: () => Navigator.pushNamed(context, '/designer_signup'),
                 ),
               ),
-              const SizedBox(height: 14),
+              const SizedBox(height: 15),
               Expanded(
                 child: _buildIdentityCard(
                   context,
@@ -97,15 +74,15 @@ class IdentitySelectionScreen extends StatelessWidget {
       padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            width: 44,
-            height: 44,
+            width: 64,
+            height: 64,
             color: iconBgColor,
             alignment: Alignment.center,
-            child: Icon(icon, color: iconColor, size: 24),
+            child: Icon(icon, color: iconColor, size: 38),
           ),
+          const SizedBox(height: 15),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -114,43 +91,47 @@ class IdentitySelectionScreen extends StatelessWidget {
                 style: const TextStyle(
                   fontFamily: 'Space Grotesk',
                   fontWeight: FontWeight.w900,
-                  fontSize: 26,
-                  height: 1.1,
+                  fontSize: 28,
+                  height: 1.03,
                   letterSpacing: 0,
                 ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 15),
               Container(
                 decoration: const BoxDecoration(
-                  border: Border(left: BorderSide(color: AppTheme.primary, width: 3)),
+                  border: Border(
+                    left: BorderSide(color: AppTheme.primary, width: 2.25),
+                  ),
                 ),
                 padding: const EdgeInsets.only(left: 10),
                 child: Text(
                   description,
                   style: const TextStyle(
-                    fontSize: 13,
+                    fontSize: 14,
                     fontWeight: FontWeight.w500,
-                    height: 1.4,
+                    height: 1.28,
                     letterSpacing: 0,
                   ),
                 ),
               ),
             ],
           ),
+          const Spacer(),
           Row(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text(
                 actionText,
                 style: TextStyle(
                   fontFamily: 'Space Grotesk',
                   fontWeight: FontWeight.w800,
-                  fontSize: 14,
+                  fontSize: 16,
                   color: actionColor,
                   letterSpacing: 0,
                 ),
               ),
               const SizedBox(width: 8),
-              Icon(Icons.arrow_forward, color: actionColor, size: 18),
+              Icon(Icons.arrow_forward, color: actionColor, size: 21),
             ],
           ),
         ],

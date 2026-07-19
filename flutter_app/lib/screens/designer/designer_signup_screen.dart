@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../core/app_theme.dart';
 
 class DesignerSignupScreen extends StatefulWidget {
@@ -10,7 +11,7 @@ class DesignerSignupScreen extends StatefulWidget {
 
 class _DesignerSignupScreenState extends State<DesignerSignupScreen> {
   bool? _isMajor;
-  double _workCount = 24.0;
+  double _workCount = 0.0;
   final TextEditingController _codeController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _ageController = TextEditingController();
@@ -28,99 +29,141 @@ class _DesignerSignupScreenState extends State<DesignerSignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppTheme.background,
       appBar: const ObscureAppBar(
         leading: SizedBox.shrink(),
         actions: [SizedBox.shrink()],
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+          padding: const EdgeInsets.fromLTRB(15, 20, 15, 14),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Hero Header
-              Stack(
-                clipBehavior: Clip.none,
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Column(
+                  Container(width: 7, height: 62, color: AppTheme.accentYellow),
+                  const SizedBox(width: 12),
+                  const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         '加入實驗室',
-                        style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, fontSize: 12, color: AppTheme.primary.withValues(alpha: 0.5), letterSpacing: 0),
+                        style: TextStyle(
+                          fontFamily: 'Space Grotesk',
+                          fontWeight: FontWeight.w900,
+                          fontSize: 37,
+                          height: 0.94,
+                          letterSpacing: -1.2,
+                        ),
                       ),
-                      const SizedBox(height: 4),
-                      const Text(
-                        '加入實驗室',
-                        style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 36, height: 1.0, letterSpacing: -1.0),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(vertical: 8),
-                        height: 6,
-                        width: 60,
-                        color: AppTheme.accentYellow,
-                      ),
-                      const Text(
+                      SizedBox(height: 7),
+                      Text(
                         '設計師入駐',
-                        style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, fontSize: 14, letterSpacing: 0),
+                        style: TextStyle(
+                          fontFamily: 'Space Grotesk',
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                          letterSpacing: 0,
+                        ),
                       ),
                     ],
-                  ),
-                  // ⚡ Badge
-                  Positioned(
-                    top: 0,
-                    right: 0,
-                    child: Container(
-                      width: 34,
-                      height: 34,
-                      decoration: BoxDecoration(
-                        color: AppTheme.accentYellow,
-                        border: Border.all(color: AppTheme.primary, width: 2),
-                      ),
-                      child: const Icon(Icons.bolt, size: 20, color: AppTheme.primary),
-                    ),
                   ),
                 ],
               ),
               const SizedBox(height: 14),
-
-              // Form — Expanded to fill remaining space
-              Expanded(
+              Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: AppTheme.paper,
+                  border: Border.all(
+                    color: AppTheme.primary,
+                    width: AppStroke.regular,
+                  ),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: AppTheme.primary,
+                      offset: Offset(3, 3),
+                      blurRadius: 0,
+                    ),
+                  ],
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    // 設計師代號
-                    _buildUnderlineField('設計師代號', '請輸入您的設計師代號', controller: _codeController),
+                    _buildUnderlineField(
+                      '設計師代號',
+                      '請輸入您的設計師代號',
+                      controller: _codeController,
+                    ),
                     const SizedBox(height: 12),
-
-                    // 姓名 + 年齡
                     Row(
                       children: [
-                        Expanded(child: _buildUnderlineField('姓名(暱稱)', '請輸入名稱', controller: _nameController)),
+                        Expanded(
+                          child: _buildUnderlineField(
+                            '姓名',
+                            '請輸入姓名',
+                            controller: _nameController,
+                          ),
+                        ),
                         const SizedBox(width: 16),
-                        Expanded(child: _buildUnderlineField('年齡', '24', controller: _ageController)),
+                        Expanded(
+                          child: _buildUnderlineField(
+                            '年齡',
+                            '24',
+                            controller: _ageController,
+                          ),
+                        ),
                       ],
                     ),
                     const SizedBox(height: 12),
-
-                    // 電話
-                    _buildUnderlineField('電話', '+886', controller: _phoneController),
+                    _buildUnderlineField(
+                      '電話',
+                      '+886',
+                      controller: _phoneController,
+                    ),
                     const SizedBox(height: 14),
-
-                    // 是否為設計本科
-                    const Text('是否為設計本科', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, fontSize: 12, letterSpacing: 0)),
+                    const Text(
+                      '是否為設計本科',
+                      style: TextStyle(
+                        fontFamily: 'Space Grotesk',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 11,
+                        letterSpacing: 0,
+                      ),
+                    ),
                     const SizedBox(height: 6),
                     Row(
                       children: [
-                        Expanded(child: _buildChoiceButton('是', _isMajor == true, () => setState(() => _isMajor = true))),
+                        Expanded(
+                          child: _buildChoiceButton(
+                            '是',
+                            _isMajor == true,
+                            () => setState(() => _isMajor = true),
+                          ),
+                        ),
                         const SizedBox(width: 10),
-                        Expanded(child: _buildChoiceButton('非本科', _isMajor == false, () => setState(() => _isMajor = false))),
+                        Expanded(
+                          child: _buildChoiceButton(
+                            '非本科',
+                            _isMajor == false,
+                            () => setState(() => _isMajor = false),
+                          ),
+                        ),
                       ],
                     ),
                     const SizedBox(height: 14),
-
-                    // 工作次數 — 數字在左
-                    const Text('工作次數', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, fontSize: 12, letterSpacing: 0)),
+                    const Text(
+                      '工作次數',
+                      style: TextStyle(
+                        fontFamily: 'Space Grotesk',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 11,
+                        letterSpacing: 0,
+                      ),
+                    ),
                     const SizedBox(height: 4),
                     Row(
                       children: [
@@ -129,51 +172,86 @@ class _DesignerSignupScreenState extends State<DesignerSignupScreen> {
                           padding: const EdgeInsets.symmetric(vertical: 4),
                           decoration: BoxDecoration(
                             color: AppTheme.accentYellow,
-                            border: Border.all(color: AppTheme.primary, width: 2),
+                            border: Border.all(
+                              color: AppTheme.primary,
+                              width: AppStroke.regular,
+                            ),
                           ),
                           alignment: Alignment.center,
-                          child: Text('${_workCount.toInt()}', style: const TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 14)),
+                          child: Text(
+                            _workCount >= 10 ? '10+' : '${_workCount.toInt()}',
+                            style: const TextStyle(
+                              fontFamily: 'Space Grotesk',
+                              fontWeight: FontWeight.w900,
+                              fontSize: 13,
+                            ),
+                          ),
                         ),
                         Expanded(
                           child: Slider(
                             value: _workCount,
                             min: 0,
-                            max: 100,
+                            max: 10,
+                            divisions: 10,
                             activeColor: AppTheme.primary,
-                            inactiveColor: AppTheme.primary.withValues(alpha: 0.2),
-                            onChanged: (val) => setState(() => _workCount = val),
+                            inactiveColor: AppTheme.primary.withValues(
+                              alpha: 0.2,
+                            ),
+                            onChanged: (val) =>
+                                setState(() => _workCount = val),
                           ),
                         ),
                       ],
                     ),
-
-                    const Spacer(),
-
-                    // Submit — 黃色填滿
+                    const SizedBox(height: 12),
                     GestureDetector(
                       onTap: () {
                         AppTheme.isDesigner = true;
-                        Navigator.pushReplacementNamed(context, '/designer_profile', arguments: {
-                          'name': _nameController.text.isNotEmpty ? _nameController.text : '匿名設計師',
-                          'major': _isMajor == true ? '設計本科' : null,
-                        });
+                        Navigator.pushReplacementNamed(
+                          context,
+                          '/designer_profile',
+                          arguments: {
+                            'name': _nameController.text.isNotEmpty
+                                ? _nameController.text
+                                : '匿名設計師',
+                            'major': _isMajor == true ? '設計本科' : null,
+                          },
+                        );
                       },
                       child: Container(
                         padding: const EdgeInsets.symmetric(vertical: 14),
                         decoration: BoxDecoration(
                           color: AppTheme.accentYellow,
-                          border: Border.all(color: AppTheme.primary, width: 2),
-                          boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(3, 3))],
+                          border: Border.all(
+                            color: AppTheme.primary,
+                            width: AppStroke.regular,
+                          ),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: AppTheme.primary,
+                              offset: Offset(3, 3),
+                            ),
+                          ],
                         ),
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
                               '開始合作',
-                              style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 16, color: AppTheme.primary, letterSpacing: 0),
+                              style: TextStyle(
+                                fontFamily: 'Space Grotesk',
+                                fontWeight: FontWeight.w900,
+                                fontSize: 15,
+                                color: AppTheme.primary,
+                                letterSpacing: 0,
+                              ),
                             ),
                             SizedBox(width: 10),
-                            Icon(Icons.arrow_forward, color: AppTheme.primary, size: 20),
+                            Icon(
+                              Icons.arrow_forward,
+                              color: AppTheme.primary,
+                              size: 20,
+                            ),
                           ],
                         ),
                       ),
@@ -189,23 +267,55 @@ class _DesignerSignupScreenState extends State<DesignerSignupScreen> {
     );
   }
 
-  Widget _buildUnderlineField(String label, String hint, {TextEditingController? controller}) {
+  Widget _buildUnderlineField(
+    String label,
+    String hint, {
+    TextEditingController? controller,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: const TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, fontSize: 12, letterSpacing: 0)),
+        Text(
+          label,
+          style: const TextStyle(
+            fontFamily: 'Space Grotesk',
+            fontWeight: FontWeight.bold,
+            fontSize: 11,
+            letterSpacing: 0,
+          ),
+        ),
         const SizedBox(height: 3),
         TextField(
           controller: controller,
           decoration: InputDecoration(
             hintText: hint,
-            hintStyle: TextStyle(color: AppTheme.primary.withValues(alpha: 0.3), fontFamily: 'Space Grotesk', fontWeight: FontWeight.w500, fontSize: 13),
-            enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: AppTheme.primary, width: 2)),
-            focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: AppTheme.accentBlue, width: 2)),
+            hintStyle: TextStyle(
+              color: AppTheme.primary.withValues(alpha: 0.3),
+              fontFamily: 'Space Grotesk',
+              fontWeight: FontWeight.w500,
+              fontSize: 12,
+            ),
+            enabledBorder: const UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: AppTheme.primary,
+                width: AppStroke.regular,
+              ),
+            ),
+            focusedBorder: const UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: AppTheme.accentBlue,
+                width: AppStroke.regular,
+              ),
+            ),
             contentPadding: const EdgeInsets.symmetric(vertical: 6),
             isDense: true,
           ),
-          style: const TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w600, fontSize: 14, letterSpacing: 0),
+          style: const TextStyle(
+            fontFamily: 'Space Grotesk',
+            fontWeight: FontWeight.w600,
+            fontSize: 13,
+            letterSpacing: 0,
+          ),
         ),
       ],
     );
@@ -217,9 +327,15 @@ class _DesignerSignupScreenState extends State<DesignerSignupScreen> {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
-          color: isSelected ? AppTheme.primary : Colors.white,
-          border: Border.all(color: AppTheme.primary, width: 2),
-          boxShadow: isSelected ? const [BoxShadow(color: AppTheme.primary, offset: Offset(2, 2))] : null,
+          color: isSelected ? AppTheme.primary : AppTheme.surface,
+          border: Border.all(color: AppTheme.primary, width: AppStroke.regular),
+          boxShadow: const [
+            BoxShadow(
+              color: AppTheme.primary,
+              offset: Offset(3, 3),
+              blurRadius: 0,
+            ),
+          ],
         ),
         alignment: Alignment.center,
         child: Text(
@@ -227,8 +343,8 @@ class _DesignerSignupScreenState extends State<DesignerSignupScreen> {
           style: TextStyle(
             fontFamily: 'Space Grotesk',
             fontWeight: FontWeight.bold,
-            fontSize: 13,
-            color: isSelected ? Colors.white : AppTheme.primary,
+            fontSize: 12,
+            color: isSelected ? AppTheme.paper : AppTheme.primary,
             letterSpacing: 0,
           ),
         ),

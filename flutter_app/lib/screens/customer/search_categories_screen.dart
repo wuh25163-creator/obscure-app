@@ -12,7 +12,7 @@ class SearchCategoriesScreen extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           primary: true,
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -25,7 +25,11 @@ class SearchCategoriesScreen extends StatelessWidget {
                     children: [
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 12),
-                        child: Icon(Icons.search, color: AppTheme.primary, size: 22),
+                        child: Icon(
+                          Icons.search,
+                          color: AppTheme.primary,
+                          size: 22,
+                        ),
                       ),
                       Expanded(
                         child: Center(
@@ -33,11 +37,22 @@ class SearchCategoriesScreen extends StatelessWidget {
                             decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: '搜尋設計靈感...',
-                              hintStyle: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, fontSize: 14, color: AppTheme.primary.withValues(alpha: 0.4)),
+                              hintStyle: TextStyle(
+                                fontFamily: 'Space Grotesk',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13,
+                                color: AppTheme.primary.withValues(alpha: 0.4),
+                              ),
                               isDense: true,
-                              contentPadding: const EdgeInsets.symmetric(vertical: 13),
+                              contentPadding: const EdgeInsets.symmetric(
+                                vertical: 13,
+                              ),
                             ),
-                            style: const TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, fontSize: 14),
+                            style: const TextStyle(
+                              fontFamily: 'Space Grotesk',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                            ),
                           ),
                         ),
                       ),
@@ -46,13 +61,25 @@ class SearchCategoriesScreen extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppTheme.accentYellow,
                           foregroundColor: AppTheme.primary,
-                          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-                          side: const BorderSide(color: AppTheme.primary, width: 1.5),
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.zero,
+                          ),
+                          side: const BorderSide(
+                            color: AppTheme.primary,
+                            width: 1.0,
+                          ),
                           padding: const EdgeInsets.symmetric(horizontal: 16),
-                          elevation: 0
+                          elevation: 0,
                         ),
-                        child: const Text('搜尋', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 13)),
-                      )
+                        child: const Text(
+                          '搜尋',
+                          style: TextStyle(
+                            fontFamily: 'Space Grotesk',
+                            fontWeight: FontWeight.w900,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -63,9 +90,23 @@ class SearchCategoriesScreen extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  const Text('分類', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 20, letterSpacing: -0.5)),
+                  const Text(
+                    '分類',
+                    style: TextStyle(
+                      fontFamily: 'Space Grotesk',
+                      fontWeight: FontWeight.w900,
+                      fontSize: 19,
+                      letterSpacing: -0.75,
+                    ),
+                  ),
                   const SizedBox(width: 10),
-                  Expanded(child: Container(height: 2, color: AppTheme.primary, margin: const EdgeInsets.only(bottom: 3))),
+                  Expanded(
+                    child: Container(
+                      height: 1.75,
+                      color: AppTheme.primary,
+                      margin: const EdgeInsets.only(bottom: 3),
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 12),
@@ -85,17 +126,33 @@ class SearchCategoriesScreen extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     physics: const BouncingScrollPhysics(),
                     children: [
-                      _buildCategoryCard('主視覺設計', '視覺識別系統', AppTheme.accentYellow),
+                      _buildCategoryCard(
+                        '主視覺設計',
+                        '視覺識別系統',
+                        AppTheme.accentYellow,
+                      ),
                       const SizedBox(width: 10),
                       _buildCategoryCard('包裝設計', '包裝美學設計', AppTheme.accentBlue),
                       const SizedBox(width: 10),
                       _buildCategoryCard('產品設計', '工業與產品設計', AppTheme.accentRed),
                       const SizedBox(width: 10),
-                      _buildCategoryCard('插畫設計', '藝術插畫繪製', const Color(0xFF6BCB77)),
+                      _buildCategoryCard(
+                        '插畫設計',
+                        '藝術插畫繪製',
+                        const Color(0xFF6BCB77),
+                      ),
                       const SizedBox(width: 10),
-                      _buildCategoryCard('字體設計', '字體研發與設計', const Color(0xFFFF6B6B)),
+                      _buildCategoryCard(
+                        '字體設計',
+                        '字體研發與設計',
+                        const Color(0xFFFF6B6B),
+                      ),
                       const SizedBox(width: 10),
-                      _buildCategoryCard('網頁設計', '使用者介面設計', const Color(0xFFB388FF)),
+                      _buildCategoryCard(
+                        '網頁設計',
+                        '使用者介面設計',
+                        const Color(0xFFB388FF),
+                      ),
                     ],
                   ),
                 ),
@@ -107,7 +164,14 @@ class SearchCategoriesScreen extends StatelessWidget {
                 children: const [
                   Icon(Icons.grid_view, size: 20),
                   SizedBox(width: 8),
-                  Text('近期專案', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 20)),
+                  Text(
+                    '近期專案',
+                    style: TextStyle(
+                      fontFamily: 'Space Grotesk',
+                      fontWeight: FontWeight.w900,
+                      fontSize: 19,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 12),
@@ -149,31 +213,83 @@ class SearchCategoriesScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(12),
                     child: Row(
                       children: [
-                        Container(width: 64, height: 64, decoration: BoxDecoration(border: Border.all(color: AppTheme.primary, width: 2), color: Colors.grey.shade300)),
+                        Container(
+                          width: 64,
+                          height: 64,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: AppTheme.primary,
+                              width: 1.5,
+                            ),
+                            color: Colors.grey.shade300,
+                          ),
+                        ),
                         const SizedBox(width: 12),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text('#包裝', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, fontSize: 10, color: AppTheme.accentRed)),
+                              const Text(
+                                '#包裝',
+                                style: TextStyle(
+                                  fontFamily: 'Space Grotesk',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 9,
+                                  color: AppTheme.accentRed,
+                                ),
+                              ),
                               const SizedBox(height: 2),
-                              const Text('生態模組盒 V.2', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, fontSize: 14)),
+                              const Text(
+                                '生態模組盒 V.2',
+                                style: TextStyle(
+                                  fontFamily: 'Space Grotesk',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13,
+                                ),
+                              ),
                               const SizedBox(height: 6),
                               Row(
                                 children: [
-                                  Container(width: 12, height: 12, decoration: BoxDecoration(border: Border.all(color: AppTheme.primary), color: AppTheme.primary)),
+                                  Container(
+                                    width: 12,
+                                    height: 12,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: AppTheme.primary,
+                                      ),
+                                      color: AppTheme.primary,
+                                    ),
+                                  ),
                                   const SizedBox(width: 4),
-                                  Container(width: 12, height: 12, decoration: BoxDecoration(border: Border.all(color: AppTheme.primary), color: AppTheme.accentYellow)),
+                                  Container(
+                                    width: 12,
+                                    height: 12,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: AppTheme.primary,
+                                      ),
+                                      color: AppTheme.accentYellow,
+                                    ),
+                                  ),
                                   const SizedBox(width: 4),
-                                  Container(width: 12, height: 12, decoration: BoxDecoration(border: Border.all(color: AppTheme.primary), color: AppTheme.accentRed)),
+                                  Container(
+                                    width: 12,
+                                    height: 12,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: AppTheme.primary,
+                                      ),
+                                      color: AppTheme.accentRed,
+                                    ),
+                                  ),
                                 ],
-                              )
+                              ),
                             ],
                           ),
-                        )
+                        ),
                       ],
                     ),
-                  )
+                  ),
                 ],
               ),
               const SizedBox(height: 24),
@@ -199,7 +315,9 @@ class SearchCategoriesScreen extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 color: bgColor,
-                border: const Border(bottom: BorderSide(color: AppTheme.primary, width: 2)),
+                border: const Border(
+                  bottom: BorderSide(color: AppTheme.primary, width: 1.5),
+                ),
               ),
             ),
           ),
@@ -212,21 +330,40 @@ class SearchCategoriesScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(title, style: const TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 13)),
-                      Text(subtitle, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 9, color: Colors.grey)),
+                      Text(
+                        title,
+                        style: const TextStyle(
+                          fontFamily: 'Space Grotesk',
+                          fontWeight: FontWeight.w900,
+                          fontSize: 12,
+                        ),
+                      ),
+                      Text(
+                        subtitle,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 8,
+                          color: Colors.grey,
+                        ),
+                      ),
                     ],
                   ),
                 ),
                 const Icon(Icons.north_east, size: 14),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildProjectCard({required String title, required String tag, required bool isLarge, required Color bgColor}) {
+  Widget _buildProjectCard({
+    required String title,
+    required String tag,
+    required bool isLarge,
+    required Color bgColor,
+  }) {
     return Container(
       decoration: NeoBoxDecoration(color: bgColor),
       padding: const EdgeInsets.all(10),
@@ -235,20 +372,41 @@ class SearchCategoriesScreen extends StatelessWidget {
         children: [
           Container(
             height: isLarge ? 160 : 90,
-            decoration: BoxDecoration(border: Border.all(color: AppTheme.primary, width: 2), color: Colors.grey.shade300),
+            decoration: BoxDecoration(
+              border: Border.all(color: AppTheme.primary, width: 1.5),
+              color: Colors.grey.shade300,
+            ),
           ),
           const SizedBox(height: 10),
           if (tag.isNotEmpty) ...[
-            Text(tag, style: const TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, fontSize: 10, color: AppTheme.accentBlue)),
+            Text(
+              tag,
+              style: const TextStyle(
+                fontFamily: 'Space Grotesk',
+                fontWeight: FontWeight.bold,
+                fontSize: 9,
+                color: AppTheme.accentBlue,
+              ),
+            ),
             const SizedBox(height: 2),
           ],
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(child: Text(title, style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, fontSize: isLarge ? 15 : 12), overflow: TextOverflow.ellipsis)),
+              Expanded(
+                child: Text(
+                  title,
+                  style: TextStyle(
+                    fontFamily: 'Space Grotesk',
+                    fontWeight: FontWeight.bold,
+                    fontSize: isLarge ? 15 : 12,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
               if (isLarge) const Icon(Icons.favorite, size: 18),
             ],
-          )
+          ),
         ],
       ),
     );

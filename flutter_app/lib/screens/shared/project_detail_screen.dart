@@ -39,9 +39,9 @@ class ProjectDetailScreen extends StatelessWidget {
       height: 52,
       decoration: const BoxDecoration(
         color: AppTheme.background,
-        border: Border(bottom: BorderSide(color: AppTheme.primary, width: 2.5)),
+        border: Border(bottom: BorderSide(color: AppTheme.primary, width: 2.0)),
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 14),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -49,8 +49,23 @@ class ProjectDetailScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('回味', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, fontSize: 16, height: 1.2)),
-              Text('鮭魚', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w500, fontSize: 11)),
+              Text(
+                '回味',
+                style: TextStyle(
+                  fontFamily: 'Space Grotesk',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                  height: 1.12,
+                ),
+              ),
+              Text(
+                '鮭魚',
+                style: TextStyle(
+                  fontFamily: 'Space Grotesk',
+                  fontWeight: FontWeight.w500,
+                  fontSize: 10,
+                ),
+              ),
             ],
           ),
           GestureDetector(
@@ -60,8 +75,10 @@ class ProjectDetailScreen extends StatelessWidget {
               height: 34,
               decoration: BoxDecoration(
                 color: AppTheme.accentYellow,
-                border: Border.all(color: AppTheme.primary, width: 2),
-                boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(3, 3))],
+                border: Border.all(color: AppTheme.primary, width: 1.5),
+                boxShadow: const [
+                  BoxShadow(color: AppTheme.primary, offset: Offset(3, 3)),
+                ],
               ),
               child: const Icon(Icons.close, color: AppTheme.primary, size: 18),
             ),
@@ -77,7 +94,9 @@ class ProjectDetailScreen extends StatelessWidget {
       child: Container(
         decoration: const BoxDecoration(
           color: AppTheme.accentBlue,
-          border: Border(bottom: BorderSide(color: AppTheme.primary, width: 2.5)),
+          border: Border(
+            bottom: BorderSide(color: AppTheme.primary, width: 2.0),
+          ),
         ),
       ),
     );
@@ -85,13 +104,29 @@ class ProjectDetailScreen extends StatelessWidget {
 
   Widget _buildProjectInfo() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(14, 12, 14, 0),
+      padding: const EdgeInsets.fromLTRB(15, 12, 15, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('回味', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, fontSize: 24, letterSpacing: -0.5)),
+          const Text(
+            '回味',
+            style: TextStyle(
+              fontFamily: 'Space Grotesk',
+              fontWeight: FontWeight.bold,
+              fontSize: 22,
+              letterSpacing: -0.75,
+            ),
+          ),
           const SizedBox(height: 2),
-          Text('2025/5/5', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, fontSize: 12, color: AppTheme.primary.withValues(alpha: 0.6))),
+          Text(
+            '2025/5/5',
+            style: TextStyle(
+              fontFamily: 'Space Grotesk',
+              fontWeight: FontWeight.bold,
+              fontSize: 11,
+              color: AppTheme.primary.withValues(alpha: 0.6),
+            ),
+          ),
         ],
       ),
     );
@@ -99,7 +134,7 @@ class ProjectDetailScreen extends StatelessWidget {
 
   Widget _buildCommentsSection() {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
+      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
       padding: const EdgeInsets.all(12),
       decoration: const NeoBoxDecoration(color: AppTheme.surface),
       child: Stack(
@@ -108,7 +143,15 @@ class ProjectDetailScreen extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('評論', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, fontSize: 16, letterSpacing: -0.5)),
+              const Text(
+                '評論',
+                style: TextStyle(
+                  fontFamily: 'Space Grotesk',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                  letterSpacing: -0.75,
+                ),
+              ),
               const SizedBox(height: 10),
               _buildCommentItem('這幾何構成非常有張力！', AppTheme.accentRed),
               const SizedBox(height: 8),
@@ -125,10 +168,20 @@ class ProjectDetailScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
               decoration: BoxDecoration(
                 color: AppTheme.accentYellow,
-                border: Border.all(color: AppTheme.primary, width: 2),
-                boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(2, 2))],
+                border: Border.all(color: AppTheme.primary, width: 1.5),
+                boxShadow: const [
+                  BoxShadow(color: AppTheme.primary, offset: Offset(2, 2)),
+                ],
               ),
-              child: const Text('所有評論', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, fontSize: 12, decoration: TextDecoration.underline)),
+              child: const Text(
+                '所有評論',
+                style: TextStyle(
+                  fontFamily: 'Space Grotesk',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 11,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
             ),
           ),
         ],
@@ -138,24 +191,40 @@ class ProjectDetailScreen extends StatelessWidget {
 
   Widget _buildCommentItem(String text, Color color) {
     return Container(
-      decoration: BoxDecoration(border: Border(left: BorderSide(color: color, width: 3))),
+      decoration: BoxDecoration(
+        border: Border(left: BorderSide(color: color, width: 2.25)),
+      ),
       padding: const EdgeInsets.only(left: 8),
-      child: Text(text, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
+      child: Text(
+        text,
+        style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+      ),
     );
   }
 
   Widget _buildCommentInput() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 14),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Row(
         children: [
           Expanded(
             child: Container(
               height: 42,
               padding: const EdgeInsets.symmetric(horizontal: 12),
-              decoration: BoxDecoration(color: Colors.white, border: Border.all(color: AppTheme.primary, width: 2)),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(color: AppTheme.primary, width: 1.5),
+              ),
               alignment: Alignment.centerLeft,
-              child: Text('輸入評論...', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, fontSize: 13, color: AppTheme.primary.withValues(alpha: 0.4))),
+              child: Text(
+                '輸入評論...',
+                style: TextStyle(
+                  fontFamily: 'Space Grotesk',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                  color: AppTheme.primary.withValues(alpha: 0.4),
+                ),
+              ),
             ),
           ),
           Container(
@@ -163,7 +232,11 @@ class ProjectDetailScreen extends StatelessWidget {
             height: 42,
             decoration: const BoxDecoration(
               color: AppTheme.primary,
-              border: Border(top: BorderSide(color: AppTheme.primary, width: 2), right: BorderSide(color: AppTheme.primary, width: 2), bottom: BorderSide(color: AppTheme.primary, width: 2)),
+              border: Border(
+                top: BorderSide(color: AppTheme.primary, width: 1.5),
+                right: BorderSide(color: AppTheme.primary, width: 1.5),
+                bottom: BorderSide(color: AppTheme.primary, width: 1.5),
+              ),
             ),
             child: const Icon(Icons.send, color: Colors.white, size: 18),
           ),
@@ -174,11 +247,19 @@ class ProjectDetailScreen extends StatelessWidget {
 
   Widget _buildAuthorInfo() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(14, 14, 14, 0),
+      padding: const EdgeInsets.fromLTRB(15, 14, 15, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('作者/團隊', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, fontSize: 16, letterSpacing: -0.5)),
+          const Text(
+            '作者/團隊',
+            style: TextStyle(
+              fontFamily: 'Space Grotesk',
+              fontWeight: FontWeight.bold,
+              fontSize: 15,
+              letterSpacing: -0.75,
+            ),
+          ),
           const SizedBox(height: 10),
           Row(
             children: [
@@ -188,12 +269,21 @@ class ProjectDetailScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: AppTheme.accentYellow,
-                  border: Border.all(color: AppTheme.primary, width: 2),
-                  boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(3, 3))],
+                  border: Border.all(color: AppTheme.primary, width: 1.5),
+                  boxShadow: const [
+                    BoxShadow(color: AppTheme.primary, offset: Offset(3, 3)),
+                  ],
                 ),
               ),
               const SizedBox(width: 10),
-              const Text('鮭魚', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, fontSize: 15)),
+              const Text(
+                '鮭魚',
+                style: TextStyle(
+                  fontFamily: 'Space Grotesk',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 10),
@@ -214,16 +304,25 @@ class ProjectDetailScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
       decoration: BoxDecoration(
         color: AppTheme.surface,
-        border: Border.all(color: borderColor, width: 2),
-        boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(3, 3))],
+        border: Border.all(color: borderColor, width: 1.5),
+        boxShadow: const [
+          BoxShadow(color: AppTheme.primary, offset: Offset(3, 3)),
+        ],
       ),
-      child: Text(text, style: const TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, fontSize: 12)),
+      child: Text(
+        text,
+        style: const TextStyle(
+          fontFamily: 'Space Grotesk',
+          fontWeight: FontWeight.bold,
+          fontSize: 11,
+        ),
+      ),
     );
   }
 
   Widget _buildRecommendations() {
     return Padding(
-      padding: const EdgeInsets.only(top: 20, left: 14),
+      padding: const EdgeInsets.only(top: 20, left: 15),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         clipBehavior: Clip.none,
@@ -234,7 +333,7 @@ class ProjectDetailScreen extends StatelessWidget {
             _buildRecCard(AppTheme.accentYellow),
             const SizedBox(width: 10),
             _buildRecCard(AppTheme.accentBlue),
-            const SizedBox(width: 14),
+            const SizedBox(width: 15),
           ],
         ),
       ),
@@ -246,8 +345,10 @@ class ProjectDetailScreen extends StatelessWidget {
       width: 140,
       decoration: BoxDecoration(
         color: color,
-        border: Border.all(color: AppTheme.primary, width: 2),
-        boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(3, 3))],
+        border: Border.all(color: AppTheme.primary, width: 1.5),
+        boxShadow: const [
+          BoxShadow(color: AppTheme.primary, offset: Offset(3, 3)),
+        ],
       ),
       child: const AspectRatio(aspectRatio: 4 / 3, child: SizedBox()),
     );
@@ -255,25 +356,49 @@ class ProjectDetailScreen extends StatelessWidget {
 
   Widget _buildFooterMetrics() {
     return Container(
-      margin: const EdgeInsets.fromLTRB(14, 20, 14, 24),
+      margin: const EdgeInsets.fromLTRB(15, 20, 15, 24),
       padding: const EdgeInsets.all(14),
       decoration: const NeoBoxDecoration(color: AppTheme.surface),
       child: Column(
         children: [
-          _buildMetricRow(Icons.favorite, '按讚', '342', AppTheme.accentRed, true),
+          _buildMetricRow(
+            Icons.favorite,
+            '按讚',
+            '342',
+            AppTheme.accentRed,
+            true,
+          ),
           const SizedBox(height: 12),
           _buildMetricRow(Icons.near_me, '觀看', '1.2k', AppTheme.primary, true),
           const SizedBox(height: 12),
-          _buildMetricRow(Icons.chat_bubble, '留言', '3', AppTheme.primary, false),
+          _buildMetricRow(
+            Icons.chat_bubble,
+            '留言',
+            '3',
+            AppTheme.primary,
+            false,
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildMetricRow(IconData icon, String label, String value, Color iconColor, bool hasBorder) {
+  Widget _buildMetricRow(
+    IconData icon,
+    String label,
+    String value,
+    Color iconColor,
+    bool hasBorder,
+  ) {
     return Container(
       padding: hasBorder ? const EdgeInsets.only(bottom: 6) : EdgeInsets.zero,
-      decoration: hasBorder ? const BoxDecoration(border: Border(bottom: BorderSide(color: AppTheme.primary, width: 1.5))) : null,
+      decoration: hasBorder
+          ? const BoxDecoration(
+              border: Border(
+                bottom: BorderSide(color: AppTheme.primary, width: 1.0),
+              ),
+            )
+          : null,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -281,10 +406,24 @@ class ProjectDetailScreen extends StatelessWidget {
             children: [
               Icon(icon, color: iconColor, size: 18),
               const SizedBox(width: 10),
-              Text(label, style: const TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, fontSize: 14)),
+              Text(
+                label,
+                style: const TextStyle(
+                  fontFamily: 'Space Grotesk',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13,
+                ),
+              ),
             ],
           ),
-          Text(value, style: const TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 16)),
+          Text(
+            value,
+            style: const TextStyle(
+              fontFamily: 'Space Grotesk',
+              fontWeight: FontWeight.w900,
+              fontSize: 15,
+            ),
+          ),
         ],
       ),
     );

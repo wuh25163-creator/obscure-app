@@ -28,13 +28,15 @@ class FolderProjectCard extends StatelessWidget {
         children: [
           // Main Body
           Container(
-            margin: const EdgeInsets.only(top: 46), // Adjust for tab height
+            margin: const EdgeInsets.only(top: 36), // Adjust for tab height
             width: double.infinity,
-            padding: const EdgeInsets.fromLTRB(24, 32, 24, 24),
+            padding: const EdgeInsets.fromLTRB(16, 24, 16, 16),
             decoration: BoxDecoration(
               color: bodyColor,
-              border: Border.all(color: AppTheme.primary, width: 3),
-              boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(4, 4))],
+              border: Border.all(color: AppTheme.primary, width: 1.0),
+              boxShadow: const [
+                BoxShadow(color: AppTheme.primary, offset: Offset(4, 4)),
+              ],
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,23 +46,23 @@ class FolderProjectCard extends StatelessWidget {
                   style: const TextStyle(
                     fontFamily: 'Space Grotesk',
                     fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    height: 1.6,
+                    fontSize: 10,
+                    height: 1.45,
                     color: AppTheme.primary,
                   ),
                 ),
                 if (tags.isNotEmpty) ...[
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 16),
                   Wrap(
                     spacing: 8,
                     runSpacing: 8,
                     children: tags.map((t) => _buildFolderTag(t)).toList(),
-                  )
-                ]
+                  ),
+                ],
               ],
             ),
           ),
-          
+
           // Folder Tab
           Positioned(
             top: 0,
@@ -70,30 +72,36 @@ class FolderProjectCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
                     decoration: BoxDecoration(
                       color: tabColor,
                       border: const Border(
-                        top: BorderSide(color: AppTheme.primary, width: 3),
-                        left: BorderSide(color: AppTheme.primary, width: 3),
-                        right: BorderSide(color: AppTheme.primary, width: 3),
+                        top: BorderSide(color: AppTheme.primary, width: 1.0),
+                        left: BorderSide(color: AppTheme.primary, width: 1.0),
+                        right: BorderSide(color: AppTheme.primary, width: 1.0),
                       ),
                     ),
                     child: Text(
                       projectName,
                       style: TextStyle(
-                        color: (tabColor == AppTheme.primary || tabColor == AppTheme.accentBlue || tabColor == AppTheme.accentRed) ? Colors.white : AppTheme.primary,
+                        color: AppTheme.onAccent(tabColor),
                         fontFamily: 'Space Grotesk',
                         fontWeight: FontWeight.w900,
-                        fontSize: 18,
-                        letterSpacing: 1.2,
+                        fontSize: 12,
+                        letterSpacing: 0,
                       ),
                     ),
                   ),
                   // Small connecting block to cover the top border of the main body
                   Container(
-                    height: 3,
-                    margin: const EdgeInsets.only(left: 3, right: 3), // indent to keep left/right borders visible
+                    height: 2.0,
+                    margin: const EdgeInsets.only(
+                      left: 2,
+                      right: 2,
+                    ), // indent to keep left/right borders visible
                     color: tabColor,
                   ),
                 ],
@@ -107,17 +115,18 @@ class FolderProjectCard extends StatelessWidget {
 
   Widget _buildFolderTag(String tag) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: AppTheme.primary, width: 2),
+        color: AppTheme.paper,
+        border: Border.all(color: AppTheme.primary, width: 0.75),
       ),
       child: Text(
         tag,
         style: const TextStyle(
-          fontWeight: FontWeight.w900,
-          fontSize: 12,
+          fontWeight: FontWeight.bold,
+          fontSize: 8,
           fontFamily: 'Space Grotesk',
+          color: AppTheme.primary,
         ),
       ),
     );

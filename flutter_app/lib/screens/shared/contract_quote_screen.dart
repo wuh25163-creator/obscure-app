@@ -11,7 +11,7 @@ class ContractQuoteScreen extends StatelessWidget {
       appBar: const ObscureAppBar(), // Using ObscureAppBar from app_theme
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.fromLTRB(15, 16, 15, 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -20,15 +20,35 @@ class ContractQuoteScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   color: AppTheme.accentRed,
-                  border: Border.all(color: AppTheme.primary, width: 2),
-                  boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(4, 4))],
+                  border: Border.all(color: AppTheme.primary, width: 1.5),
+                  boxShadow: const [
+                    BoxShadow(color: AppTheme.primary, offset: Offset(4, 4)),
+                  ],
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: const [
-                    Text('合約草案\n042', style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 28, fontWeight: FontWeight.w900, color: Colors.white, height: 1.1, letterSpacing: 0)),
+                    Text(
+                      '合約草案\n042',
+                      style: TextStyle(
+                        fontFamily: 'Space Grotesk',
+                        fontSize: 26,
+                        fontWeight: FontWeight.w900,
+                        color: Colors.white,
+                        height: 1.03,
+                        letterSpacing: 0,
+                      ),
+                    ),
                     SizedBox(height: 12),
-                    Text('專案「Neon-Lattice」的完整服務協議。', style: TextStyle(fontFamily: 'Inter', fontSize: 14, color: Colors.white, letterSpacing: 0)),
+                    Text(
+                      '專案「Neon-Lattice」的完整服務協議。',
+                      style: TextStyle(
+                        fontFamily: 'Inter',
+                        fontSize: 13,
+                        color: Colors.white,
+                        letterSpacing: 0,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -37,19 +57,50 @@ class ContractQuoteScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  border: Border.all(color: AppTheme.primary, width: 2),
-                  boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(4, 4))],
+                  border: Border.all(color: AppTheme.primary, width: 1.5),
+                  boxShadow: const [
+                    BoxShadow(color: AppTheme.primary, offset: Offset(4, 4)),
+                  ],
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('狀態', style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 14, fontWeight: FontWeight.w900, letterSpacing: 0)),
-                    const Text('待處理', style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 32, fontWeight: FontWeight.w900, color: AppTheme.accentRed, letterSpacing: 0)),
+                    const Text(
+                      '狀態',
+                      style: TextStyle(
+                        fontFamily: 'Space Grotesk',
+                        fontSize: 13,
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: 0,
+                      ),
+                    ),
+                    const Text(
+                      '待處理',
+                      style: TextStyle(
+                        fontFamily: 'Space Grotesk',
+                        fontSize: 29,
+                        fontWeight: FontWeight.w900,
+                        color: AppTheme.accentRed,
+                        letterSpacing: 0,
+                      ),
+                    ),
                     Container(
                       margin: const EdgeInsets.only(top: 12),
                       padding: const EdgeInsets.only(top: 12),
-                      decoration: const BoxDecoration(border: Border(top: BorderSide(color: AppTheme.primary, width: 2))),
-                      child: const Text('發布日期：2023年10月24日', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, fontSize: 14, letterSpacing: 0)),
+                      decoration: const BoxDecoration(
+                        border: Border(
+                          top: BorderSide(color: AppTheme.primary, width: 1.5),
+                        ),
+                      ),
+                      child: const Text(
+                        '發布日期：2023年10月24日',
+                        style: TextStyle(
+                          fontFamily: 'Space Grotesk',
+                          fontWeight: FontWeight.bold,
+                          fontSize: 13,
+                          letterSpacing: 0,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -61,19 +112,39 @@ class ContractQuoteScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  border: Border.all(color: AppTheme.primary, width: 2),
-                  boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(4, 4))],
+                  border: Border.all(color: AppTheme.primary, width: 1.5),
+                  boxShadow: const [
+                    BoxShadow(color: AppTheme.primary, offset: Offset(4, 4)),
+                  ],
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                       padding: const EdgeInsets.only(bottom: 8),
-                      decoration: const BoxDecoration(border: Border(bottom: BorderSide(color: AppTheme.primary, width: 2))),
-                      child: const Text('委任條款', style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 18, fontWeight: FontWeight.w900, letterSpacing: 0)),
+                      decoration: const BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: AppTheme.primary,
+                            width: 1.5,
+                          ),
+                        ),
+                      ),
+                      child: const Text(
+                        '委任條款',
+                        style: TextStyle(
+                          fontFamily: 'Space Grotesk',
+                          fontSize: 17,
+                          fontWeight: FontWeight.w900,
+                          letterSpacing: 0,
+                        ),
+                      ),
                     ),
                     const SizedBox(height: 16),
-                    _buildTermItem('修改次數', '每階段最多三次 (3) 迭代循環。超出部分按每小時 \$250 計費。'),
+                    _buildTermItem(
+                      '修改次數',
+                      '每階段最多三次 (3) 迭代循環。超出部分按每小時 \$250 計費。',
+                    ),
                     const SizedBox(height: 16),
                     _buildTermItem('交付日期', '標準交付週期為需求確認後 14 個工作日。'),
                     const SizedBox(height: 16),
@@ -88,8 +159,10 @@ class ContractQuoteScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  border: Border.all(color: AppTheme.primary, width: 2),
-                  boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(4, 4))],
+                  border: Border.all(color: AppTheme.primary, width: 1.5),
+                  boxShadow: const [
+                    BoxShadow(color: AppTheme.primary, offset: Offset(4, 4)),
+                  ],
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,8 +170,23 @@ class ContractQuoteScreen extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.only(bottom: 8),
                       margin: const EdgeInsets.only(bottom: 16),
-                      decoration: const BoxDecoration(border: Border(bottom: BorderSide(color: AppTheme.primary, width: 2))),
-                      child: const Text('費用明細', style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 18, fontWeight: FontWeight.w900, letterSpacing: 0)),
+                      decoration: const BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: AppTheme.primary,
+                            width: 1.5,
+                          ),
+                        ),
+                      ),
+                      child: const Text(
+                        '費用明細',
+                        style: TextStyle(
+                          fontFamily: 'Space Grotesk',
+                          fontSize: 17,
+                          fontWeight: FontWeight.w900,
+                          letterSpacing: 0,
+                        ),
+                      ),
                     ),
                     _buildFeeItem('第一階段：研究調查', '\$ 2,500'),
                     const SizedBox(height: 12),
@@ -112,8 +200,28 @@ class ContractQuoteScreen extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: const [
-                          Expanded(child: Text('專案總費用', style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white, letterSpacing: 0))),
-                          Text('\$ 14,700', style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 18, fontWeight: FontWeight.w900, color: Colors.white, letterSpacing: 0)),
+                          Expanded(
+                            child: Text(
+                              '專案總費用',
+                              style: TextStyle(
+                                fontFamily: 'Space Grotesk',
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                letterSpacing: 0,
+                              ),
+                            ),
+                          ),
+                          Text(
+                            '\$ 14,700',
+                            style: TextStyle(
+                              fontFamily: 'Space Grotesk',
+                              fontSize: 17,
+                              fontWeight: FontWeight.w900,
+                              color: Colors.white,
+                              letterSpacing: 0,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -126,8 +234,10 @@ class ContractQuoteScreen extends StatelessWidget {
               Container(
                 decoration: BoxDecoration(
                   color: AppTheme.accentYellow,
-                  border: Border.all(color: AppTheme.primary, width: 2),
-                  boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(4, 4))],
+                  border: Border.all(color: AppTheme.primary, width: 1.5),
+                  boxShadow: const [
+                    BoxShadow(color: AppTheme.primary, offset: Offset(4, 4)),
+                  ],
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -137,22 +247,53 @@ class ContractQuoteScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('簽名', style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 18, fontWeight: FontWeight.w900, letterSpacing: 0)),
+                          const Text(
+                            '簽名',
+                            style: TextStyle(
+                              fontFamily: 'Space Grotesk',
+                              fontSize: 17,
+                              fontWeight: FontWeight.w900,
+                              letterSpacing: 0,
+                            ),
+                          ),
                           const SizedBox(height: 12),
                           Container(
                             height: 80,
                             alignment: Alignment.bottomLeft,
-                            decoration: const BoxDecoration(border: Border(bottom: BorderSide(color: AppTheme.primary, width: 2))),
+                            decoration: const BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(
+                                  color: AppTheme.primary,
+                                  width: 1.5,
+                                ),
+                              ),
+                            ),
                             child: Padding(
                               padding: const EdgeInsets.only(bottom: 8.0),
                               child: Text(
                                 '在此處簽名...',
-                                style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 16, fontStyle: FontStyle.italic, color: AppTheme.primary.withValues(alpha: 0.4), letterSpacing: 0),
+                                style: TextStyle(
+                                  fontFamily: 'Space Grotesk',
+                                  fontSize: 15,
+                                  fontStyle: FontStyle.italic,
+                                  color: AppTheme.primary.withValues(
+                                    alpha: 0.4,
+                                  ),
+                                  letterSpacing: 0,
+                                ),
                               ),
                             ),
                           ),
                           const SizedBox(height: 12),
-                          const Text('簽署即表示您同意 OBSCURE 主服務協議 V4.0', style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 0)),
+                          const Text(
+                            '簽署即表示您同意 OBSCURE 主服務協議 V4.0',
+                            style: TextStyle(
+                              fontFamily: 'Space Grotesk',
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 0,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -162,7 +303,16 @@ class ContractQuoteScreen extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         color: AppTheme.primary,
                         alignment: Alignment.center,
-                        child: const Text('簽署合約', style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 18, fontWeight: FontWeight.w900, color: Colors.white, letterSpacing: 0)),
+                        child: const Text(
+                          '簽署合約',
+                          style: TextStyle(
+                            fontFamily: 'Space Grotesk',
+                            fontSize: 17,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.white,
+                            letterSpacing: 0,
+                          ),
+                        ),
                       ),
                     ),
                     GestureDetector(
@@ -170,10 +320,24 @@ class ContractQuoteScreen extends StatelessWidget {
                       child: Container(
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         decoration: const BoxDecoration(
-                          border: Border(top: BorderSide(color: AppTheme.primary, width: 2)),
+                          border: Border(
+                            top: BorderSide(
+                              color: AppTheme.primary,
+                              width: 1.5,
+                            ),
+                          ),
                         ),
                         alignment: Alignment.center,
-                        child: const Text('下載 PDF', style: TextStyle(fontFamily: 'Space Grotesk', fontSize: 18, fontWeight: FontWeight.w900, color: AppTheme.primary, letterSpacing: 0)),
+                        child: const Text(
+                          '下載 PDF',
+                          style: TextStyle(
+                            fontFamily: 'Space Grotesk',
+                            fontSize: 17,
+                            fontWeight: FontWeight.w900,
+                            color: AppTheme.primary,
+                            letterSpacing: 0,
+                          ),
+                        ),
                       ),
                     ),
                   ],
@@ -194,7 +358,10 @@ class ContractQuoteScreen extends StatelessWidget {
         Container(
           width: 32,
           height: 32,
-          decoration: BoxDecoration(color: AppTheme.accentBlue, border: Border.all(color: AppTheme.primary, width: 2)),
+          decoration: BoxDecoration(
+            color: AppTheme.accentBlue,
+            border: Border.all(color: AppTheme.primary, width: 1.5),
+          ),
           child: const Icon(Icons.check, color: Colors.white, size: 20),
         ),
         const SizedBox(width: 12),
@@ -202,9 +369,20 @@ class ContractQuoteScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: const TextStyle(fontFamily: 'Space Grotesk', fontSize: 16, fontWeight: FontWeight.w900, letterSpacing: 0)),
+              Text(
+                title,
+                style: const TextStyle(
+                  fontFamily: 'Space Grotesk',
+                  fontSize: 15,
+                  fontWeight: FontWeight.w900,
+                  letterSpacing: 0,
+                ),
+              ),
               const SizedBox(height: 4),
-              Text(description, style: const TextStyle(fontFamily: 'Inter', fontSize: 14)),
+              Text(
+                description,
+                style: const TextStyle(fontFamily: 'Inter', fontSize: 13),
+              ),
             ],
           ),
         ),
@@ -215,14 +393,38 @@ class ContractQuoteScreen extends StatelessWidget {
   Widget _buildFeeItem(String phase, String amount) {
     return Container(
       decoration: const BoxDecoration(
-        border: Border(bottom: BorderSide(color: AppTheme.primary, width: 2, style: BorderStyle.solid)), // Using solid since dotted is trickier without custom painter
+        border: Border(
+          bottom: BorderSide(
+            color: AppTheme.primary,
+            width: 1.5,
+            style: BorderStyle.solid,
+          ),
+        ), // Using solid since dotted is trickier without custom painter
       ),
       padding: const EdgeInsets.only(bottom: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(child: Text(phase, style: const TextStyle(fontFamily: 'Space Grotesk', fontSize: 14, fontWeight: FontWeight.bold, letterSpacing: 0))),
-          Text(amount, style: const TextStyle(fontFamily: 'Space Grotesk', fontSize: 18, fontWeight: FontWeight.w900, letterSpacing: 0)),
+          Expanded(
+            child: Text(
+              phase,
+              style: const TextStyle(
+                fontFamily: 'Space Grotesk',
+                fontSize: 13,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 0,
+              ),
+            ),
+          ),
+          Text(
+            amount,
+            style: const TextStyle(
+              fontFamily: 'Space Grotesk',
+              fontSize: 17,
+              fontWeight: FontWeight.w900,
+              letterSpacing: 0,
+            ),
+          ),
         ],
       ),
     );

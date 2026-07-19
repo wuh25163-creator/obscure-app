@@ -1,304 +1,421 @@
 import 'package:flutter/material.dart';
+
 import '../../core/app_theme.dart';
 import '../../core/neo_button.dart';
-import '../shared/folder_project_card.dart';
 
-class DesignerProfileScreen extends StatefulWidget {
+class DesignerProfileScreen extends StatelessWidget {
   const DesignerProfileScreen({super.key});
 
   @override
-  State<DesignerProfileScreen> createState() => _DesignerProfileScreenState();
-}
-
-class _DesignerProfileScreenState extends State<DesignerProfileScreen> {
-  final List<Map<String, dynamic>> savedProjects = [
-    {
-      'projectName': '品牌重生計畫 2024',
-      'concept': '結合現代簡約與傳統工藝，重新定義品牌價值。透過高對比度的色彩與俐落的線條，傳達品牌的創新與力量。',
-      'tags': ['#品牌', '#視覺設計'],
-      'tabColor': AppTheme.accentBlue,
-      'bodyColor': AppTheme.surface,
-    },
-    {
-      'projectName': '未來字體實驗',
-      'concept': '探索字體在數位時代的流動性與可能性。打破傳統排版限制。',
-      'tags': ['#字體', '#實驗'],
-      'tabColor': AppTheme.accentRed,
-      'bodyColor': AppTheme.surface,
-    },
-  ];
-
-  @override
   Widget build(BuildContext context) {
-    final Map<String, dynamic>? args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
-    final String name = args?['name'] as String? ?? '設計師';
-    final String? major = args?['major'] as String?;
+    final args =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+    final name = args?['name'] as String? ?? '設計師';
 
     return Scaffold(
+      backgroundColor: AppTheme.background,
       appBar: const ObscureAppBar(),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 16),
+          padding: const EdgeInsets.fromLTRB(15, 20, 15, 96),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Avatar & Name Row
               Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  // Avatar
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          name,
+                          style: const TextStyle(
+                            fontFamily: 'Space Grotesk',
+                            fontWeight: FontWeight.w900,
+                            fontSize: 28,
+                            height: 0.98,
+                            letterSpacing: 0,
+                          ),
+                        ),
+                        const SizedBox(height: 7),
+                        Wrap(
+                          spacing: 6,
+                          runSpacing: 6,
+                          children: const [
+                            _ProfileTag('#台式'),
+                            _ProfileTag('#像素'),
+                            _ProfileTag('#BRUTALIST'),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 10),
                   Stack(
                     clipBehavior: Clip.none,
                     children: [
                       Container(
                         width: 88,
-                        height: 88,
+                        height: 100,
                         decoration: BoxDecoration(
-                          color: AppTheme.surface,
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(color: AppTheme.primary, width: 2.5),
-                          boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(4, 4))],
+                          color: AppTheme.paper,
+                          border: Border.all(
+                            color: AppTheme.primary,
+                            width: AppStroke.regular,
+                          ),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: AppTheme.primary,
+                              offset: Offset(3, 3),
+                              blurRadius: 0,
+                            ),
+                          ],
                         ),
                         alignment: Alignment.center,
-                        child: AppTheme.isDesigner
-                            ? Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Icon(Icons.add_a_photo, size: 24, color: AppTheme.primary),
-                                  const SizedBox(height: 4),
-                                  Text('新增照片', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.bold, fontSize: 9, color: AppTheme.primary.withValues(alpha: 0.6))),
-                                ],
-                              )
-                            : const Icon(Icons.person, size: 44, color: AppTheme.primary),
+                        child: Icon(
+                          Icons.person_outline,
+                          size: 36,
+                          color: AppTheme.primary.withValues(alpha: 0.45),
+                        ),
                       ),
                       Positioned(
-                        bottom: -6,
-                        right: -6,
+                        right: 0,
+                        bottom: 0,
                         child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                          decoration: const NeoBoxDecoration(color: AppTheme.accentRed),
-                          child: const Text('PRO', style: TextStyle(color: Colors.white, fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 11)),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 5,
+                          ),
+                          color: AppTheme.accentRed,
+                          child: const Text(
+                            'NEW',
+                            style: TextStyle(
+                              color: AppTheme.onRed,
+                              fontFamily: 'Space Grotesk',
+                              fontSize: 11,
+                              fontWeight: FontWeight.w900,
+                              letterSpacing: 0,
+                            ),
+                          ),
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(width: 16),
-                  // Name & Major
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(name, style: const TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 28, height: 1.1)),
-                        if (major != null && major.isNotEmpty) ...[
-                          const SizedBox(height: 4),
-                          Text(major, style: const TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w800, fontSize: 15, color: AppTheme.accentRed)),
-                        ]
-                      ],
-                    ),
-                  ),
                 ],
               ),
-              const SizedBox(height: 14),
-
-              // Tags
-              Wrap(
-                alignment: WrapAlignment.start,
-                spacing: 8,
-                runSpacing: 8,
-                children: [
-                  _buildTag('#台式'),
-                  _buildTag('#像素'),
-                  _buildTag('#BRUTALIST'),
-                ],
-              ),
-              const SizedBox(height: 14),
-
-              // Stats
+              const SizedBox(height: 7),
               Container(
-                decoration: NeoBoxDecoration(color: AppTheme.surface),
-                child: Row(
+                decoration: BoxDecoration(
+                  color: AppTheme.paper,
+                  border: Border.all(
+                    color: AppTheme.primary,
+                    width: AppStroke.regular,
+                  ),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: AppTheme.primary,
+                      offset: Offset(3, 3),
+                      blurRadius: 0,
+                    ),
+                  ],
+                ),
+                child: const Row(
                   children: [
-                    Expanded(child: _buildStatItem('瀏覽數', '0', true)),
-                    Expanded(child: _buildStatItem('獲讚數', '0', true)),
-                    Expanded(child: Container(
-                      color: AppTheme.accentYellow,
-                      child: _buildStatItem('粉絲數', '0', false),
-                    )),
+                    Expanded(
+                      child: _ProfileStat(label: '瀏覽數', value: '0'),
+                    ),
+                    Expanded(
+                      child: _ProfileStat(label: '獲讚數', value: '0'),
+                    ),
+                    Expanded(
+                      child: _ProfileStat(label: '追蹤數', value: '0'),
+                    ),
                   ],
                 ),
               ),
-              const SizedBox(height: 14),
-
-              // Action Buttons — 2-column × 2-row grid
+              const SizedBox(height: 10),
               Row(
                 children: [
                   Expanded(
                     child: NeoButton(
-                      onTap: () => Navigator.pushNamed(context, '/income_dashboard'),
+                      onTap: () =>
+                          Navigator.pushNamed(context, '/income_dashboard'),
                       color: AppTheme.accentYellow,
-                      depth: 3.0,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 11),
-                        alignment: Alignment.center,
-                        child: const Text('收入儀表板', style: TextStyle(color: AppTheme.primary, fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 13)),
-                      ),
+                      depth: 3,
+                      borderWidth: AppStroke.regular,
+                      child: const _ProfileActionLabel('收入儀錶板'),
                     ),
                   ),
                   const SizedBox(width: 10),
                   Expanded(
                     child: NeoButton(
                       onTap: () => Navigator.pushNamed(context, '/new_work'),
-                      color: AppTheme.surface,
-                      depth: 3.0,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 11),
-                        alignment: Alignment.center,
-                        child: const Text('新增專案', style: TextStyle(color: AppTheme.primary, fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 13)),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 8),
-              Row(
-                children: [
-                  Expanded(
-                    child: NeoButton(
-                      onTap: () {},
-                      color: AppTheme.accentBlue,
-                      depth: 3.0,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 11),
-                        alignment: Alignment.center,
-                        child: const Text('追蹤', style: TextStyle(color: Colors.white, fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 13)),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: NeoButton(
-                      onTap: () {},
-                      color: AppTheme.surface,
-                      depth: 3.0,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 11),
-                        alignment: Alignment.center,
-                        child: const Text('傳送訊息', style: TextStyle(color: AppTheme.primary, fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 13)),
+                      color: AppTheme.primary,
+                      shadowColor: AppTheme.accentBlue,
+                      depth: 3,
+                      borderWidth: AppStroke.regular,
+                      child: const _ProfileActionLabel(
+                        '新增專案',
+                        color: AppTheme.paper,
                       ),
                     ),
                   ),
                 ],
               ),
               const SizedBox(height: 24),
-
-              // Projects
-              const Text('精選專案', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 18, decoration: TextDecoration.underline)),
-              const SizedBox(height: 14),
-
-              ...savedProjects.map((p) => FolderProjectCard(
-                projectName: p['projectName'],
-                concept: p['concept'],
-                tags: p['tags'],
-                tabColor: p['tabColor'] ?? AppTheme.accentBlue,
-                bodyColor: p['bodyColor'] ?? AppTheme.surface,
-              )),
-
-              const SizedBox(height: 14),
-
-              if (AppTheme.isDesigner) ...[
-                NeoButton(
-                  onTap: () async {
-                    final newProject = await Navigator.pushNamed(context, '/new_work');
-                    if (newProject != null && newProject is Map<String, dynamic>) {
-                      setState(() {
-                        final Color newTabColor = savedProjects.length % 2 == 0 ? AppTheme.accentYellow : AppTheme.accentRed;
-                        newProject['tabColor'] = newTabColor;
-                        newProject['bodyColor'] = AppTheme.surface;
-                        savedProjects.add(newProject);
-                      });
-                    }
-                  },
-                  color: AppTheme.surface,
-                  depth: 4.0,
-                  child: SizedBox(
-                    height: 120,
-                    width: double.infinity,
-                    child: const Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.add_circle_outline, size: 36, color: AppTheme.primary),
-                        SizedBox(height: 10),
-                        Text('新增專案', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 15, color: AppTheme.primary)),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 14),
-              ],
-
-              // Designer Award
-              Container(
-                decoration: const NeoBoxDecoration(color: AppTheme.accentRed),
-                padding: const EdgeInsets.all(16),
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Icon(Icons.star, size: 32, color: Colors.white),
-                    SizedBox(height: 10),
-                    Text('本月最佳設計師', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 20, color: Colors.white)),
-                    SizedBox(height: 4),
-                    Text('獲獎原因：在「台灣現代主義視覺表現」方面的卓越成就', style: TextStyle(color: Colors.white, fontSize: 12, letterSpacing: 0)),
-                  ],
+              const Text(
+                '專案閱覽',
+                style: TextStyle(
+                  fontFamily: 'Space Grotesk',
+                  fontWeight: FontWeight.w900,
+                  fontSize: 14,
+                  height: 1,
+                  letterSpacing: 0,
                 ),
               ),
-              const SizedBox(height: 12),
-
-              // Email Collab
-              Container(
-                decoration: const NeoBoxDecoration(color: AppTheme.accentYellow),
-                padding: const EdgeInsets.all(16),
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('合作洽談？', style: TextStyle(fontFamily: 'Space Grotesk', fontWeight: FontWeight.w900, fontSize: 22)),
-                    SizedBox(height: 8),
-                    Text('salmon.studio@design.tw', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, decoration: TextDecoration.underline)),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 14),
+              const _ProjectPreviewCard(),
             ],
           ),
         ),
       ),
-      bottomNavigationBar: ObscureNavBar(pageContext: context, activeRoute: '/designer_profile'),
-    );
-  }
-
-  Widget _buildTag(String text) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-      decoration: BoxDecoration(
-        color: AppTheme.surface,
-        border: Border.all(color: AppTheme.primary, width: 1.5),
+      bottomNavigationBar: ObscureNavBar(
+        pageContext: context,
+        activeRoute: '/designer_profile',
       ),
-      child: Text(text, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11, letterSpacing: 0, fontFamily: 'Space Grotesk')),
     );
   }
+}
 
-  Widget _buildStatItem(String label, String value, bool isBorderRight) {
+class _ProfileTag extends StatelessWidget {
+  final String text;
+
+  const _ProfileTag(this.text);
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
       decoration: BoxDecoration(
-        border: isBorderRight ? const Border(right: BorderSide(color: AppTheme.primary, width: 2)) : null,
+        color: AppTheme.paper,
+        border: Border.all(color: AppTheme.primary, width: AppStroke.regular),
+      ),
+      child: Text(
+        text,
+        style: const TextStyle(
+          fontFamily: 'Space Grotesk',
+          fontSize: 8,
+          fontWeight: FontWeight.w900,
+          letterSpacing: 0,
+        ),
+      ),
+    );
+  }
+}
+
+class _ProfileStat extends StatelessWidget {
+  final String label;
+  final String value;
+
+  const _ProfileStat({required this.label, required this.value});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+      decoration: const BoxDecoration(
+        border: Border(
+          right: BorderSide(color: AppTheme.primary, width: AppStroke.regular),
+        ),
       ),
       child: Column(
         children: [
-          Text(label.toUpperCase(), style: const TextStyle(fontSize: 9, fontWeight: FontWeight.w900, fontFamily: 'Space Grotesk', color: Colors.grey, letterSpacing: 0)),
-          const SizedBox(height: 2),
-          Text(value, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900, fontFamily: 'Space Grotesk')),
+          Text(
+            label,
+            style: const TextStyle(
+              fontFamily: 'Space Grotesk',
+              fontWeight: FontWeight.w900,
+              fontSize: 11,
+              height: 1,
+              letterSpacing: 0,
+            ),
+          ),
+          const SizedBox(height: 5),
+          Text(
+            value,
+            style: const TextStyle(
+              fontFamily: 'Space Grotesk',
+              fontWeight: FontWeight.w900,
+              fontSize: 15,
+              height: 1,
+              letterSpacing: 0,
+            ),
+          ),
         ],
       ),
     );
+  }
+}
+
+class _ProfileActionLabel extends StatelessWidget {
+  final String text;
+  final Color color;
+
+  const _ProfileActionLabel(this.text, {this.color = AppTheme.primary});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      padding: const EdgeInsets.symmetric(vertical: 9),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontFamily: 'Space Grotesk',
+          fontWeight: FontWeight.w900,
+          fontSize: 14,
+          height: 1,
+          color: color,
+          letterSpacing: 0,
+        ),
+      ),
+    );
+  }
+}
+
+class _ProjectPreviewCard extends StatelessWidget {
+  const _ProjectPreviewCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final tabStepX = constraints.maxWidth * 0.6;
+
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            SizedBox(
+              height: 32,
+              child: CustomPaint(
+                painter: _SteppedTabBorderPainter(stepX: tabStepX),
+                child: const Padding(
+                  padding: EdgeInsets.fromLTRB(12, 8, 12, 0),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      '主題',
+                      style: TextStyle(
+                        color: AppTheme.onBlue,
+                        fontFamily: 'Space Grotesk',
+                        fontWeight: FontWeight.w900,
+                        fontSize: 13,
+                        height: 1,
+                        letterSpacing: 0,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Transform.translate(
+              offset: const Offset(0, -AppStroke.regular),
+              child: Container(
+                height: 76,
+                padding: const EdgeInsets.fromLTRB(12, 12, 12, 10),
+                decoration: BoxDecoration(
+                  color: AppTheme.paper,
+                  border: Border.all(
+                    color: AppTheme.paper,
+                    width: AppStroke.regular,
+                  ),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: AppTheme.primary,
+                      offset: Offset(3, 3),
+                      blurRadius: 0,
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      '主題詳細描述',
+                      style: TextStyle(
+                        fontFamily: 'Space Grotesk',
+                        fontWeight: FontWeight.w800,
+                        fontSize: 12,
+                        height: 1,
+                        letterSpacing: 0,
+                      ),
+                    ),
+                    const Spacer(),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: const [
+                        _ProfileTag('#台式'),
+                        _ProfileTag('#像素'),
+                        _ProfileTag('#BRUTALIST'),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+}
+
+class _SteppedTabBorderPainter extends CustomPainter {
+  final double stepX;
+
+  const _SteppedTabBorderPainter({required this.stepX});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final stroke = AppStroke.regular;
+    final halfStroke = stroke / 2;
+    final stepY = size.height - 12;
+    final fillPaint = Paint()
+      ..color = AppTheme.accentBlue
+      ..style = PaintingStyle.fill;
+    final strokePaint = Paint()
+      ..color = AppTheme.accentBlue
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = stroke;
+
+    final fillPath = Path()
+      ..moveTo(halfStroke, size.height)
+      ..lineTo(halfStroke, halfStroke)
+      ..lineTo(stepX, halfStroke)
+      ..lineTo(stepX, stepY)
+      ..lineTo(size.width - halfStroke, stepY)
+      ..lineTo(size.width - halfStroke, size.height)
+      ..close();
+    final strokePath = Path()
+      ..moveTo(halfStroke, size.height)
+      ..lineTo(halfStroke, halfStroke)
+      ..lineTo(stepX, halfStroke)
+      ..lineTo(stepX, stepY)
+      ..lineTo(size.width - halfStroke, stepY)
+      ..lineTo(size.width - halfStroke, size.height);
+
+    canvas.save();
+    canvas.translate(3, 3);
+    canvas.drawPath(fillPath, Paint()..color = AppTheme.primary);
+    canvas.restore();
+    canvas.drawPath(fillPath, fillPaint);
+    canvas.drawPath(strokePath, strokePaint);
+  }
+
+  @override
+  bool shouldRepaint(covariant _SteppedTabBorderPainter oldDelegate) {
+    return oldDelegate.stepX != stepX;
   }
 }

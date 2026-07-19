@@ -37,7 +37,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                 children: [
                   _buildBackgroundDecorations(),
                   ListView(
-                    padding: const EdgeInsets.fromLTRB(16, 16, 16, 100),
+                    padding: const EdgeInsets.fromLTRB(15, 16, 15, 100),
                     children: [
                       _buildDateHeader('今天'),
                       const SizedBox(height: 16),
@@ -77,10 +77,10 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
 
   Widget _buildAppBar(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
       decoration: const BoxDecoration(
         color: AppTheme.surface,
-        border: Border(bottom: BorderSide(color: AppTheme.primary, width: 2)),
+        border: Border(bottom: BorderSide(color: AppTheme.primary, width: 1.5)),
         boxShadow: [BoxShadow(color: AppTheme.primary, offset: Offset(0, 2))],
       ),
       child: Row(
@@ -94,9 +94,13 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                   padding: const EdgeInsets.all(6),
                   decoration: BoxDecoration(
                     color: Colors.transparent,
-                    border: Border.all(color: Colors.transparent, width: 2),
+                    border: Border.all(color: Colors.transparent, width: 1.5),
                   ),
-                  child: const Icon(Icons.arrow_back, color: AppTheme.primary, size: 24),
+                  child: const Icon(
+                    Icons.arrow_back,
+                    color: AppTheme.primary,
+                    size: 24,
+                  ),
                 ),
               ),
               const SizedBox(width: 4),
@@ -109,10 +113,17 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                         width: 36,
                         height: 36,
                         decoration: BoxDecoration(
-                          border: Border.all(color: AppTheme.primary, width: 2),
+                          border: Border.all(
+                            color: AppTheme.primary,
+                            width: 1.5,
+                          ),
                           color: Colors.grey[300],
                         ),
-                        child: const Icon(Icons.person, color: Colors.white, size: 24),
+                        child: const Icon(
+                          Icons.person,
+                          color: Colors.white,
+                          size: 24,
+                        ),
                       ),
                       Positioned(
                         bottom: -2,
@@ -122,7 +133,10 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                           height: 10,
                           decoration: BoxDecoration(
                             color: Colors.greenAccent,
-                            border: Border.all(color: AppTheme.primary, width: 2),
+                            border: Border.all(
+                              color: AppTheme.primary,
+                              width: 1.5,
+                            ),
                           ),
                         ),
                       ),
@@ -130,30 +144,30 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                   ),
                   const SizedBox(width: 12),
                   Column(
-                     crossAxisAlignment: CrossAxisAlignment.start,
-                     children: [
-                       Text(
-                         widget.contactName.toUpperCase(),
-                         style: const TextStyle(
-                           fontFamily: 'Space Grotesk',
-                           fontWeight: FontWeight.w900,
-                           fontSize: 16,
-                           letterSpacing: 0,
-                           height: 1.1,
-                         ),
-                       ),
-                       const SizedBox(height: 2),
-                       Text(
-                         widget.contactStatus.toUpperCase(),
-                         style: TextStyle(
-                           fontFamily: 'Space Grotesk',
-                           fontWeight: FontWeight.bold,
-                           fontSize: 11,
-                           letterSpacing: 1.0,
-                           color: AppTheme.primary.withValues(alpha: 0.6),
-                         ),
-                       ),
-                     ],
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.contactName.toUpperCase(),
+                        style: const TextStyle(
+                          fontFamily: 'Space Grotesk',
+                          fontWeight: FontWeight.w900,
+                          fontSize: 15,
+                          letterSpacing: 0,
+                          height: 1.03,
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        widget.contactStatus.toUpperCase(),
+                        style: TextStyle(
+                          fontFamily: 'Space Grotesk',
+                          fontWeight: FontWeight.bold,
+                          fontSize: 10,
+                          letterSpacing: 0.25,
+                          color: AppTheme.primary.withValues(alpha: 0.6),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -162,11 +176,19 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
           Row(
             children: [
               IconButton(
-                icon: const Icon(Icons.videocam, color: AppTheme.primary, size: 24),
+                icon: const Icon(
+                  Icons.videocam,
+                  color: AppTheme.primary,
+                  size: 24,
+                ),
                 onPressed: () {},
               ),
               IconButton(
-                icon: const Icon(Icons.more_vert, color: AppTheme.primary, size: 24),
+                icon: const Icon(
+                  Icons.more_vert,
+                  color: AppTheme.primary,
+                  size: 24,
+                ),
                 onPressed: () {},
               ),
             ],
@@ -184,16 +206,16 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
           decoration: BoxDecoration(
             color: AppTheme.primary,
-            border: Border.all(color: AppTheme.primary, width: 2),
+            border: Border.all(color: AppTheme.primary, width: 1.5),
           ),
           child: Text(
             text,
             style: const TextStyle(
               fontFamily: 'Space Grotesk',
               fontWeight: FontWeight.bold,
-              fontSize: 12,
+              fontSize: 11,
               color: Colors.white,
-              letterSpacing: 1.0,
+              letterSpacing: 0.25,
             ),
           ),
         ),
@@ -201,7 +223,10 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
     );
   }
 
-  Widget _buildReceivedMessage({required String message, required String time}) {
+  Widget _buildReceivedMessage({
+    required String message,
+    required String time,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -213,22 +238,24 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  border: Border.all(color: AppTheme.primary, width: 2),
-                  boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(2, 2))],
+                  border: Border.all(color: AppTheme.primary, width: 1.5),
+                  boxShadow: const [
+                    BoxShadow(color: AppTheme.primary, offset: Offset(2, 2)),
+                  ],
                 ),
                 child: Text(
                   message,
                   style: const TextStyle(
                     fontFamily: 'Inter',
-                    fontSize: 14,
+                    fontSize: 13,
                     fontWeight: FontWeight.w500,
-                    height: 1.4,
+                    height: 1.28,
                     letterSpacing: 0,
                   ),
                 ),
               ),
             );
-          }
+          },
         ),
         const SizedBox(height: 6),
         Padding(
@@ -238,8 +265,8 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
             style: TextStyle(
               fontFamily: 'Space Grotesk',
               fontWeight: FontWeight.bold,
-              fontSize: 11,
-              letterSpacing: 1.0,
+              fontSize: 10,
+              letterSpacing: 0.25,
               color: AppTheme.primary.withValues(alpha: 0.5),
             ),
           ),
@@ -248,7 +275,11 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
     );
   }
 
-  Widget _buildSentMessage({required String message, required String time, bool isRead = false}) {
+  Widget _buildSentMessage({
+    required String message,
+    required String time,
+    bool isRead = false,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
@@ -260,22 +291,24 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   color: Colors.grey[200], // primary-container
-                  border: Border.all(color: AppTheme.primary, width: 2),
-                  boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(2, 2))],
+                  border: Border.all(color: AppTheme.primary, width: 1.5),
+                  boxShadow: const [
+                    BoxShadow(color: AppTheme.primary, offset: Offset(2, 2)),
+                  ],
                 ),
                 child: Text(
                   message,
                   style: const TextStyle(
                     fontFamily: 'Inter',
-                    fontSize: 14,
+                    fontSize: 13,
                     fontWeight: FontWeight.bold,
-                    height: 1.4,
+                    height: 1.28,
                     letterSpacing: 0,
                   ),
                 ),
               ),
             );
-          }
+          },
         ),
         const SizedBox(height: 6),
         Padding(
@@ -288,14 +321,18 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                 style: TextStyle(
                   fontFamily: 'Space Grotesk',
                   fontWeight: FontWeight.bold,
-                  fontSize: 11,
-                  letterSpacing: 1.0,
+                  fontSize: 10,
+                  letterSpacing: 0.25,
                   color: AppTheme.primary.withValues(alpha: 0.5),
                 ),
               ),
               if (isRead) ...[
                 const SizedBox(width: 4),
-                const Icon(Icons.done_all, size: 14, color: AppTheme.accentBlue),
+                const Icon(
+                  Icons.done_all,
+                  size: 14,
+                  color: AppTheme.accentBlue,
+                ),
               ],
             ],
           ),
@@ -304,7 +341,10 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
     );
   }
 
-  Widget _buildReceivedMessageWithImage({required String message, required String time}) {
+  Widget _buildReceivedMessageWithImage({
+    required String message,
+    required String time,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -316,8 +356,10 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  border: Border.all(color: AppTheme.primary, width: 2),
-                  boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(2, 2))],
+                  border: Border.all(color: AppTheme.primary, width: 1.5),
+                  boxShadow: const [
+                    BoxShadow(color: AppTheme.primary, offset: Offset(2, 2)),
+                  ],
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -327,7 +369,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                       height: constraints.maxWidth * 0.5,
                       decoration: BoxDecoration(
                         color: Colors.grey[300],
-                        border: Border.all(color: AppTheme.primary, width: 2),
+                        border: Border.all(color: AppTheme.primary, width: 1.5),
                       ),
                       child: const Center(
                         child: Icon(Icons.image, size: 36, color: Colors.grey),
@@ -337,15 +379,17 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                       width: double.infinity,
                       padding: const EdgeInsets.all(12),
                       decoration: const BoxDecoration(
-                        border: Border(top: BorderSide(color: AppTheme.primary, width: 2)),
+                        border: Border(
+                          top: BorderSide(color: AppTheme.primary, width: 1.5),
+                        ),
                       ),
                       child: Text(
                         message,
                         style: const TextStyle(
                           fontFamily: 'Inter',
-                          fontSize: 14,
+                          fontSize: 13,
                           fontWeight: FontWeight.w500,
-                          height: 1.4,
+                          height: 1.28,
                           letterSpacing: 0,
                         ),
                       ),
@@ -354,7 +398,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                 ),
               ),
             );
-          }
+          },
         ),
         const SizedBox(height: 6),
         Padding(
@@ -364,8 +408,8 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
             style: TextStyle(
               fontFamily: 'Space Grotesk',
               fontWeight: FontWeight.bold,
-              fontSize: 11,
-              letterSpacing: 1.0,
+              fontSize: 10,
+              letterSpacing: 0.25,
               color: AppTheme.primary.withValues(alpha: 0.5),
             ),
           ),
@@ -374,7 +418,10 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
     );
   }
 
-  Widget _buildSentMessageBrief({required String message, required String time}) {
+  Widget _buildSentMessageBrief({
+    required String message,
+    required String time,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
@@ -383,24 +430,29 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
             return ConstrainedBox(
               constraints: BoxConstraints(maxWidth: constraints.maxWidth * 0.8),
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 12,
+                ),
                 decoration: BoxDecoration(
                   color: AppTheme.accentBlue, // tertiary
-                  border: Border.all(color: AppTheme.primary, width: 2),
-                  boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(2, 2))],
+                  border: Border.all(color: AppTheme.primary, width: 1.5),
+                  boxShadow: const [
+                    BoxShadow(color: AppTheme.primary, offset: Offset(2, 2)),
+                  ],
                 ),
                 child: Text(
                   message,
                   style: const TextStyle(
                     fontFamily: 'Space Grotesk',
-                    fontSize: 14,
+                    fontSize: 13,
                     color: Colors.white,
                     letterSpacing: 0,
                   ),
                 ),
               ),
             );
-          }
+          },
         ),
         const SizedBox(height: 6),
         Padding(
@@ -410,8 +462,8 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
             style: TextStyle(
               fontFamily: 'Space Grotesk',
               fontWeight: FontWeight.bold,
-              fontSize: 11,
-              letterSpacing: 1.0,
+              fontSize: 10,
+              letterSpacing: 0.25,
               color: AppTheme.primary.withValues(alpha: 0.5),
             ),
           ),
@@ -427,7 +479,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           decoration: BoxDecoration(
             color: AppTheme.accentYellow,
-            border: Border.all(color: AppTheme.primary, width: 2),
+            border: Border.all(color: AppTheme.primary, width: 1.5),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
@@ -446,8 +498,8 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
           style: const TextStyle(
             fontFamily: 'Space Grotesk',
             fontWeight: FontWeight.w900,
-            fontSize: 11,
-            letterSpacing: 1.0,
+            fontSize: 10,
+            letterSpacing: 0.25,
             color: AppTheme.primary,
           ),
         ),
@@ -461,17 +513,17 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
       height: 6,
       decoration: const BoxDecoration(
         color: Colors.white,
-        shape: BoxShape.rectangle, 
+        shape: BoxShape.rectangle,
       ),
     );
   }
 
   Widget _buildBottomBar() {
     return Container(
-      padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
+      padding: const EdgeInsets.fromLTRB(15, 12, 15, 16),
       decoration: const BoxDecoration(
         color: AppTheme.surface,
-        border: Border(top: BorderSide(color: AppTheme.primary, width: 2)),
+        border: Border(top: BorderSide(color: AppTheme.primary, width: 1.5)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -481,8 +533,10 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
             height: 44,
             decoration: BoxDecoration(
               color: Colors.white,
-              border: Border.all(color: AppTheme.primary, width: 2),
-              boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(2, 2))],
+              border: Border.all(color: AppTheme.primary, width: 1.5),
+              boxShadow: const [
+                BoxShadow(color: AppTheme.primary, offset: Offset(2, 2)),
+              ],
             ),
             child: IconButton(
               icon: const Icon(Icons.add, size: 24, color: AppTheme.primary),
@@ -495,8 +549,10 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 8),
               decoration: BoxDecoration(
                 color: Colors.white,
-                border: Border.all(color: AppTheme.primary, width: 2),
-                boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(2, 2))],
+                border: Border.all(color: AppTheme.primary, width: 1.5),
+                boxShadow: const [
+                  BoxShadow(color: AppTheme.primary, offset: Offset(2, 2)),
+                ],
               ),
               child: Row(
                 children: [
@@ -506,7 +562,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                       style: const TextStyle(
                         fontFamily: 'Inter',
                         fontWeight: FontWeight.bold,
-                        fontSize: 14,
+                        fontSize: 13,
                         color: AppTheme.primary,
                       ),
                       maxLines: 4,
@@ -516,17 +572,24 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                         hintStyle: TextStyle(
                           fontFamily: 'Space Grotesk',
                           fontWeight: FontWeight.w500,
-                          fontSize: 14,
-                          letterSpacing: 1.0,
+                          fontSize: 13,
+                          letterSpacing: 0.25,
                           color: AppTheme.primary.withValues(alpha: 0.4),
                         ),
                         border: InputBorder.none,
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 12,
+                        ),
                       ),
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.mood, color: AppTheme.primary, size: 20),
+                    icon: const Icon(
+                      Icons.mood,
+                      color: AppTheme.primary,
+                      size: 20,
+                    ),
                     onPressed: () {},
                   ),
                 ],
@@ -539,8 +602,10 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
             height: 44,
             decoration: BoxDecoration(
               color: AppTheme.primary,
-              border: Border.all(color: AppTheme.primary, width: 2),
-              boxShadow: const [BoxShadow(color: AppTheme.primary, offset: Offset(2, 2))],
+              border: Border.all(color: AppTheme.primary, width: 1.5),
+              boxShadow: const [
+                BoxShadow(color: AppTheme.primary, offset: Offset(2, 2)),
+              ],
             ),
             child: IconButton(
               icon: const Icon(Icons.send, size: 20, color: Colors.white),
@@ -568,7 +633,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                   height: 140,
                   decoration: BoxDecoration(
                     color: Colors.grey[200],
-                    border: Border.all(color: AppTheme.primary, width: 2),
+                    border: Border.all(color: AppTheme.primary, width: 1.5),
                   ),
                 ),
               ),
@@ -582,7 +647,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                 decoration: BoxDecoration(
                   color: AppTheme.accentYellow,
                   shape: BoxShape.circle,
-                  border: Border.all(color: AppTheme.primary, width: 2),
+                  border: Border.all(color: AppTheme.primary, width: 1.5),
                 ),
               ),
             ),
@@ -596,7 +661,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                   height: 100,
                   decoration: BoxDecoration(
                     color: AppTheme.accentBlue,
-                    border: Border.all(color: AppTheme.primary, width: 2),
+                    border: Border.all(color: AppTheme.primary, width: 1.5),
                   ),
                 ),
               ),
