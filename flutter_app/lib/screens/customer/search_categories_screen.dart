@@ -1,5 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+
+import '../../core/app_text.dart';
 import '../../core/app_theme.dart';
 
 class SearchCategoriesScreen extends StatelessWidget {
@@ -16,7 +18,6 @@ class SearchCategoriesScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Search Section
               Container(
                 decoration: const NeoBoxDecoration(color: AppTheme.surface),
                 child: IntrinsicHeight(
@@ -36,7 +37,7 @@ class SearchCategoriesScreen extends StatelessWidget {
                           child: TextField(
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              hintText: '搜尋設計靈感...',
+                              hintText: SearchCategoriesText.searchHint,
                               hintStyle: TextStyle(
                                 fontFamily: 'Space Grotesk',
                                 fontWeight: FontWeight.bold,
@@ -72,7 +73,7 @@ class SearchCategoriesScreen extends StatelessWidget {
                           elevation: 0,
                         ),
                         child: const Text(
-                          '搜尋',
+                          SearchCategoriesText.search,
                           style: TextStyle(
                             fontFamily: 'Space Grotesk',
                             fontWeight: FontWeight.w900,
@@ -85,18 +86,16 @@ class SearchCategoriesScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-
-              // Categories header
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   const Text(
-                    '分類',
+                    SearchCategoriesText.categoryTitle,
                     style: TextStyle(
                       fontFamily: 'Space Grotesk',
                       fontWeight: FontWeight.w900,
                       fontSize: 19,
-                      letterSpacing: -0.75,
+                      letterSpacing: 0,
                     ),
                   ),
                   const SizedBox(width: 10),
@@ -110,8 +109,6 @@ class SearchCategoriesScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 12),
-
-              // Category cards horizontal scroll
               ScrollConfiguration(
                 behavior: ScrollConfiguration.of(context).copyWith(
                   dragDevices: {
@@ -127,30 +124,38 @@ class SearchCategoriesScreen extends StatelessWidget {
                     physics: const BouncingScrollPhysics(),
                     children: [
                       _buildCategoryCard(
-                        '主視覺設計',
-                        '視覺識別系統',
+                        SearchCategoriesText.categories[0].title,
+                        SearchCategoriesText.categories[0].subtitle,
                         AppTheme.accentYellow,
                       ),
                       const SizedBox(width: 10),
-                      _buildCategoryCard('包裝設計', '包裝美學設計', AppTheme.accentBlue),
-                      const SizedBox(width: 10),
-                      _buildCategoryCard('產品設計', '工業與產品設計', AppTheme.accentRed),
+                      _buildCategoryCard(
+                        SearchCategoriesText.categories[1].title,
+                        SearchCategoriesText.categories[1].subtitle,
+                        AppTheme.accentBlue,
+                      ),
                       const SizedBox(width: 10),
                       _buildCategoryCard(
-                        '插畫設計',
-                        '藝術插畫繪製',
+                        SearchCategoriesText.categories[2].title,
+                        SearchCategoriesText.categories[2].subtitle,
+                        AppTheme.accentRed,
+                      ),
+                      const SizedBox(width: 10),
+                      _buildCategoryCard(
+                        SearchCategoriesText.categories[3].title,
+                        SearchCategoriesText.categories[3].subtitle,
                         const Color(0xFF6BCB77),
                       ),
                       const SizedBox(width: 10),
                       _buildCategoryCard(
-                        '字體設計',
-                        '字體研發與設計',
+                        SearchCategoriesText.categories[4].title,
+                        SearchCategoriesText.categories[4].subtitle,
                         const Color(0xFFFF6B6B),
                       ),
                       const SizedBox(width: 10),
                       _buildCategoryCard(
-                        '網頁設計',
-                        '使用者介面設計',
+                        SearchCategoriesText.categories[5].title,
+                        SearchCategoriesText.categories[5].subtitle,
                         const Color(0xFFB388FF),
                       ),
                     ],
@@ -158,14 +163,12 @@ class SearchCategoriesScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-
-              // Recent Projects Header
               Row(
                 children: const [
                   Icon(Icons.grid_view, size: 20),
                   SizedBox(width: 8),
                   Text(
-                    '近期專案',
+                    SearchCategoriesText.recentProjects,
                     style: TextStyle(
                       fontFamily: 'Space Grotesk',
                       fontWeight: FontWeight.w900,
@@ -175,13 +178,11 @@ class SearchCategoriesScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 12),
-
-              // Results Grid
               Column(
                 children: [
                   _buildProjectCard(
-                    title: '實驗性字體系列 01',
-                    tag: '#品牌',
+                    title: SearchCategoriesText.projectTitle,
+                    tag: SearchCategoriesText.projectTag,
                     isLarge: true,
                     bgColor: Colors.white,
                   ),
@@ -190,7 +191,7 @@ class SearchCategoriesScreen extends StatelessWidget {
                     children: [
                       Expanded(
                         child: _buildProjectCard(
-                          title: '單色形態',
+                          title: SearchCategoriesText.colorProject,
                           tag: '',
                           isLarge: false,
                           bgColor: const Color(0xFFFFF5CC),
@@ -199,7 +200,7 @@ class SearchCategoriesScreen extends StatelessWidget {
                       const SizedBox(width: 10),
                       Expanded(
                         child: _buildProjectCard(
-                          title: '色彩理論',
+                          title: SearchCategoriesText.modelProject,
                           tag: '',
                           isLarge: false,
                           bgColor: const Color(0xFFFDE8E8),
@@ -230,7 +231,7 @@ class SearchCategoriesScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text(
-                                '#包裝',
+                                SearchCategoriesText.projectTag,
                                 style: TextStyle(
                                   fontFamily: 'Space Grotesk',
                                   fontWeight: FontWeight.bold,
@@ -240,7 +241,7 @@ class SearchCategoriesScreen extends StatelessWidget {
                               ),
                               const SizedBox(height: 2),
                               const Text(
-                                '生態模組盒 V.2',
+                                SearchCategoriesText.modelProject,
                                 style: TextStyle(
                                   fontFamily: 'Space Grotesk',
                                   fontWeight: FontWeight.bold,

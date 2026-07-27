@@ -1,5 +1,8 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 
+import '../../core/app_text.dart';
 import '../../core/app_theme.dart';
 import '../../core/neo_button.dart';
 
@@ -10,7 +13,8 @@ class DesignerProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final args =
         ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
-    final name = args?['name'] as String? ?? '設計師';
+    final name = args?['name'] as String? ?? AppTheme.designerNickname;
+    final savedProjects = AppTheme.designerProjects;
 
     return Scaffold(
       backgroundColor: AppTheme.background,
@@ -42,10 +46,9 @@ class DesignerProfileScreen extends StatelessWidget {
                         Wrap(
                           spacing: 6,
                           runSpacing: 6,
-                          children: const [
-                            _ProfileTag('#台式'),
-                            _ProfileTag('#像素'),
-                            _ProfileTag('#BRUTALIST'),
+                          children: [
+                            for (final tag in DesignerProfileText.defaultTags)
+                              _ProfileTag(tag),
                           ],
                         ),
                       ],
@@ -56,7 +59,7 @@ class DesignerProfileScreen extends StatelessWidget {
                     clipBehavior: Clip.none,
                     children: [
                       Container(
-                        width: 88,
+                        width: 100,
                         height: 100,
                         decoration: BoxDecoration(
                           color: AppTheme.paper,
@@ -67,7 +70,7 @@ class DesignerProfileScreen extends StatelessWidget {
                           boxShadow: const [
                             BoxShadow(
                               color: AppTheme.primary,
-                              offset: Offset(3, 3),
+                              offset: AppTheme.hardShadowOffset,
                               blurRadius: 0,
                             ),
                           ],
@@ -115,7 +118,7 @@ class DesignerProfileScreen extends StatelessWidget {
                   boxShadow: const [
                     BoxShadow(
                       color: AppTheme.primary,
-                      offset: Offset(3, 3),
+                      offset: AppTheme.hardShadowOffset,
                       blurRadius: 0,
                     ),
                   ],
@@ -123,13 +126,22 @@ class DesignerProfileScreen extends StatelessWidget {
                 child: const Row(
                   children: [
                     Expanded(
-                      child: _ProfileStat(label: '瀏覽數', value: '0'),
+                      child: _ProfileStat(
+                        label: DesignerProfileText.views,
+                        value: '0',
+                      ),
                     ),
                     Expanded(
-                      child: _ProfileStat(label: '獲讚數', value: '0'),
+                      child: _ProfileStat(
+                        label: DesignerProfileText.likes,
+                        value: '0',
+                      ),
                     ),
                     Expanded(
-                      child: _ProfileStat(label: '追蹤數', value: '0'),
+                      child: _ProfileStat(
+                        label: DesignerProfileText.followers,
+                        value: '0',
+                      ),
                     ),
                   ],
                 ),
@@ -144,7 +156,9 @@ class DesignerProfileScreen extends StatelessWidget {
                       color: AppTheme.accentYellow,
                       depth: 3,
                       borderWidth: AppStroke.regular,
-                      child: const _ProfileActionLabel('收入儀錶板'),
+                      child: const _ProfileActionLabel(
+                        DesignerProfileText.incomeDashboard,
+                      ),
                     ),
                   ),
                   const SizedBox(width: 10),
@@ -156,7 +170,7 @@ class DesignerProfileScreen extends StatelessWidget {
                       depth: 3,
                       borderWidth: AppStroke.regular,
                       child: const _ProfileActionLabel(
-                        '新增專案',
+                        DesignerProfileText.addProject,
                         color: AppTheme.paper,
                       ),
                     ),
@@ -165,7 +179,7 @@ class DesignerProfileScreen extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               const Text(
-                '專案閱覽',
+                DesignerProfileText.projectBrowse,
                 style: TextStyle(
                   fontFamily: 'Space Grotesk',
                   fontWeight: FontWeight.w900,
@@ -175,7 +189,18 @@ class DesignerProfileScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 14),
-              const _ProjectPreviewCard(),
+              if (savedProjects.isEmpty)
+                const _ProjectPreviewCard()
+              else
+                Column(
+                  children: [
+                    for (final project in savedProjects) ...[
+                      _ProjectPreviewCard(project: project),
+                      if (project != savedProjects.last)
+                        const SizedBox(height: 12),
+                    ],
+                  ],
+                ),
             ],
           ),
         ),
@@ -223,7 +248,7 @@ class _ProfileStat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+      padding: const EdgeInsets.symmetric(vertical: 10.5, horizontal: 4),
       decoration: const BoxDecoration(
         border: Border(
           right: BorderSide(color: AppTheme.primary, width: AppStroke.regular),
@@ -268,7 +293,7 @@ class _ProfileActionLabel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      padding: const EdgeInsets.symmetric(vertical: 9),
+      padding: const EdgeInsets.symmetric(vertical: 10.5),
       child: Text(
         text,
         style: TextStyle(
@@ -285,90 +310,133 @@ class _ProfileActionLabel extends StatelessWidget {
 }
 
 class _ProjectPreviewCard extends StatelessWidget {
-  const _ProjectPreviewCard();
+  final DesignerSavedProject? project;
+
+  const _ProjectPreviewCard({this.project});
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final tabStepX = constraints.maxWidth * 0.6;
+    final title = project?.title ?? DesignerProfileText.projectTitle;
+    final concept = project?.concept.isNotEmpty == true
+        ? project!.concept
+        : DesignerProfileText.projectDescription;
+    final tags = project?.tags.isNotEmpty == true
+        ? project!.tags
+        : DesignerProfileText.defaultTags;
 
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            SizedBox(
-              height: 32,
-              child: CustomPaint(
-                painter: _SteppedTabBorderPainter(stepX: tabStepX),
-                child: const Padding(
-                  padding: EdgeInsets.fromLTRB(12, 8, 12, 0),
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      '主題',
-                      style: TextStyle(
-                        color: AppTheme.onBlue,
-                        fontFamily: 'Space Grotesk',
-                        fontWeight: FontWeight.w900,
-                        fontSize: 13,
-                        height: 1,
-                        letterSpacing: 0,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Transform.translate(
-              offset: const Offset(0, -AppStroke.regular),
-              child: Container(
-                height: 76,
-                padding: const EdgeInsets.fromLTRB(12, 12, 12, 10),
-                decoration: BoxDecoration(
-                  color: AppTheme.paper,
-                  border: Border.all(
-                    color: AppTheme.paper,
-                    width: AppStroke.regular,
-                  ),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: AppTheme.primary,
-                      offset: Offset(3, 3),
-                      blurRadius: 0,
-                    ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      '主題詳細描述',
-                      style: TextStyle(
-                        fontFamily: 'Space Grotesk',
-                        fontWeight: FontWeight.w800,
-                        fontSize: 12,
-                        height: 1,
-                        letterSpacing: 0,
-                      ),
-                    ),
-                    const Spacer(),
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      children: const [
-                        _ProfileTag('#台式'),
-                        _ProfileTag('#像素'),
-                        _ProfileTag('#BRUTALIST'),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(
+          context,
+          '/project_detail',
+          arguments: {
+            'projectName': title,
+            'authorName': AppTheme.designerNickname,
+            'imageBytes': project?.imageBytes,
+            'imageBytesList': project?.imageBytesList ?? const [],
+            'conceptText': project?.concept ?? '',
+            'tags': tags,
+            'fieldTags': project?.fieldTags ?? const [],
+            'styleTags': project?.styleTags.isNotEmpty == true
+                ? project!.styleTags
+                : tags,
+            'authorTags': DesignerProfileText.defaultTags,
+            'authorRecentImages': _authorRecentImages(),
+            'closeMode': 'designerProfileReturn',
+          },
         );
       },
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final tabStepX = constraints.maxWidth * 0.6;
+
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SizedBox(
+                height: 32,
+                child: CustomPaint(
+                  painter: _SteppedTabBorderPainter(stepX: tabStepX),
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(12, 8, 12, 0),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        title,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          color: AppTheme.onBlue,
+                          fontFamily: 'Space Grotesk',
+                          fontWeight: FontWeight.w900,
+                          fontSize: 13,
+                          height: 1,
+                          letterSpacing: 0,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Transform.translate(
+                offset: const Offset(0, -AppStroke.regular),
+                child: Container(
+                  height: 76,
+                  padding: const EdgeInsets.fromLTRB(12, 12, 12, 10),
+                  decoration: BoxDecoration(
+                    color: AppTheme.paper,
+                    border: Border.all(
+                      color: AppTheme.paper,
+                      width: AppStroke.regular,
+                    ),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: AppTheme.primary,
+                        offset: AppTheme.hardShadowOffset,
+                        blurRadius: 0,
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        concept,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontFamily: 'Space Grotesk',
+                          fontWeight: FontWeight.w800,
+                          fontSize: 12,
+                          height: 1,
+                          letterSpacing: 0,
+                        ),
+                      ),
+                      const Spacer(),
+                      Wrap(
+                        spacing: 8,
+                        runSpacing: 8,
+                        children: tags
+                            .take(3)
+                            .map((tag) => _ProfileTag(tag))
+                            .toList(),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+      ),
     );
+  }
+
+  List<Uint8List> _authorRecentImages() {
+    return AppTheme.designerProjects
+        .expand((savedProject) => savedProject.imageBytesList)
+        .take(6)
+        .toList();
   }
 }
 
@@ -407,7 +475,7 @@ class _SteppedTabBorderPainter extends CustomPainter {
       ..lineTo(size.width - halfStroke, size.height);
 
     canvas.save();
-    canvas.translate(3, 3);
+    canvas.translate(AppTheme.hardShadowDepth, AppTheme.hardShadowDepth);
     canvas.drawPath(fillPath, Paint()..color = AppTheme.primary);
     canvas.restore();
     canvas.drawPath(fillPath, fillPaint);

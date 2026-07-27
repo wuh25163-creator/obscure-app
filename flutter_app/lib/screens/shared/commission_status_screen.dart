@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../core/app_text.dart';
 import '../../core/app_theme.dart';
 
 class CommissionStatusScreen extends StatelessWidget {
@@ -30,7 +31,7 @@ class CommissionStatusScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              '委託追蹤器',
+                              CommissionText.title,
                               style: TextStyle(
                                 fontFamily: 'Space Grotesk',
                                 fontWeight: FontWeight.w900,
@@ -41,7 +42,7 @@ class CommissionStatusScreen extends StatelessWidget {
                             ),
                             SizedBox(height: 4),
                             Text(
-                              '活躍專案監控系統 v1.0',
+                              CommissionText.subtitle,
                               style: TextStyle(
                                 fontSize: 10,
                                 fontWeight: FontWeight.bold,
@@ -72,7 +73,7 @@ class CommissionStatusScreen extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              '進行中',
+                              CommissionText.activeCount,
                               style: TextStyle(
                                 fontFamily: 'Space Grotesk',
                                 fontWeight: FontWeight.bold,
@@ -100,9 +101,9 @@ class CommissionStatusScreen extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
-                      _buildTab('執行中', isActive: true),
-                      _buildTab('確認中'),
-                      _buildTab('已完成', isLast: true),
+                      _buildTab(CommissionText.tabs[0], isActive: true),
+                      _buildTab(CommissionText.tabs[1]),
+                      _buildTab(CommissionText.tabs[2], isLast: true),
                     ],
                   ),
                 ),
@@ -125,7 +126,7 @@ class CommissionStatusScreen extends StatelessWidget {
                     Icon(Icons.search_off, size: 48, color: AppTheme.primary),
                     SizedBox(height: 12),
                     Text(
-                      '目前還沒有任務呢\n先來找看看好了!',
+                      CommissionText.empty,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontFamily: 'Space Grotesk',

@@ -35,7 +35,10 @@ class FolderProjectCard extends StatelessWidget {
               color: bodyColor,
               border: Border.all(color: AppTheme.primary, width: 1.0),
               boxShadow: const [
-                BoxShadow(color: AppTheme.primary, offset: Offset(4, 4)),
+                BoxShadow(
+                  color: AppTheme.primary,
+                  offset: AppTheme.hardShadowOffset,
+                ),
               ],
             ),
             child: Column(

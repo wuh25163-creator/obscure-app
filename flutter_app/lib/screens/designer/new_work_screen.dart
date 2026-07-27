@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'dart:typed_data';
 import 'package:image_picker/image_picker.dart';
 import 'package:palette_generator/palette_generator.dart';
+import '../../core/app_text.dart';
 import '../../core/app_theme.dart';
 import '../../core/neo_button.dart';
 
@@ -14,22 +15,10 @@ class NewWorkScreen extends StatefulWidget {
 }
 
 class _NewWorkScreenState extends State<NewWorkScreen> {
-  final List<String> fields = ['平面設計', '產品設計', '空間設計', '互動設計', '文創設計'];
+  final List<String> fields = List<String>.from(NewWorkText.fields);
   final List<String> selectedFields = [];
 
-  final List<String> styles = [
-    '#可愛',
-    '#簡約',
-    '#新藝術',
-    '#流線型',
-    '#溫馨',
-    '#活潑',
-    '#高彩度',
-    '#暗黑',
-    '#沉穩',
-    '#高明度',
-    '#普普風',
-  ];
+  final List<String> styles = List<String>.from(NewWorkText.styles);
   final List<String> selectedStyles = [];
 
   final TextEditingController _nameController = TextEditingController();
@@ -37,7 +26,9 @@ class _NewWorkScreenState extends State<NewWorkScreen> {
 
   bool _isUploaded = false;
   bool _isAnalyzing = false;
+  final List<Uint8List> _uploadedImages = [];
   Uint8List? _uploadedImageBytes;
+  double? _uploadedImageAspectRatio;
   final ImagePicker _picker = ImagePicker();
 
   @override
@@ -49,20 +40,46 @@ class _NewWorkScreenState extends State<NewWorkScreen> {
 
   Future<void> _pickImage() async {
     try {
-      final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-      if (image != null) {
-        final bytes = await image.readAsBytes();
+      final remainingSlots = 10 - _uploadedImages.length;
+      if (remainingSlots <= 0) {
+        return;
+      }
+
+      final images = await _picker.pickMultiImage();
+      if (images.isNotEmpty) {
+        final selectedImages = images.take(remainingSlots).toList();
+        final imageBytes = <Uint8List>[];
+        for (final image in selectedImages) {
+          imageBytes.add(await image.readAsBytes());
+        }
+
+        final mainImageBytes = _uploadedImageBytes ?? imageBytes.first;
+        final aspectRatio =
+            _uploadedImageAspectRatio ??
+            await _readImageAspectRatio(mainImageBytes);
         setState(() {
-          _uploadedImageBytes = bytes;
-          _isUploaded = true;
+          _uploadedImages.addAll(imageBytes);
+          _uploadedImageBytes = mainImageBytes;
+          _uploadedImageAspectRatio = aspectRatio;
+          _isUploaded = _uploadedImages.isNotEmpty;
           _isAnalyzing = true;
           selectedStyles.clear();
         });
-        await _analyzeImageStyle(bytes);
+        await _analyzeImageStyle(mainImageBytes);
       }
     } catch (e) {
       debugPrint("Error picking image: $e");
     }
+  }
+
+  Future<double?> _readImageAspectRatio(Uint8List bytes) async {
+    final codec = await instantiateImageCodec(bytes);
+    final frame = await codec.getNextFrame();
+    final image = frame.image;
+    if (image.height == 0) {
+      return null;
+    }
+    return image.width / image.height;
   }
 
   Future<void> _analyzeImageStyle(Uint8List bytes) async {
@@ -80,25 +97,25 @@ class _NewWorkScreenState extends State<NewWorkScreen> {
       if (palette.dominantColor != null) {
         final hsl = HSLColor.fromColor(palette.dominantColor!.color);
         if (hsl.lightness > 0.75) {
-          detectedStyles.addAll(['#簡約', '#高明度']);
+          detectedStyles.addAll(NewWorkText.lightTags);
         } else if (hsl.lightness < 0.3) {
-          detectedStyles.addAll(['#暗黑', '#沉穩']);
+          detectedStyles.addAll(NewWorkText.darkTags);
         }
         if (hsl.saturation > 0.6) {
-          detectedStyles.addAll(['#普普風', '#高彩度']);
+          detectedStyles.addAll(NewWorkText.vividTags);
         }
       }
 
       if (palette.vibrantColor != null) {
-        detectedStyles.add('#活潑');
+        detectedStyles.add(NewWorkText.vibrantTag);
       }
 
       if (palette.mutedColor != null) {
-        detectedStyles.add('#溫馨');
+        detectedStyles.add(NewWorkText.mutedTag);
       }
 
       if (detectedStyles.isEmpty) {
-        detectedStyles.add('#新藝術'); // fallback
+        detectedStyles.add(NewWorkText.fallbackTag);
       }
 
       setState(() {
@@ -112,7 +129,9 @@ class _NewWorkScreenState extends State<NewWorkScreen> {
       debugPrint("Palette Error: $e");
       setState(() {
         _isAnalyzing = false;
-        if (!selectedStyles.contains('#簡約')) selectedStyles.add('#簡約');
+        if (!selectedStyles.contains(NewWorkText.fallbackTag)) {
+          selectedStyles.add(NewWorkText.fallbackTag);
+        }
       });
     }
   }
@@ -152,7 +171,10 @@ class _NewWorkScreenState extends State<NewWorkScreen> {
           color: bgColor,
           border: Border.all(color: AppTheme.primary, width: 1.5),
           boxShadow: const [
-            BoxShadow(color: AppTheme.primary, offset: Offset(2, 2)),
+            BoxShadow(
+              color: AppTheme.primary,
+              offset: AppTheme.hardShadowOffset,
+            ),
           ],
         ),
         child: Text(
@@ -183,7 +205,7 @@ class _NewWorkScreenState extends State<NewWorkScreen> {
             side: const BorderSide(color: AppTheme.primary, width: 1.5),
           ),
           title: const Text(
-            '新增項目',
+            NewWorkText.dialogTitle,
             style: TextStyle(
               fontFamily: 'Space Grotesk',
               fontWeight: FontWeight.w900,
@@ -199,7 +221,7 @@ class _NewWorkScreenState extends State<NewWorkScreen> {
               fontSize: 13,
             ),
             decoration: const InputDecoration(
-              hintText: '請輸入...',
+              hintText: NewWorkText.dialogHint,
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: AppTheme.primary, width: 1.5),
                 borderRadius: BorderRadius.zero,
@@ -218,7 +240,7 @@ class _NewWorkScreenState extends State<NewWorkScreen> {
             TextButton(
               onPressed: () => Navigator.pop(context),
               child: const Text(
-                '取消',
+                NewWorkText.cancel,
                 style: TextStyle(
                   color: Colors.grey,
                   fontWeight: FontWeight.bold,
@@ -243,7 +265,7 @@ class _NewWorkScreenState extends State<NewWorkScreen> {
                   vertical: 8,
                 ),
                 child: const Text(
-                  '確認',
+                  NewWorkText.confirm,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: AppTheme.primary,
@@ -269,7 +291,10 @@ class _NewWorkScreenState extends State<NewWorkScreen> {
           color: AppTheme.surface,
           border: Border.all(color: AppTheme.primary, width: 1.5),
           boxShadow: const [
-            BoxShadow(color: AppTheme.primary, offset: Offset(2, 2)),
+            BoxShadow(
+              color: AppTheme.primary,
+              offset: AppTheme.hardShadowOffset,
+            ),
           ],
         ),
         child: const Row(
@@ -278,7 +303,7 @@ class _NewWorkScreenState extends State<NewWorkScreen> {
             Icon(Icons.add, size: 14, color: AppTheme.primary),
             SizedBox(width: 4),
             Text(
-              '新增',
+              NewWorkText.add,
               style: TextStyle(
                 fontFamily: 'Space Grotesk',
                 fontWeight: FontWeight.w900,
@@ -296,40 +321,42 @@ class _NewWorkScreenState extends State<NewWorkScreen> {
     return Scaffold(
       backgroundColor: AppTheme.background,
       appBar: AppBar(
+        toolbarHeight: AppTheme.appBarHeight,
         backgroundColor: AppTheme.background,
         elevation: 0,
+        scrolledUnderElevation: 0,
+        surfaceTintColor: Colors.transparent,
+        shadowColor: Colors.transparent,
         leading: Padding(
-          padding: const EdgeInsets.only(left: 16.0, top: 12, bottom: 12),
-          child: Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(color: AppTheme.primary, width: 1.5),
+          padding: const EdgeInsets.only(left: 12),
+          child: IconButton(
+            padding: EdgeInsets.zero,
+            icon: const Icon(
+              Icons.arrow_back,
+              color: AppTheme.primary,
+              size: 22,
             ),
-            child: IconButton(
-              padding: EdgeInsets.zero,
-              icon: const Icon(
-                Icons.arrow_back,
-                color: AppTheme.primary,
-                size: 16,
-              ),
-              onPressed: () => Navigator.pop(context),
-            ),
+            onPressed: () => Navigator.pop(context),
           ),
         ),
         title: const Text(
-          'OBSCURE',
+          NewWorkText.appBarTitle,
           style: TextStyle(
             fontFamily: 'Space Grotesk',
             color: AppTheme.primary,
             fontWeight: FontWeight.w900,
-            fontSize: 17,
-            fontStyle: FontStyle.italic,
+            fontSize: AppTypeScale.buttonLarge,
+            height: AppLineHeight.title,
+            letterSpacing: AppTracking.none,
           ),
         ),
         centerTitle: true,
         bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(2.0),
-          child: Container(color: AppTheme.primary, height: 1.75),
+          preferredSize: const Size.fromHeight(AppTheme.appBarDividerHeight),
+          child: Container(
+            color: AppTheme.primary,
+            height: AppTheme.appBarDividerHeight,
+          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -338,26 +365,7 @@ class _NewWorkScreenState extends State<NewWorkScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const Text(
-              '新增作品',
-              style: TextStyle(
-                fontFamily: 'Space Grotesk',
-                fontWeight: FontWeight.w900,
-                fontSize: 29,
-                letterSpacing: -1.2,
-                height: 1.03,
-              ),
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Container(
-                margin: const EdgeInsets.only(top: 8, bottom: 24),
-                height: 4,
-                width: 64,
-                color: AppTheme.accentRed,
-              ),
-            ),
-            const Text(
-              '名稱/品名',
+              NewWorkText.nameLabel,
               style: TextStyle(
                 fontFamily: 'Space Grotesk',
                 fontWeight: FontWeight.w900,
@@ -375,7 +383,7 @@ class _NewWorkScreenState extends State<NewWorkScreen> {
                   fontSize: 13,
                 ),
                 decoration: const InputDecoration(
-                  hintText: '輸入專案名稱...',
+                  hintText: NewWorkText.nameHint,
                   hintStyle: TextStyle(
                     color: Colors.grey,
                     fontWeight: FontWeight.normal,
@@ -392,7 +400,7 @@ class _NewWorkScreenState extends State<NewWorkScreen> {
             const SizedBox(height: 24),
 
             const Text(
-              '相關領域',
+              NewWorkText.fieldLabel,
               style: TextStyle(
                 fontFamily: 'Space Grotesk',
                 fontWeight: FontWeight.w900,
@@ -415,7 +423,7 @@ class _NewWorkScreenState extends State<NewWorkScreen> {
               children: [
                 Positioned.fill(
                   child: Transform.translate(
-                    offset: const Offset(3, 3),
+                    offset: AppTheme.hardShadowOffset,
                     child: Container(color: AppTheme.primary),
                   ),
                 ),
@@ -445,7 +453,7 @@ class _NewWorkScreenState extends State<NewWorkScreen> {
                                 ),
                                 SizedBox(height: 16),
                                 Text(
-                                  '🤖 正在透過視覺分析風格...',
+                                  NewWorkText.uploadAnalyzing,
                                   style: TextStyle(
                                     fontFamily: 'Space Grotesk',
                                     fontWeight: FontWeight.bold,
@@ -482,13 +490,23 @@ class _NewWorkScreenState extends State<NewWorkScreen> {
                                       ),
                                       color: AppTheme.primary,
                                       child: const Text(
-                                        '更換圖片',
+                                        NewWorkText.uploadDone,
                                         style: TextStyle(
                                           fontFamily: 'Space Grotesk',
                                           fontWeight: FontWeight.bold,
                                           color: Colors.white,
                                           fontSize: 11,
                                         ),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Text(
+                                      '${NewWorkText.uploadedCountPrefix}${_uploadedImages.length}${NewWorkText.uploadedCountSuffix}',
+                                      style: const TextStyle(
+                                        fontFamily: 'Space Grotesk',
+                                        fontWeight: FontWeight.w900,
+                                        color: AppTheme.paper,
+                                        fontSize: 12,
                                       ),
                                     ),
                                   ],
@@ -505,7 +523,7 @@ class _NewWorkScreenState extends State<NewWorkScreen> {
                                 ),
                                 SizedBox(height: 12),
                                 Text(
-                                  '拖曳或點擊上傳圖片',
+                                  NewWorkText.uploadHint,
                                   style: TextStyle(
                                     fontFamily: 'Space Grotesk',
                                     fontWeight: FontWeight.bold,
@@ -524,7 +542,7 @@ class _NewWorkScreenState extends State<NewWorkScreen> {
 
             if (_isUploaded) ...[
               const Text(
-                '風格標籤',
+                NewWorkText.styleLabel,
                 style: TextStyle(
                   fontFamily: 'Space Grotesk',
                   fontWeight: FontWeight.w900,
@@ -544,7 +562,7 @@ class _NewWorkScreenState extends State<NewWorkScreen> {
             ],
 
             const Text(
-              '設計理念',
+              NewWorkText.conceptLabel,
               style: TextStyle(
                 fontFamily: 'Space Grotesk',
                 fontWeight: FontWeight.w900,
@@ -564,7 +582,7 @@ class _NewWorkScreenState extends State<NewWorkScreen> {
                   fontSize: 13,
                 ),
                 decoration: const InputDecoration(
-                  hintText: '詳細描述您的創作背景與設計理念...',
+                  hintText: NewWorkText.conceptHint,
                   hintStyle: TextStyle(
                     color: Colors.grey,
                     fontWeight: FontWeight.normal,
@@ -579,20 +597,26 @@ class _NewWorkScreenState extends State<NewWorkScreen> {
 
             NeoButton(
               onTap: () {
-                final projectName = _nameController.text.trim().isEmpty
-                    ? '未命名專案'
-                    : _nameController.text.trim();
-                final concept = _conceptController.text.trim().isEmpty
-                    ? '沒有提供設計理念'
-                    : _conceptController.text.trim();
-
-                final projectData = {
-                  'projectName': projectName,
-                  'concept': concept,
-                  'tags': [...selectedFields, ...selectedStyles],
-                };
-
-                Navigator.pop(context, projectData);
+                final arguments = _buildProjectDetailArguments(
+                  closeMode: 'designerProfile',
+                );
+                AppTheme.saveDesignerProject(
+                  DesignerSavedProject(
+                    title: arguments['projectName'] as String,
+                    concept: arguments['conceptText'] as String,
+                    tags: _savedProjectTags(),
+                    fieldTags: List<String>.from(selectedFields),
+                    styleTags: List<String>.from(selectedStyles),
+                    imageBytes: _uploadedImageBytes,
+                    imageBytesList: List<Uint8List>.from(_uploadedImages),
+                    imageAspectRatio: _uploadedImageAspectRatio,
+                  ),
+                );
+                Navigator.pushNamed(
+                  context,
+                  '/project_detail',
+                  arguments: arguments,
+                );
               },
               color: AppTheme.accentYellow,
               depth: 3.0,
@@ -600,7 +624,7 @@ class _NewWorkScreenState extends State<NewWorkScreen> {
                 height: 48,
                 alignment: Alignment.center,
                 child: const Text(
-                  '儲存專案',
+                  NewWorkText.saveProject,
                   style: TextStyle(
                     fontFamily: 'Space Grotesk',
                     fontWeight: FontWeight.w900,
@@ -617,7 +641,7 @@ class _NewWorkScreenState extends State<NewWorkScreen> {
                 GestureDetector(
                   onTap: () {},
                   child: const Text(
-                    '保存',
+                    NewWorkText.saveDraft,
                     style: TextStyle(
                       fontFamily: 'Space Grotesk',
                       fontSize: 13,
@@ -629,9 +653,15 @@ class _NewWorkScreenState extends State<NewWorkScreen> {
                 ),
                 const SizedBox(width: 24),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () => Navigator.pushNamed(
+                    context,
+                    '/project_detail',
+                    arguments: _buildProjectDetailArguments(
+                      closeMode: 'preview',
+                    ),
+                  ),
                   child: const Text(
-                    '預覽',
+                    NewWorkText.preview,
                     style: TextStyle(
                       fontFamily: 'Space Grotesk',
                       fontSize: 13,
@@ -648,6 +678,45 @@ class _NewWorkScreenState extends State<NewWorkScreen> {
         ),
       ),
     );
+  }
+
+  Map<String, dynamic> _buildProjectDetailArguments({
+    required String closeMode,
+  }) {
+    final projectName = _nameController.text.trim().isEmpty
+        ? AppText.unnamedProject
+        : _nameController.text.trim();
+
+    return {
+      'projectName': projectName,
+      'authorName': AppTheme.designerNickname,
+      'imageBytes': _uploadedImageBytes,
+      'imageBytesList': List<Uint8List>.from(_uploadedImages),
+      'conceptText': _conceptController.text.trim(),
+      'tags': [...selectedFields, ...selectedStyles],
+      'fieldTags': List<String>.from(selectedFields),
+      'styleTags': List<String>.from(selectedStyles),
+      'authorTags': DesignerProfileText.defaultTags,
+      'authorRecentImages': _authorRecentImages(),
+      'closeMode': closeMode,
+    };
+  }
+
+  List<Uint8List> _authorRecentImages() {
+    return AppTheme.designerProjects
+        .expand((project) => project.imageBytesList)
+        .take(6)
+        .toList();
+  }
+
+  List<String> _savedProjectTags() {
+    if (selectedStyles.isNotEmpty) {
+      return List<String>.from(selectedStyles);
+    }
+    if (selectedFields.isNotEmpty) {
+      return List<String>.from(selectedFields);
+    }
+    return const ['#BRUTALIST'];
   }
 }
 

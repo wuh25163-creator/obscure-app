@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../core/app_text.dart';
 import '../../core/app_theme.dart';
 
 class PortfolioManagementScreen extends StatelessWidget {
@@ -6,7 +7,7 @@ class PortfolioManagementScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // 角色守衛：設計師專屬頁面，非設計師立即導向客戶主頁
+    // Role guard: this page is only available in designer mode.
     if (!AppTheme.isDesigner) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         Navigator.pushReplacementNamed(context, '/discovery_feed');
@@ -31,7 +32,7 @@ class PortfolioManagementScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
-                          '作品集',
+                          PortfolioText.title,
                           style: TextStyle(
                             fontFamily: 'Space Grotesk',
                             fontWeight: FontWeight.bold,
@@ -50,7 +51,7 @@ class PortfolioManagementScreen extends StatelessWidget {
                           ),
                           padding: const EdgeInsets.only(left: 8),
                           child: const Text(
-                            '管理您的創意資產',
+                            PortfolioText.subtitle,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 12,
@@ -81,7 +82,7 @@ class PortfolioManagementScreen extends StatelessWidget {
                       ),
                     ),
                     child: const Text(
-                      '上傳新作品',
+                      PortfolioText.uploadWork,
                       style: TextStyle(
                         fontFamily: 'Space Grotesk',
                         fontWeight: FontWeight.bold,
@@ -99,11 +100,11 @@ class PortfolioManagementScreen extends StatelessWidget {
                 spacing: 8,
                 runSpacing: 8,
                 children: [
-                  _buildFilterChip('全部專案', isActive: true),
-                  _buildFilterChip('#手繪'),
-                  _buildFilterChip('#個人特色'),
-                  _buildFilterChip('#商業合作'),
-                  _buildFilterChip('#數位藝術'),
+                  _buildFilterChip(PortfolioText.filters[0], isActive: true),
+                  _buildFilterChip(PortfolioText.filters[1]),
+                  _buildFilterChip(PortfolioText.filters[2]),
+                  _buildFilterChip(PortfolioText.filters[3]),
+                  _buildFilterChip(PortfolioText.filters[4]),
                   const Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -114,7 +115,7 @@ class PortfolioManagementScreen extends StatelessWidget {
                       ),
                       SizedBox(width: 4),
                       Text(
-                        '進階篩選',
+                        PortfolioText.advancedFilter,
                         style: TextStyle(
                           fontFamily: 'Space Grotesk',
                           fontWeight: FontWeight.bold,
@@ -162,7 +163,7 @@ class PortfolioManagementScreen extends StatelessWidget {
                                       vertical: 2,
                                     ),
                                     child: const Text(
-                                      '私人',
+                                      PortfolioText.privateLabel,
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontFamily: 'Space Grotesk',
@@ -176,7 +177,7 @@ class PortfolioManagementScreen extends StatelessWidget {
                               ),
                               const SizedBox(height: 12),
                               const Text(
-                                '作品集(個人)',
+                                PortfolioText.featuredTitle,
                                 style: TextStyle(
                                   fontFamily: 'Space Grotesk',
                                   fontWeight: FontWeight.bold,
@@ -186,7 +187,7 @@ class PortfolioManagementScreen extends StatelessWidget {
                                 ),
                               ),
                               const Text(
-                                '個人作品集收藏',
+                                PortfolioText.featuredSubtitle,
                                 style: TextStyle(
                                   fontSize: 11,
                                   fontWeight: FontWeight.w500,
@@ -212,7 +213,7 @@ class PortfolioManagementScreen extends StatelessWidget {
                                       style: TextStyle(fontSize: 19),
                                     ),
                                     TextSpan(
-                                      text: '項目',
+                                      text: PortfolioText.countUnit,
                                       style: TextStyle(
                                         fontSize: 11,
                                         letterSpacing: 0,
@@ -288,7 +289,7 @@ class PortfolioManagementScreen extends StatelessWidget {
                                               vertical: 2,
                                             ),
                                             child: const Text(
-                                              '#手繪',
+                                              PortfolioText.sampleTag,
                                               style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 9,
@@ -320,7 +321,7 @@ class PortfolioManagementScreen extends StatelessWidget {
                                       ),
                                       const SizedBox(height: 12),
                                       const Text(
-                                        '墨水革命 (INK REVOLUTION)',
+                                        PortfolioText.sampleTitle,
                                         style: TextStyle(
                                           fontFamily: 'Space Grotesk',
                                           fontWeight: FontWeight.bold,
@@ -331,7 +332,7 @@ class PortfolioManagementScreen extends StatelessWidget {
                                       ),
                                       const SizedBox(height: 8),
                                       const Text(
-                                        '一系列表現力豐富的手繪實驗，專注於線條重量與原始情感紋理。',
+                                        PortfolioText.sampleDescription,
                                         style: TextStyle(
                                           fontSize: 10,
                                           fontWeight: FontWeight.w500,
@@ -354,7 +355,7 @@ class PortfolioManagementScreen extends StatelessWidget {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           const Text(
-                                            '更新於：2023.10.12',
+                                            PortfolioText.updatedAt,
                                             style: TextStyle(
                                               fontFamily: 'Space Grotesk',
                                               fontWeight: FontWeight.bold,
@@ -441,7 +442,7 @@ class PortfolioManagementScreen extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            '總觀看次數',
+                            PortfolioText.views,
                             style: TextStyle(
                               fontFamily: 'Space Grotesk',
                               fontWeight: FontWeight.bold,
@@ -470,7 +471,7 @@ class PortfolioManagementScreen extends StatelessWidget {
                             children: [
                               Icon(Icons.auto_awesome, size: 20),
                               Text(
-                                '最新',
+                                PortfolioText.draft,
                                 style: TextStyle(
                                   fontFamily: 'Space Grotesk',
                                   fontWeight: FontWeight.bold,
@@ -482,7 +483,7 @@ class PortfolioManagementScreen extends StatelessWidget {
                           ),
                           Spacer(),
                           Text(
-                            '速寫本\n系列 01',
+                            PortfolioText.draftTitle,
                             style: TextStyle(
                               fontFamily: 'Space Grotesk',
                               fontWeight: FontWeight.bold,
@@ -520,7 +521,7 @@ class PortfolioManagementScreen extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    '當前狀態',
+                                    PortfolioText.progressLabel,
                                     style: TextStyle(
                                       fontFamily: 'Space Grotesk',
                                       fontWeight: FontWeight.bold,
@@ -530,7 +531,7 @@ class PortfolioManagementScreen extends StatelessWidget {
                                     ),
                                   ),
                                   Text(
-                                    '已發布',
+                                    PortfolioText.progressValue,
                                     style: TextStyle(
                                       fontFamily: 'Space Grotesk',
                                       fontWeight: FontWeight.w900,
@@ -558,7 +559,7 @@ class PortfolioManagementScreen extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    '儲存空間',
+                                    PortfolioText.progressLabel,
                                     style: TextStyle(
                                       fontFamily: 'Space Grotesk',
                                       fontWeight: FontWeight.bold,
@@ -568,7 +569,7 @@ class PortfolioManagementScreen extends StatelessWidget {
                                     ),
                                   ),
                                   Text(
-                                    '已使用 84%',
+                                    PortfolioText.progressValue,
                                     style: TextStyle(
                                       fontFamily: 'Space Grotesk',
                                       fontWeight: FontWeight.w900,
@@ -596,9 +597,18 @@ class PortfolioManagementScreen extends StatelessWidget {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
-                  _buildGridItem('Personal Style #02', '#個人特色'),
-                  _buildGridItem('Digital Void', '#DIGITAL'),
-                  _buildGridItem('Hand Drawn Chaos', '#手繪'),
+                  _buildGridItem(
+                    PortfolioText.gridItems[0].title,
+                    PortfolioText.gridItems[0].tag,
+                  ),
+                  _buildGridItem(
+                    PortfolioText.gridItems[1].title,
+                    PortfolioText.gridItems[1].tag,
+                  ),
+                  _buildGridItem(
+                    PortfolioText.gridItems[2].title,
+                    PortfolioText.gridItems[2].tag,
+                  ),
 
                   // Add New Box
                   GestureDetector(
@@ -616,7 +626,7 @@ class PortfolioManagementScreen extends StatelessWidget {
                           Icon(Icons.add_circle, size: 36),
                           SizedBox(height: 12),
                           Text(
-                            '新增專案',
+                            PortfolioText.newProject,
                             style: TextStyle(
                               fontFamily: 'Space Grotesk',
                               fontWeight: FontWeight.bold,
@@ -648,7 +658,7 @@ class PortfolioManagementScreen extends StatelessWidget {
         color: isActive ? AppTheme.accentYellow : AppTheme.surface,
         border: Border.all(color: AppTheme.primary, width: 1.5),
         boxShadow: const [
-          BoxShadow(color: AppTheme.primary, offset: Offset(2, 2)),
+          BoxShadow(color: AppTheme.primary, offset: AppTheme.hardShadowOffset),
         ],
       ),
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
@@ -671,7 +681,7 @@ class PortfolioManagementScreen extends StatelessWidget {
         color: Colors.white,
         border: Border.all(color: AppTheme.primary, width: 1.5),
         boxShadow: const [
-          BoxShadow(color: AppTheme.primary, offset: Offset(2, 2)),
+          BoxShadow(color: AppTheme.primary, offset: AppTheme.hardShadowOffset),
         ],
       ),
       child: Column(

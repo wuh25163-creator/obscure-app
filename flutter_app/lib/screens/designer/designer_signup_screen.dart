@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/app_theme.dart';
+import '../../core/app_text.dart';
 
 class DesignerSignupScreen extends StatefulWidget {
   const DesignerSignupScreen({super.key});
@@ -11,7 +12,7 @@ class DesignerSignupScreen extends StatefulWidget {
 
 class _DesignerSignupScreenState extends State<DesignerSignupScreen> {
   bool? _isMajor;
-  double _workCount = 0.0;
+  double _workCount = 0;
   final TextEditingController _codeController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _ageController = TextEditingController();
@@ -49,7 +50,7 @@ class _DesignerSignupScreenState extends State<DesignerSignupScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '加入實驗室',
+                        DesignerSignupText.title,
                         style: TextStyle(
                           fontFamily: 'Space Grotesk',
                           fontWeight: FontWeight.w900,
@@ -60,7 +61,7 @@ class _DesignerSignupScreenState extends State<DesignerSignupScreen> {
                       ),
                       SizedBox(height: 7),
                       Text(
-                        '設計師入駐',
+                        DesignerSignupText.subtitle,
                         style: TextStyle(
                           fontFamily: 'Space Grotesk',
                           fontWeight: FontWeight.bold,
@@ -84,7 +85,7 @@ class _DesignerSignupScreenState extends State<DesignerSignupScreen> {
                   boxShadow: const [
                     BoxShadow(
                       color: AppTheme.primary,
-                      offset: Offset(3, 3),
+                      offset: AppTheme.hardShadowOffset,
                       blurRadius: 0,
                     ),
                   ],
@@ -94,8 +95,8 @@ class _DesignerSignupScreenState extends State<DesignerSignupScreen> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     _buildUnderlineField(
-                      '設計師代號',
-                      '請輸入您的設計師代號',
+                      DesignerSignupText.designerCode,
+                      DesignerSignupText.designerCodeHint,
                       controller: _codeController,
                     ),
                     const SizedBox(height: 12),
@@ -103,16 +104,16 @@ class _DesignerSignupScreenState extends State<DesignerSignupScreen> {
                       children: [
                         Expanded(
                           child: _buildUnderlineField(
-                            '姓名',
-                            '請輸入姓名',
+                            DesignerSignupText.name,
+                            DesignerSignupText.realNameHint,
                             controller: _nameController,
                           ),
                         ),
                         const SizedBox(width: 16),
                         Expanded(
                           child: _buildUnderlineField(
-                            '年齡',
-                            '24',
+                            DesignerSignupText.age,
+                            DesignerSignupText.ageHint,
                             controller: _ageController,
                           ),
                         ),
@@ -120,13 +121,13 @@ class _DesignerSignupScreenState extends State<DesignerSignupScreen> {
                     ),
                     const SizedBox(height: 12),
                     _buildUnderlineField(
-                      '電話',
-                      '+886',
+                      DesignerSignupText.phone,
+                      DesignerSignupText.phoneHint,
                       controller: _phoneController,
                     ),
                     const SizedBox(height: 14),
                     const Text(
-                      '是否為設計本科',
+                      DesignerSignupText.isDesignMajor,
                       style: TextStyle(
                         fontFamily: 'Space Grotesk',
                         fontWeight: FontWeight.bold,
@@ -139,7 +140,7 @@ class _DesignerSignupScreenState extends State<DesignerSignupScreen> {
                       children: [
                         Expanded(
                           child: _buildChoiceButton(
-                            '是',
+                            DesignerSignupText.yes,
                             _isMajor == true,
                             () => setState(() => _isMajor = true),
                           ),
@@ -147,7 +148,7 @@ class _DesignerSignupScreenState extends State<DesignerSignupScreen> {
                         const SizedBox(width: 10),
                         Expanded(
                           child: _buildChoiceButton(
-                            '非本科',
+                            DesignerSignupText.nonMajor,
                             _isMajor == false,
                             () => setState(() => _isMajor = false),
                           ),
@@ -156,7 +157,7 @@ class _DesignerSignupScreenState extends State<DesignerSignupScreen> {
                     ),
                     const SizedBox(height: 14),
                     const Text(
-                      '工作次數',
+                      DesignerSignupText.workCount,
                       style: TextStyle(
                         fontFamily: 'Space Grotesk',
                         fontWeight: FontWeight.bold,
@@ -205,16 +206,22 @@ class _DesignerSignupScreenState extends State<DesignerSignupScreen> {
                     ),
                     const SizedBox(height: 12),
                     GestureDetector(
-                      onTap: () {
-                        AppTheme.isDesigner = true;
+                      onTap: () async {
+                        final code = _codeController.text.trim();
+                        await AppTheme.setRole(designer: true, nickname: code);
+                        if (!context.mounted) {
+                          return;
+                        }
                         Navigator.pushReplacementNamed(
                           context,
                           '/designer_profile',
                           arguments: {
-                            'name': _nameController.text.isNotEmpty
-                                ? _nameController.text
-                                : '匿名設計師',
-                            'major': _isMajor == true ? '設計本科' : null,
+                            'name': code.isNotEmpty
+                                ? code
+                                : AppTheme.designerNickname,
+                            'major': _isMajor == true
+                                ? DesignerSignupText.designMajor
+                                : null,
                           },
                         );
                       },
@@ -229,7 +236,8 @@ class _DesignerSignupScreenState extends State<DesignerSignupScreen> {
                           boxShadow: const [
                             BoxShadow(
                               color: AppTheme.primary,
-                              offset: Offset(3, 3),
+                              offset: AppTheme.hardShadowOffset,
+                              blurRadius: 0,
                             ),
                           ],
                         ),
@@ -237,7 +245,7 @@ class _DesignerSignupScreenState extends State<DesignerSignupScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              '開始合作',
+                              DesignerSignupText.start,
                               style: TextStyle(
                                 fontFamily: 'Space Grotesk',
                                 fontWeight: FontWeight.w900,
@@ -321,18 +329,18 @@ class _DesignerSignupScreenState extends State<DesignerSignupScreen> {
     );
   }
 
-  Widget _buildChoiceButton(String text, bool isSelected, VoidCallback onTap) {
+  Widget _buildChoiceButton(String text, bool selected, VoidCallback onTap) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 10),
+        padding: const EdgeInsets.symmetric(vertical: 11),
         decoration: BoxDecoration(
-          color: isSelected ? AppTheme.primary : AppTheme.surface,
+          color: selected ? AppTheme.accentBlue : AppTheme.paper,
           border: Border.all(color: AppTheme.primary, width: AppStroke.regular),
           boxShadow: const [
             BoxShadow(
               color: AppTheme.primary,
-              offset: Offset(3, 3),
+              offset: AppTheme.hardShadowOffset,
               blurRadius: 0,
             ),
           ],
@@ -342,9 +350,9 @@ class _DesignerSignupScreenState extends State<DesignerSignupScreen> {
           text,
           style: TextStyle(
             fontFamily: 'Space Grotesk',
-            fontWeight: FontWeight.bold,
-            fontSize: 12,
-            color: isSelected ? AppTheme.paper : AppTheme.primary,
+            fontWeight: FontWeight.w900,
+            fontSize: 13,
+            color: selected ? AppTheme.onBlue : AppTheme.primary,
             letterSpacing: 0,
           ),
         ),

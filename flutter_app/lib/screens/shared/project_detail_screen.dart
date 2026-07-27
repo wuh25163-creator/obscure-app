@@ -1,29 +1,107 @@
 import 'package:flutter/material.dart';
+import 'dart:typed_data';
+import '../../core/app_text.dart';
 import '../../core/app_theme.dart';
 
-class ProjectDetailScreen extends StatelessWidget {
+class ProjectDetailScreen extends StatefulWidget {
   const ProjectDetailScreen({super.key});
 
   @override
+  State<ProjectDetailScreen> createState() => _ProjectDetailScreenState();
+}
+
+class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
+  final TextEditingController _commentController = TextEditingController();
+  final List<String> _comments = [];
+  bool _initialized = false;
+  int _likeCount = 0;
+  int _shareCount = 0;
+
+  @override
+  void dispose() {
+    _commentController.dispose();
+    super.dispose();
+  }
+
+  void _submitComment() {
+    final text = _commentController.text.trim();
+    if (text.isEmpty) {
+      return;
+    }
+
+    setState(() {
+      _comments.add(text);
+      _commentController.clear();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final rawArgs = ModalRoute.of(context)?.settings.arguments;
+    final args = rawArgs is Map<String, dynamic> ? rawArgs : null;
+    final projectName =
+        args?['projectName'] as String? ?? ProjectDetailText.defaultProjectName;
+    final authorName =
+        args?['authorName'] as String? ?? AppTheme.designerNickname;
+    final imageBytes = args?['imageBytes'] as Uint8List?;
+    final imageBytesList =
+        (args?['imageBytesList'] as List?)?.whereType<Uint8List>().toList() ??
+        (imageBytes == null ? const <Uint8List>[] : <Uint8List>[imageBytes]);
+    final conceptText = args?['conceptText'] as String? ?? '';
+    final closeMode = args?['closeMode'] as String? ?? 'designerProfile';
+    final styleTags =
+        (args?['styleTags'] as List?)?.whereType<String>().toList() ??
+        (args?['tags'] as List?)?.whereType<String>().toList() ??
+        ProjectDetailText.defaultTags;
+    final authorTags =
+        (args?['authorTags'] as List?)?.whereType<String>().toList() ??
+        DesignerProfileText.defaultTags;
+    final initialComments =
+        (args?['comments'] as List?)?.whereType<String>().toList() ??
+        const <String>[];
+    final authorRecentImages =
+        (args?['authorRecentImages'] as List?)
+            ?.whereType<Uint8List>()
+            .toList() ??
+        const <Uint8List>[];
+    if (!_initialized) {
+      _comments.addAll(initialComments);
+      _likeCount = args?['likeCount'] as int? ?? 0;
+      _shareCount = args?['shareCount'] as int? ?? 0;
+      _initialized = true;
+    }
+    final showFooterMetrics = closeMode == 'designerProfileReturn';
+
     return Scaffold(
       backgroundColor: AppTheme.background,
       body: SafeArea(
         child: Column(
           children: [
-            _buildHeader(context),
+            _buildHeader(
+              context,
+              projectName: projectName,
+              authorName: authorName,
+              closeMode: closeMode,
+            ),
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    _buildMainVisual(),
-                    _buildProjectInfo(),
-                    _buildCommentsSection(),
+                    _buildProjectImages(imageBytesList),
+                    _buildProjectInfo(projectName, conceptText, styleTags),
+                    _buildCommentsSection(_comments),
                     _buildCommentInput(),
-                    _buildAuthorInfo(),
-                    _buildRecommendations(),
-                    _buildFooterMetrics(),
+                    _buildAuthorInfo(authorName, authorTags),
+                    _buildRecommendations(authorRecentImages),
+                    if (showFooterMetrics)
+                      _buildFooterMetrics(
+                        likeCount: _likeCount,
+                        shareCount: _shareCount,
+                        commentCount: _comments.length,
+                      )
+                    else
+                      const SizedBox(height: 24),
                   ],
                 ),
               ),
@@ -34,7 +112,12 @@ class ProjectDetailScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildHeader(BuildContext context) {
+  Widget _buildHeader(
+    BuildContext context, {
+    required String projectName,
+    required String authorName,
+    required String closeMode,
+  }) {
     return Container(
       height: 52,
       decoration: const BoxDecoration(
@@ -45,22 +128,24 @@ class ProjectDetailScreen extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Column(
+          Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                '回味',
-                style: TextStyle(
+                projectName,
+                style: const TextStyle(
                   fontFamily: 'Space Grotesk',
                   fontWeight: FontWeight.bold,
                   fontSize: 15,
                   height: 1.12,
                 ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
               Text(
-                '鮭魚',
-                style: TextStyle(
+                authorName,
+                style: const TextStyle(
                   fontFamily: 'Space Grotesk',
                   fontWeight: FontWeight.w500,
                   fontSize: 10,
@@ -69,7 +154,30 @@ class ProjectDetailScreen extends StatelessWidget {
             ],
           ),
           GestureDetector(
-            onTap: () => Navigator.pop(context),
+            onTap: () {
+              if ((closeMode == 'preview' ||
+                      closeMode == 'designerProfileReturn' ||
+                      closeMode == 'customerFeed') &&
+                  Navigator.canPop(context)) {
+                Navigator.pop(context);
+                return;
+              }
+
+              if (closeMode == 'customerFeed') {
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  '/discovery_feed',
+                  (route) => false,
+                );
+                return;
+              }
+
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                '/designer_profile',
+                (route) => false,
+              );
+            },
             child: Container(
               width: 34,
               height: 34,
@@ -77,7 +185,10 @@ class ProjectDetailScreen extends StatelessWidget {
                 color: AppTheme.accentYellow,
                 border: Border.all(color: AppTheme.primary, width: 1.5),
                 boxShadow: const [
-                  BoxShadow(color: AppTheme.primary, offset: Offset(3, 3)),
+                  BoxShadow(
+                    color: AppTheme.primary,
+                    offset: AppTheme.hardShadowOffset,
+                  ),
                 ],
               ),
               child: const Icon(Icons.close, color: AppTheme.primary, size: 18),
@@ -88,7 +199,25 @@ class ProjectDetailScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildMainVisual() {
+  Widget _buildProjectImages(List<Uint8List> imageBytesList) {
+    if (imageBytesList.isNotEmpty) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: imageBytesList
+            .map(
+              (imageBytes) => SizedBox(
+                width: double.infinity,
+                child: Image.memory(
+                  imageBytes,
+                  width: double.infinity,
+                  fit: BoxFit.fitWidth,
+                ),
+              ),
+            )
+            .toList(),
+      );
+    }
+
     return AspectRatio(
       aspectRatio: 4 / 3,
       child: Container(
@@ -102,24 +231,63 @@ class ProjectDetailScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildProjectInfo() {
+  Widget _buildProjectInfo(
+    String projectName,
+    String conceptText,
+    List<String> styleTags,
+  ) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(15, 12, 15, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            '回味',
-            style: TextStyle(
-              fontFamily: 'Space Grotesk',
-              fontWeight: FontWeight.bold,
-              fontSize: 22,
-              letterSpacing: -0.75,
-            ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Text(
+                  projectName,
+                  style: const TextStyle(
+                    fontFamily: 'Space Grotesk',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 22,
+                    letterSpacing: 0,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              const SizedBox(width: 14),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _likeCount += 1;
+                  });
+                },
+                child: const Icon(
+                  Icons.favorite_border,
+                  color: AppTheme.accentRed,
+                  size: 18,
+                ),
+              ),
+              const SizedBox(width: 12),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _shareCount += 1;
+                  });
+                },
+                child: const Icon(
+                  Icons.near_me,
+                  color: AppTheme.primary,
+                  size: 18,
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 2),
           Text(
-            '2025/5/5',
+            ProjectDetailText.date,
             style: TextStyle(
               fontFamily: 'Space Grotesk',
               fontWeight: FontWeight.bold,
@@ -127,66 +295,110 @@ class ProjectDetailScreen extends StatelessWidget {
               color: AppTheme.primary.withValues(alpha: 0.6),
             ),
           ),
+          if (styleTags.isNotEmpty) ...[
+            const SizedBox(height: 8),
+            Wrap(
+              spacing: 6,
+              runSpacing: 6,
+              children: styleTags
+                  .take(3)
+                  .map((tag) => _buildTag(tag, AppTheme.accentBlue))
+                  .toList(),
+            ),
+          ],
+          if (conceptText.isNotEmpty) ...[
+            const SizedBox(height: 8),
+            Text(
+              conceptText,
+              style: const TextStyle(
+                fontFamily: 'Space Grotesk',
+                fontWeight: FontWeight.w600,
+                fontSize: 12,
+                height: 1.45,
+                color: AppTheme.primary,
+              ),
+            ),
+          ],
         ],
       ),
     );
   }
 
-  Widget _buildCommentsSection() {
+  Widget _buildCommentsSection(List<String> comments) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
       padding: const EdgeInsets.all(12),
       decoration: const NeoBoxDecoration(color: AppTheme.surface),
-      child: Stack(
-        clipBehavior: Clip.none,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                '評論',
-                style: TextStyle(
-                  fontFamily: 'Space Grotesk',
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15,
-                  letterSpacing: -0.75,
+          if (comments.isEmpty)
+            const SizedBox(
+              height: 26,
+              child: Center(
+                child: Text(
+                  ProjectDetailText.noComments,
+                  style: TextStyle(
+                    fontFamily: 'Space Grotesk',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                    color: AppTheme.primary,
+                  ),
                 ),
               ),
-              const SizedBox(height: 10),
-              _buildCommentItem('這幾何構成非常有張力！', AppTheme.accentRed),
-              const SizedBox(height: 8),
-              _buildCommentItem('色彩運用很到位，學習了。', AppTheme.accentBlue),
-              const SizedBox(height: 8),
-              _buildCommentItem('很棒的包裝設計概念。', AppTheme.accentYellow),
-              const SizedBox(height: 32),
-            ],
-          ),
-          Positioned(
-            bottom: 0,
-            right: 0,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-              decoration: BoxDecoration(
-                color: AppTheme.accentYellow,
-                border: Border.all(color: AppTheme.primary, width: 1.5),
-                boxShadow: const [
-                  BoxShadow(color: AppTheme.primary, offset: Offset(2, 2)),
-                ],
+            )
+          else ...[
+            const Text(
+              ProjectDetailText.comments,
+              style: TextStyle(
+                fontFamily: 'Space Grotesk',
+                fontWeight: FontWeight.bold,
+                fontSize: 15,
+                letterSpacing: 0,
               ),
-              child: const Text(
-                '所有評論',
-                style: TextStyle(
-                  fontFamily: 'Space Grotesk',
-                  fontWeight: FontWeight.bold,
-                  fontSize: 11,
-                  decoration: TextDecoration.underline,
+            ),
+            const SizedBox(height: 10),
+            for (final entry in comments.take(3)) ...[
+              _buildCommentItem(entry, _commentColor(comments.indexOf(entry))),
+              const SizedBox(height: 8),
+            ],
+            Align(
+              alignment: Alignment.centerRight,
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                decoration: BoxDecoration(
+                  color: AppTheme.accentYellow,
+                  border: Border.all(color: AppTheme.primary, width: 1.5),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: AppTheme.primary,
+                      offset: AppTheme.hardShadowOffset,
+                    ),
+                  ],
+                ),
+                child: const Text(
+                  ProjectDetailText.moreComments,
+                  style: TextStyle(
+                    fontFamily: 'Space Grotesk',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 11,
+                    decoration: TextDecoration.underline,
+                  ),
                 ),
               ),
             ),
-          ),
+          ],
         ],
       ),
     );
+  }
+
+  Color _commentColor(int index) {
+    return switch (index % 3) {
+      0 => AppTheme.accentRed,
+      1 => AppTheme.accentBlue,
+      _ => AppTheme.accentYellow,
+    };
   }
 
   Widget _buildCommentItem(String text, Color color) {
@@ -215,44 +427,62 @@ class ProjectDetailScreen extends StatelessWidget {
                 color: Colors.white,
                 border: Border.all(color: AppTheme.primary, width: 1.5),
               ),
-              alignment: Alignment.centerLeft,
-              child: Text(
-                '輸入評論...',
-                style: TextStyle(
+              alignment: Alignment.center,
+              child: TextField(
+                controller: _commentController,
+                textInputAction: TextInputAction.send,
+                onSubmitted: (_) => _submitComment(),
+                style: const TextStyle(
                   fontFamily: 'Space Grotesk',
                   fontWeight: FontWeight.bold,
                   fontSize: 12,
-                  color: AppTheme.primary.withValues(alpha: 0.4),
+                  color: AppTheme.primary,
+                  height: 1.1,
+                ),
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  isDense: true,
+                  contentPadding: EdgeInsets.zero,
+                  hintText: ProjectDetailText.commentHint,
+                  hintStyle: TextStyle(
+                    fontFamily: 'Space Grotesk',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                    color: AppTheme.primary.withValues(alpha: 0.4),
+                  ),
                 ),
               ),
             ),
           ),
-          Container(
-            width: 52,
-            height: 42,
-            decoration: const BoxDecoration(
-              color: AppTheme.primary,
-              border: Border(
-                top: BorderSide(color: AppTheme.primary, width: 1.5),
-                right: BorderSide(color: AppTheme.primary, width: 1.5),
-                bottom: BorderSide(color: AppTheme.primary, width: 1.5),
+          GestureDetector(
+            onTap: _submitComment,
+            child: Container(
+              width: 52,
+              height: 42,
+              decoration: const BoxDecoration(
+                color: AppTheme.primary,
+                border: Border(
+                  top: BorderSide(color: AppTheme.primary, width: 1.5),
+                  right: BorderSide(color: AppTheme.primary, width: 1.5),
+                  bottom: BorderSide(color: AppTheme.primary, width: 1.5),
+                ),
               ),
+              child: const Icon(Icons.send, color: Colors.white, size: 18),
             ),
-            child: const Icon(Icons.send, color: Colors.white, size: 18),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildAuthorInfo() {
+  Widget _buildAuthorInfo(String authorName, List<String> tags) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(15, 14, 15, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            '作者/團隊',
+            ProjectDetailText.authorTitle,
             style: TextStyle(
               fontFamily: 'Space Grotesk',
               fontWeight: FontWeight.bold,
@@ -271,14 +501,17 @@ class ProjectDetailScreen extends StatelessWidget {
                   color: AppTheme.accentYellow,
                   border: Border.all(color: AppTheme.primary, width: 1.5),
                   boxShadow: const [
-                    BoxShadow(color: AppTheme.primary, offset: Offset(3, 3)),
+                    BoxShadow(
+                      color: AppTheme.primary,
+                      offset: AppTheme.hardShadowOffset,
+                    ),
                   ],
                 ),
               ),
               const SizedBox(width: 10),
-              const Text(
-                '鮭魚',
-                style: TextStyle(
+              Text(
+                authorName,
+                style: const TextStyle(
                   fontFamily: 'Space Grotesk',
                   fontWeight: FontWeight.bold,
                   fontSize: 14,
@@ -288,11 +521,18 @@ class ProjectDetailScreen extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Row(
-            children: [
-              _buildTag('#台式', AppTheme.accentRed),
-              const SizedBox(width: 6),
-              _buildTag('#包裝', AppTheme.accentBlue),
-            ],
+            children: tags.take(3).map((tag) {
+              final index = tags.indexOf(tag);
+              final color = switch (index % 3) {
+                0 => AppTheme.accentRed,
+                1 => AppTheme.accentBlue,
+                _ => AppTheme.accentYellow,
+              };
+              return Padding(
+                padding: const EdgeInsets.only(right: 6),
+                child: _buildTag(tag, color),
+              );
+            }).toList(),
           ),
         ],
       ),
@@ -306,7 +546,7 @@ class ProjectDetailScreen extends StatelessWidget {
         color: AppTheme.surface,
         border: Border.all(color: borderColor, width: 1.5),
         boxShadow: const [
-          BoxShadow(color: AppTheme.primary, offset: Offset(3, 3)),
+          BoxShadow(color: AppTheme.primary, offset: AppTheme.hardShadowOffset),
         ],
       ),
       child: Text(
@@ -320,7 +560,7 @@ class ProjectDetailScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildRecommendations() {
+  Widget _buildRecommendations(List<Uint8List> recentImages) {
     return Padding(
       padding: const EdgeInsets.only(top: 20, left: 15),
       child: SingleChildScrollView(
@@ -328,11 +568,17 @@ class ProjectDetailScreen extends StatelessWidget {
         clipBehavior: Clip.none,
         child: Row(
           children: [
-            _buildRecCard(AppTheme.accentRed),
-            const SizedBox(width: 10),
-            _buildRecCard(AppTheme.accentYellow),
-            const SizedBox(width: 10),
-            _buildRecCard(AppTheme.accentBlue),
+            for (final image in recentImages.take(6)) ...[
+              _buildRecCard(image),
+              const SizedBox(width: 10),
+            ],
+            if (recentImages.isEmpty) ...[
+              _buildEmptyRecCard(),
+              const SizedBox(width: 10),
+              _buildEmptyRecCard(),
+              const SizedBox(width: 10),
+              _buildEmptyRecCard(),
+            ],
             const SizedBox(width: 15),
           ],
         ),
@@ -340,21 +586,42 @@ class ProjectDetailScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildRecCard(Color color) {
+  Widget _buildRecCard(Uint8List imageBytes) {
     return Container(
       width: 140,
       decoration: BoxDecoration(
-        color: color,
+        color: AppTheme.paper,
         border: Border.all(color: AppTheme.primary, width: 1.5),
         boxShadow: const [
-          BoxShadow(color: AppTheme.primary, offset: Offset(3, 3)),
+          BoxShadow(color: AppTheme.primary, offset: AppTheme.hardShadowOffset),
+        ],
+      ),
+      child: AspectRatio(
+        aspectRatio: 4 / 3,
+        child: Image.memory(imageBytes, fit: BoxFit.cover),
+      ),
+    );
+  }
+
+  Widget _buildEmptyRecCard() {
+    return Container(
+      width: 140,
+      decoration: BoxDecoration(
+        color: AppTheme.neutralLight,
+        border: Border.all(color: AppTheme.primary, width: 1.5),
+        boxShadow: const [
+          BoxShadow(color: AppTheme.primary, offset: AppTheme.hardShadowOffset),
         ],
       ),
       child: const AspectRatio(aspectRatio: 4 / 3, child: SizedBox()),
     );
   }
 
-  Widget _buildFooterMetrics() {
+  Widget _buildFooterMetrics({
+    required int likeCount,
+    required int shareCount,
+    required int commentCount,
+  }) {
     return Container(
       margin: const EdgeInsets.fromLTRB(15, 20, 15, 24),
       padding: const EdgeInsets.all(14),
@@ -363,18 +630,24 @@ class ProjectDetailScreen extends StatelessWidget {
         children: [
           _buildMetricRow(
             Icons.favorite,
-            '按讚',
-            '342',
+            ProjectDetailText.likes,
+            likeCount.toString(),
             AppTheme.accentRed,
             true,
           ),
           const SizedBox(height: 12),
-          _buildMetricRow(Icons.near_me, '觀看', '1.2k', AppTheme.primary, true),
+          _buildMetricRow(
+            Icons.near_me,
+            ProjectDetailText.shares,
+            shareCount.toString(),
+            AppTheme.primary,
+            true,
+          ),
           const SizedBox(height: 12),
           _buildMetricRow(
             Icons.chat_bubble,
-            '留言',
-            '3',
+            ProjectDetailText.commentCount,
+            commentCount.toString(),
             AppTheme.primary,
             false,
           ),

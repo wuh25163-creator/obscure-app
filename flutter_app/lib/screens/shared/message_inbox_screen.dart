@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../core/app_text.dart';
 import '../../core/app_theme.dart';
 import 'chat_room_screen.dart';
 
@@ -26,7 +27,7 @@ class MessageInboxScreen extends StatelessWidget {
                         boxShadow: const [
                           BoxShadow(
                             color: AppTheme.primary,
-                            offset: Offset(2, 2),
+                            offset: AppTheme.hardShadowOffset,
                           ),
                         ],
                       ),
@@ -47,8 +48,8 @@ class MessageInboxScreen extends StatelessWidget {
                               decoration: InputDecoration(
                                 border: InputBorder.none,
                                 hintText: AppTheme.isDesigner
-                                    ? '搜尋訊息...'
-                                    : '和設計師對話...',
+                                    ? MessageText.designerSearchHint
+                                    : MessageText.customerSearchHint,
                                 hintStyle: const TextStyle(
                                   fontFamily: 'Space Grotesk',
                                   fontSize: 12,
@@ -74,7 +75,7 @@ class MessageInboxScreen extends StatelessWidget {
                       boxShadow: const [
                         BoxShadow(
                           color: AppTheme.primary,
-                          offset: Offset(2, 2),
+                          offset: AppTheme.hardShadowOffset,
                         ),
                       ],
                     ),
@@ -97,38 +98,38 @@ class MessageInboxScreen extends StatelessWidget {
               if (AppTheme.isDesigner) ...[
                 _buildMessageItem(
                   context,
-                  name: '林**小姐 (Ms. Lin)',
-                  time: '22 分鐘前',
-                  subject: '**方案 - 尊享計劃確認',
-                  message: '你好，關於**方案的內容，我還有一些細節想請教...',
+                  name: MessageText.designerMessages[0].name,
+                  time: MessageText.designerMessages[0].time,
+                  subject: MessageText.designerMessages[0].subject,
+                  message: MessageText.designerMessages[0].message,
                   isActive: true,
                   unreadCount: 2,
                 ),
                 const SizedBox(height: 10),
                 _buildMessageItem(
                   context,
-                  name: '張先生 (Mr. Chang)',
-                  time: '2 小時前',
-                  subject: '**方案 - 進度更新',
-                  message: '謝謝你的詳細說明，我們會再討論一下。',
+                  name: MessageText.designerMessages[1].name,
+                  time: MessageText.designerMessages[1].time,
+                  subject: MessageText.designerMessages[1].subject,
+                  message: MessageText.designerMessages[1].message,
                 ),
                 const SizedBox(height: 10),
                 _buildMessageItem(
                   context,
-                  name: '王小姐 (Ms. Wang)',
-                  time: '昨天',
-                  subject: '**方案 - 續約諮詢',
-                  message: '請問續約後原本的優惠還能保留嗎？',
+                  name: MessageText.designerMessages[2].name,
+                  time: MessageText.designerMessages[2].time,
+                  subject: MessageText.designerMessages[2].subject,
+                  message: MessageText.designerMessages[2].message,
                 ),
                 const SizedBox(height: 10),
                 _buildMessageItemSystem(context),
               ] else ...[
                 _buildMessageItem(
                   context,
-                  name: '專屬設計師',
-                  time: '剛剛',
-                  subject: '專案啟動',
-                  message: '和設計師對話',
+                  name: MessageText.customerMessages[0].name,
+                  time: MessageText.customerMessages[0].time,
+                  subject: MessageText.customerMessages[0].subject,
+                  message: MessageText.customerMessages[0].message,
                   isActive: true,
                   unreadCount: 1,
                 ),
@@ -187,7 +188,12 @@ class MessageInboxScreen extends StatelessWidget {
             width: isActive ? 2.5 : 1.5,
           ),
           boxShadow: isActive
-              ? const [BoxShadow(color: AppTheme.primary, offset: Offset(3, 3))]
+              ? const [
+                  BoxShadow(
+                    color: AppTheme.primary,
+                    offset: AppTheme.hardShadowOffset,
+                  ),
+                ]
               : null,
         ),
         padding: const EdgeInsets.all(12),
@@ -352,7 +358,7 @@ class MessageInboxScreen extends StatelessWidget {
                     children: [
                       const Expanded(
                         child: Text(
-                          '系統通知',
+                          MessageText.systemName,
                           style: TextStyle(
                             fontFamily: 'Space Grotesk',
                             fontWeight: FontWeight.bold,
@@ -364,7 +370,7 @@ class MessageInboxScreen extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '2 天前',
+                        MessageText.systemTime,
                         style: TextStyle(
                           fontFamily: 'Space Grotesk',
                           fontWeight: FontWeight.bold,
@@ -377,7 +383,7 @@ class MessageInboxScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 2),
                   const Text(
-                    '帳戶安全性',
+                    MessageText.systemSubject,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 11,
@@ -386,7 +392,7 @@ class MessageInboxScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 2),
                   Text(
-                    '您的帳戶最近從新的裝置登入，若非本人...',
+                    MessageText.systemMessage,
                     style: TextStyle(
                       fontSize: 11,
                       color: AppTheme.primary.withValues(alpha: 0.6),

@@ -1,9 +1,116 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'dart:typed_data';
+import 'app_text.dart';
 import 'app_icons.dart';
+import 'fade_slide_route.dart';
+import 'project_storage_stub.dart'
+    if (dart.library.html) 'project_storage_web.dart';
 import '../screens/shared/notification_center_screen.dart';
+
+class DesignerSavedProject {
+  final String title;
+  final String concept;
+  final List<String> tags;
+  final List<String> fieldTags;
+  final List<String> styleTags;
+  final Uint8List? imageBytes;
+  final List<Uint8List> imageBytesList;
+  final double? imageAspectRatio;
+
+  const DesignerSavedProject({
+    required this.title,
+    required this.concept,
+    required this.tags,
+    this.fieldTags = const [],
+    this.styleTags = const [],
+    this.imageBytes,
+    this.imageBytesList = const [],
+    this.imageAspectRatio,
+  });
+
+  factory DesignerSavedProject.fromJson(Map<String, dynamic> json) {
+    final imageBase64 = json['imageBase64'] as String?;
+    final imageList =
+        (json['imageBase64List'] as List?)
+            ?.whereType<String>()
+            .where((value) => value.isNotEmpty)
+            .map(base64Decode)
+            .toList() ??
+        const <Uint8List>[];
+    final legacyImageBytes = imageBase64 == null || imageBase64.isEmpty
+        ? null
+        : base64Decode(imageBase64);
+    return DesignerSavedProject(
+      title: json['title'] as String? ?? AppText.unnamedProject,
+      concept: json['concept'] as String? ?? '',
+      tags: (json['tags'] as List?)?.whereType<String>().toList() ?? const [],
+      fieldTags:
+          (json['fieldTags'] as List?)?.whereType<String>().toList() ??
+          const [],
+      styleTags:
+          (json['styleTags'] as List?)?.whereType<String>().toList() ??
+          const [],
+      imageBytes: legacyImageBytes ?? imageList.firstOrNull,
+      imageBytesList: imageList.isNotEmpty
+          ? imageList
+          : (legacyImageBytes == null
+                ? const <Uint8List>[]
+                : <Uint8List>[legacyImageBytes]),
+      imageAspectRatio: (json['imageAspectRatio'] as num?)?.toDouble(),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'title': title,
+      'concept': concept,
+      'tags': tags,
+      'fieldTags': fieldTags,
+      'styleTags': styleTags,
+      'imageBase64': imageBytes == null ? null : base64Encode(imageBytes!),
+      'imageBase64List': imageBytesList.map(base64Encode).toList(),
+      'imageAspectRatio': imageAspectRatio,
+    };
+  }
+}
 
 class AppTheme {
   static bool isDesigner = false;
+  static String designerNickname = AppText.defaultDesignerName;
+  static final List<DesignerSavedProject> designerProjects = [];
+
+  static Future<void> loadDesignerProjects() async {
+    final projects = await ProjectStorage.loadDesignerProjects();
+    final roleState = await ProjectStorage.loadRoleState();
+    designerProjects
+      ..clear()
+      ..addAll(projects);
+    isDesigner = roleState['role'] == 'designer';
+    final savedNickname = roleState['designerNickname'];
+    if (savedNickname != null && savedNickname.isNotEmpty) {
+      designerNickname = savedNickname;
+    }
+  }
+
+  static void saveDesignerProject(DesignerSavedProject project) {
+    designerProjects.insert(0, project);
+    ProjectStorage.saveDesignerProjects(designerProjects);
+  }
+
+  static Future<void> setRole({
+    required bool designer,
+    String? nickname,
+  }) async {
+    isDesigner = designer;
+    if (nickname != null && nickname.isNotEmpty) {
+      designerNickname = nickname;
+    }
+    await ProjectStorage.saveRoleState(
+      isDesigner: isDesigner,
+      designerNickname: designerNickname,
+    );
+  }
 
   // Core software palette. Use these constants instead of raw Color values.
   static const Color ink = Color(0xFF1A1A1A);
@@ -49,7 +156,12 @@ class AppTheme {
   static const Color surface = canvas;
   static const double frameWidth = AppStroke.regular;
   static const double hairlineWidth = AppStroke.thin;
+  static const double hardShadowDepth = 3.0;
   static const Offset hardShadowOffset = Offset(3, 3);
+  static const EdgeInsets hardShadowClearance = EdgeInsets.only(
+    right: hardShadowDepth,
+    bottom: hardShadowDepth,
+  );
   static const EdgeInsets pagePadding = EdgeInsets.symmetric(
     horizontal: AppSpace.pageX,
     vertical: AppSpace.pageY,
@@ -153,12 +265,14 @@ class AppTheme {
     );
   }
 
-  // Shared layout constants — tuned for 390px mobile screen
+  // Shared layout constants ??tuned for 390px mobile screen
   static const double navBarHeight = AppSpace.navHeight;
   static const double navBarBottomPadding = AppSpace.sectionGap;
   static const double navIconSize = AppTypeScale.titleLarge;
   static const double navActiveSize = AppTypeScale.display + 3;
   static const double navInactiveSize = AppTypeScale.pageTitleSmall + 5;
+  static const double appBarHeight = 52.0;
+  static const double appBarDividerHeight = AppStroke.appBarDivider;
 
   static ThemeData get lightTheme {
     return ThemeData(
@@ -320,6 +434,7 @@ class AppStroke {
   static const double regular = 1.5;
   static const double heavy = 2.0;
   static const double bold = 2.25;
+  static const double appBarDivider = 3.0;
   static const double accent = 4.0;
 }
 
@@ -450,7 +565,7 @@ class NeoBoxDecoration extends BoxDecoration {
          boxShadow: const [
            BoxShadow(
              color: AppTheme.primary,
-             offset: Offset(3, 3),
+             offset: AppTheme.hardShadowOffset,
              blurRadius: 0,
              spreadRadius: 0,
            ),
@@ -471,8 +586,17 @@ class ObscureNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDesignerSurface = {
+      '/daily_planner',
+      '/designer_profile',
+      '/income_dashboard',
+      '/portfolio_management',
+      '/new_work',
+    }.contains(activeRoute);
+    final homeRoute = isDesignerSurface ? '/daily_planner' : '/discovery_feed';
+
     final items = [
-      ('home', AppTheme.isDesigner ? '/daily_planner' : '/discovery_feed'),
+      ('home', homeRoute),
       ('search', '/search_categories'),
       ('shining', '/commission_status'),
       ('chat', '/message_inbox'),
@@ -494,7 +618,10 @@ class ObscureNavBar extends StatelessWidget {
             borderRadius: BorderRadius.circular(28),
             border: Border.all(color: AppTheme.primary, width: AppStroke.heavy),
             boxShadow: const [
-              BoxShadow(color: AppTheme.primary, offset: Offset(3, 3)),
+              BoxShadow(
+                color: AppTheme.primary,
+                offset: AppTheme.hardShadowOffset,
+              ),
             ],
           ),
           child: Row(
@@ -543,11 +670,14 @@ class ObscureAppBar extends StatelessWidget implements PreferredSizeWidget {
   const ObscureAppBar({super.key, this.actions, this.leading});
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(
+    AppTheme.appBarHeight + AppTheme.appBarDividerHeight,
+  );
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      toolbarHeight: AppTheme.appBarHeight,
       title: Row(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -588,7 +718,11 @@ class ObscureAppBar extends StatelessWidget implements PreferredSizeWidget {
               icon: AppIcons.equal(color: AppTheme.primary, size: 22),
               splashColor: Colors.transparent,
               highlightColor: Colors.transparent,
-              onPressed: () {},
+              onPressed: () {
+                if (ModalRoute.of(context)?.settings.name != '/settings') {
+                  Navigator.pushNamed(context, '/settings');
+                }
+              },
             ),
           ),
       actions:
@@ -603,8 +737,9 @@ class ObscureAppBar extends StatelessWidget implements PreferredSizeWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                      builder: (context) => const NotificationCenterScreen(),
+                    FadeSlideRoute(
+                      page: const NotificationCenterScreen(),
+                      settings: const RouteSettings(name: '/notifications'),
                     ),
                   );
                 },
@@ -612,8 +747,11 @@ class ObscureAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
           ],
       bottom: PreferredSize(
-        preferredSize: const Size.fromHeight(3.0),
-        child: Container(color: AppTheme.primary, height: 3.0),
+        preferredSize: const Size.fromHeight(AppTheme.appBarDividerHeight),
+        child: Container(
+          color: AppTheme.primary,
+          height: AppTheme.appBarDividerHeight,
+        ),
       ),
     );
   }

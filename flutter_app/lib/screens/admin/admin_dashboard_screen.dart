@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import '../../core/app_text.dart';
 import '../../core/app_theme.dart';
 
 class AdminDashboardScreen extends StatelessWidget {
@@ -8,25 +10,24 @@ class AdminDashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppTheme.background,
-      appBar: const ObscureAppBar(), // Shared AppBar
+      appBar: const ObscureAppBar(),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.fromLTRB(15, 24, 15, 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Header
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    '管理儀表板',
+                    AdminText.title,
                     style: TextStyle(
                       fontFamily: 'Space Grotesk',
                       fontSize: 26,
                       fontWeight: FontWeight.w900,
                       height: 0.86,
-                      letterSpacing: -0.75,
+                      letterSpacing: 0,
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -41,7 +42,7 @@ class AdminDashboardScreen extends StatelessWidget {
                     ),
                     padding: const EdgeInsets.only(left: 12, top: 3, bottom: 3),
                     child: const Text(
-                      '即時設計師指標與監控。',
+                      AdminText.subtitle,
                       style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 12,
@@ -66,7 +67,7 @@ class AdminDashboardScreen extends StatelessWidget {
                       elevation: 0,
                     ),
                     child: const Text(
-                      '匯出報表',
+                      AdminText.exportReport,
                       style: TextStyle(
                         fontFamily: 'Space Grotesk',
                         fontSize: 12,
@@ -77,10 +78,8 @@ class AdminDashboardScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 16),
-
-              // Overview Stats Cards
               _buildLargeStatCard(
-                '每日新增設計師',
+                AdminText.newUsers,
                 '124',
                 '+12%',
                 Icons.person_add,
@@ -89,21 +88,23 @@ class AdminDashboardScreen extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               _buildTargetStatCard(
-                '總成交額',
+                AdminText.monthlyRevenue,
                 '\$2.4M',
                 AppTheme.accentYellow,
                 0.8,
               ),
               const SizedBox(height: 10),
-              _buildDisputeStatCard('未付款爭議', '18', AppTheme.accentRed),
+              _buildDisputeStatCard(
+                AdminText.disputes,
+                '18',
+                AppTheme.accentRed,
+              ),
               const SizedBox(height: 24),
-
-              // Tables / Lists Section
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text(
-                    '設計師驗證',
+                    AdminText.verificationTitle,
                     style: TextStyle(
                       fontFamily: 'Space Grotesk',
                       fontSize: 17,
@@ -139,8 +140,6 @@ class AdminDashboardScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 16),
-
-              // Tabular List
               Container(
                 decoration: BoxDecoration(
                   border: Border.all(color: AppTheme.primary, width: 1.5),
@@ -154,7 +153,7 @@ class AdminDashboardScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: const [
                           Text(
-                            '設計師',
+                            AdminText.verificationName,
                             style: TextStyle(
                               color: Colors.white,
                               fontFamily: 'Space Grotesk',
@@ -163,7 +162,7 @@ class AdminDashboardScreen extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            '操作',
+                            AdminText.verificationLocation,
                             style: TextStyle(
                               color: Colors.white,
                               fontFamily: 'Space Grotesk',
@@ -197,16 +196,14 @@ class AdminDashboardScreen extends StatelessWidget {
                     _buildVerificationRow(
                       'Marcus Chen',
                       'Tokyo, JP',
-                      Colors.grey[300]!,
+                      Colors.grey,
                     ),
                   ],
                 ),
               ),
               const SizedBox(height: 48),
-
-              // Disputes List
               const Text(
-                '爭議案件',
+                AdminText.disputeTitle,
                 style: TextStyle(
                   fontFamily: 'Space Grotesk',
                   fontSize: 17,
@@ -217,22 +214,20 @@ class AdminDashboardScreen extends StatelessWidget {
               const SizedBox(height: 10),
               _buildDisputeItem(
                 '#88219',
-                '未付服務費',
+                AdminText.firstDisputeTitle,
                 '\$1,200',
-                '設計師「K_Vance」聲稱專案「Hyperion」已完成，但客戶...',
+                AdminText.firstDisputeDescription,
                 isHighPriority: true,
               ),
               const SizedBox(height: 10),
               _buildDisputeItem(
                 '#88224',
-                '超出修改次數限制',
+                AdminText.secondDisputeTitle,
                 '\$450',
-                '客戶「Zenith」在簽署合約外要求額外修改...',
+                AdminText.secondDisputeDescription,
                 isHighPriority: false,
               ),
               const SizedBox(height: 24),
-
-              // System Health Widget
               Container(
                 padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
@@ -243,7 +238,7 @@ class AdminDashboardScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      '系統狀態',
+                      AdminText.systemHealth,
                       style: TextStyle(
                         fontFamily: 'Space Grotesk',
                         color: Colors.white,
@@ -264,7 +259,7 @@ class AdminDashboardScreen extends StatelessWidget {
                         ),
                         const SizedBox(width: 8),
                         const Text(
-                          '所有節點正常運行',
+                          AdminText.systemOnline,
                           style: TextStyle(
                             fontFamily: 'Inter',
                             color: Colors.white,
@@ -277,8 +272,12 @@ class AdminDashboardScreen extends StatelessWidget {
                     const SizedBox(height: 16),
                     Row(
                       children: [
-                        Expanded(child: _buildHealthStat('CPU 負載', '22%')),
-                        Expanded(child: _buildHealthStat('延遲', '14ms')),
+                        Expanded(
+                          child: _buildHealthStat(AdminText.cpuLoad, '22%'),
+                        ),
+                        Expanded(
+                          child: _buildHealthStat(AdminText.latency, '14ms'),
+                        ),
                       ],
                     ),
                   ],
@@ -310,7 +309,7 @@ class AdminDashboardScreen extends StatelessWidget {
         color: bgColor,
         border: Border.all(color: borderColor ?? AppTheme.primary, width: 1.5),
         boxShadow: const [
-          BoxShadow(color: AppTheme.primary, offset: Offset(3, 3)),
+          BoxShadow(color: AppTheme.primary, offset: AppTheme.hardShadowOffset),
         ],
       ),
       child: Column(
@@ -342,7 +341,7 @@ class AdminDashboardScreen extends StatelessWidget {
                   fontFamily: 'Space Grotesk',
                   fontSize: 37,
                   fontWeight: FontWeight.w900,
-                  letterSpacing: -1.2,
+                  letterSpacing: 0,
                   height: 0.94,
                 ),
               ),
@@ -375,7 +374,7 @@ class AdminDashboardScreen extends StatelessWidget {
         color: bgColor,
         border: Border.all(color: AppTheme.primary, width: 1.5),
         boxShadow: const [
-          BoxShadow(color: AppTheme.primary, offset: Offset(3, 3)),
+          BoxShadow(color: AppTheme.primary, offset: AppTheme.hardShadowOffset),
         ],
       ),
       child: Column(
@@ -411,7 +410,7 @@ class AdminDashboardScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  '目標：\$3.0M',
+                  AdminText.revenueTarget,
                   style: TextStyle(
                     fontFamily: 'Inter',
                     fontSize: 10,
@@ -447,7 +446,7 @@ class AdminDashboardScreen extends StatelessWidget {
         color: bgColor,
         border: Border.all(color: AppTheme.primary, width: 1.5),
         boxShadow: const [
-          BoxShadow(color: AppTheme.primary, offset: Offset(3, 3)),
+          BoxShadow(color: AppTheme.primary, offset: AppTheme.hardShadowOffset),
         ],
       ),
       child: Column(
@@ -480,7 +479,7 @@ class AdminDashboardScreen extends StatelessWidget {
             color: Colors.white,
             alignment: Alignment.center,
             child: const Text(
-              '立即審核',
+              AdminText.viewDetails,
               style: TextStyle(
                 fontFamily: 'Space Grotesk',
                 fontSize: 12,
@@ -570,7 +569,7 @@ class AdminDashboardScreen extends StatelessWidget {
         color: Colors.white,
         border: Border.all(color: AppTheme.primary, width: 1.5),
         boxShadow: const [
-          BoxShadow(color: AppTheme.primary, offset: Offset(3, 3)),
+          BoxShadow(color: AppTheme.primary, offset: AppTheme.hardShadowOffset),
         ],
       ),
       child: Stack(
@@ -587,7 +586,7 @@ class AdminDashboardScreen extends StatelessWidget {
                   border: Border.all(color: AppTheme.primary, width: 1.0),
                 ),
                 child: const Text(
-                  '高優先級',
+                  AdminText.highPriority,
                   style: TextStyle(
                     fontFamily: 'Space Grotesk',
                     fontSize: 9,
@@ -609,7 +608,7 @@ class AdminDashboardScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '編號: $id',
+                          '${AdminText.disputeIdPrefix} $id',
                           style: const TextStyle(
                             fontFamily: 'Inter',
                             fontSize: 10,
@@ -657,7 +656,7 @@ class AdminDashboardScreen extends StatelessWidget {
                       color: AppTheme.primary,
                       alignment: Alignment.center,
                       child: const Text(
-                        '仲裁',
+                        AdminText.handle,
                         style: TextStyle(
                           fontFamily: 'Space Grotesk',
                           fontSize: 11,

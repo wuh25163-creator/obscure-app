@@ -1,7 +1,10 @@
+// ignore_for_file: unused_field
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import 'core/app_theme.dart';
+import 'core/app_text.dart';
 import 'core/fade_slide_route.dart';
 import 'screens/admin/admin_dashboard_screen.dart';
 import 'screens/customer/customer_signup_screen.dart';
@@ -21,13 +24,45 @@ import 'screens/shared/message_inbox_screen.dart';
 import 'screens/shared/notification_center_screen.dart';
 import 'screens/shared/project_detail_screen.dart';
 import 'screens/shared/review_rating_screen.dart';
+import 'screens/shared/settings_screen.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await AppTheme.loadDesignerProjects();
   runApp(const StitchApp());
 }
 
-class StitchApp extends StatelessWidget {
+class StitchApp extends StatefulWidget {
   const StitchApp({super.key});
+
+  static const Map<String, String> screenLabels = {
+    '/message_inbox': AppText.screenMessageInbox,
+    '/contract_quote': AppText.screenContractQuote,
+    '/project_detail': AppText.screenProjectDetail,
+    '/settings': AppText.screenSettings,
+  };
+
+  static const Map<String, String> componentLabels = {
+    'folder_project_card.dart': AppText.componentIcon,
+  };
+
+  @override
+  State<StitchApp> createState() => _StitchAppState();
+}
+
+class _StitchAppState extends State<StitchApp> {
+  int _refreshTick = 0;
+
+  static const Map<String, String> screenLabels = {
+    '/message_inbox': AppText.screenMessageInbox,
+    '/contract_quote': AppText.screenContractQuote,
+    '/project_detail': AppText.screenProjectDetail,
+    '/settings': AppText.screenSettings,
+  };
+
+  static const Map<String, String> componentLabels = {
+    'folder_project_card.dart': AppText.componentIcon,
+  };
 
   static final Map<String, WidgetBuilder> _screens = {
     '/': (context) => const LoginVerificationScreen(),
@@ -48,7 +83,32 @@ class StitchApp extends StatelessWidget {
     '/review_rating': (context) => const ReviewRatingScreen(),
     '/admin_dashboard': (context) => const AdminDashboardScreen(),
     '/new_work': (context) => const NewWorkScreen(),
+    '/settings': (context) => const SettingsScreen(),
   };
+
+  static const Set<String> _designerOnlyRoutes = {
+    '/daily_planner',
+    '/designer_profile',
+    '/income_dashboard',
+    '/portfolio_management',
+    '/new_work',
+  };
+
+  static String _guardedRouteName(String? routeName) {
+    final name = routeName ?? '/';
+    if (_designerOnlyRoutes.contains(name) && !AppTheme.isDesigner) {
+      return '/discovery_feed';
+    }
+    return name;
+  }
+
+  Future<void> _refreshCurrentSurface() async {
+    await AppTheme.loadDesignerProjects();
+    setState(() {
+      _refreshTick++;
+    });
+    await Future<void>.delayed(const Duration(milliseconds: 240));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,11 +126,21 @@ class StitchApp extends StatelessWidget {
       ),
       initialRoute: '/',
       onGenerateRoute: (settings) {
-        final builder = _screens[settings.name];
+        final guardedName = _guardedRouteName(settings.name);
+        final builder = _screens[guardedName];
         if (builder != null) {
-          return FadeSlideRoute(page: Builder(builder: builder));
+          return FadeSlideRoute(
+            page: Builder(builder: builder),
+            settings: RouteSettings(
+              name: guardedName,
+              arguments: settings.arguments,
+            ),
+          );
         }
-        return FadeSlideRoute(page: const LoginVerificationScreen());
+        return FadeSlideRoute(
+          page: const LoginVerificationScreen(),
+          settings: settings,
+        );
       },
       builder: (context, child) {
         return LayoutBuilder(
@@ -84,7 +154,16 @@ class StitchApp extends StatelessWidget {
               child: Center(
                 child: ConstrainedBox(
                   constraints: BoxConstraints(maxWidth: frameWidth),
-                  child: ClipRect(child: child!),
+                  child: RefreshIndicator(
+                    key: ValueKey(_refreshTick),
+                    color: AppTheme.primary,
+                    backgroundColor: AppTheme.paper,
+                    strokeWidth: 2,
+                    notificationPredicate: (notification) =>
+                        notification.metrics.axis == Axis.vertical,
+                    onRefresh: _refreshCurrentSurface,
+                    child: ClipRect(child: child!),
+                  ),
                 ),
               ),
             );

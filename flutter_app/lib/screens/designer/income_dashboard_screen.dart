@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../core/app_text.dart';
 import '../../core/app_theme.dart';
 import '../../core/neo_button.dart';
 
@@ -35,7 +36,7 @@ class IncomeDashboardScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
-                          '收益中心',
+                          IncomeText.title,
                           style: TextStyle(
                             fontFamily: 'Space Grotesk',
                             fontWeight: FontWeight.bold,
@@ -67,7 +68,7 @@ class IncomeDashboardScreen extends StatelessWidget {
                                 border: Border.all(color: AppTheme.primary),
                               ),
                               child: const Text(
-                                '財務即時監控',
+                                IncomeText.monthBadge,
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
@@ -132,7 +133,7 @@ class IncomeDashboardScreen extends StatelessWidget {
                         letterSpacing: 0,
                       ),
                       children: [
-                        TextSpan(text: '已付款 '),
+                        TextSpan(text: IncomeText.paidPrefix),
                         TextSpan(
                           text: 'PAID',
                           style: TextStyle(color: AppTheme.accentBlue),
@@ -141,7 +142,7 @@ class IncomeDashboardScreen extends StatelessWidget {
                     ),
                   ),
                   const Text(
-                    '本月數據',
+                    IncomeText.paidRange,
                     style: TextStyle(
                       fontFamily: 'Space Grotesk',
                       fontWeight: FontWeight.bold,
@@ -155,21 +156,21 @@ class IncomeDashboardScreen extends StatelessWidget {
               _buildPaidItem(
                 Icons.payments,
                 'Creative Studio A',
-                '2023.10.24 • 14:30',
+                IncomeText.paidTimes[0],
                 '+\$3,200',
               ),
               const SizedBox(height: 10),
               _buildPaidItem(
                 Icons.work,
                 'Project Delta Ltd.',
-                '2023.10.22 • 09:15',
+                IncomeText.paidTimes[1],
                 '+\$12,500',
               ),
               const SizedBox(height: 10),
               _buildPaidItem(
                 Icons.person,
                 'Individual Client B',
-                '2023.10.20 • 18:45',
+                IncomeText.paidTimes[2],
                 '+\$850',
               ),
               const SizedBox(height: 20),
@@ -189,7 +190,7 @@ class IncomeDashboardScreen extends StatelessWidget {
                         letterSpacing: 0,
                       ),
                       children: [
-                        TextSpan(text: '未付款 '),
+                        TextSpan(text: IncomeText.unpaidPrefix),
                         TextSpan(
                           text: 'UNPAID',
                           style: TextStyle(color: AppTheme.accentRed),
@@ -198,7 +199,7 @@ class IncomeDashboardScreen extends StatelessWidget {
                     ),
                   ),
                   const Text(
-                    '即時摘要',
+                    IncomeText.unpaidRange,
                     style: TextStyle(
                       fontFamily: 'Space Grotesk',
                       fontWeight: FontWeight.bold,
@@ -209,9 +210,17 @@ class IncomeDashboardScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 10),
-              _buildUnpaidItemUrgent('Tech Nexus Co.', '逾期 3 天', '\$5,400'),
+              _buildUnpaidItemUrgent(
+                'Tech Nexus Co.',
+                IncomeText.urgentDue,
+                '\$5,400',
+              ),
               const SizedBox(height: 10),
-              _buildUnpaidItemPending('Artisan Bakery', '5 天後到期', '\$1,200'),
+              _buildUnpaidItemPending(
+                'Artisan Bakery',
+                IncomeText.pendingDue,
+                '\$1,200',
+              ),
               const SizedBox(height: 24),
             ],
           ),
@@ -283,7 +292,7 @@ class IncomeDashboardScreen extends StatelessWidget {
                 ),
               ),
               const Text(
-                '已完成',
+                IncomeText.paidStatus,
                 style: TextStyle(
                   fontFamily: 'Space Grotesk',
                   fontWeight: FontWeight.bold,
@@ -370,7 +379,7 @@ class IncomeDashboardScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     alignment: Alignment.center,
                     child: const Text(
-                      '即時提領',
+                      IncomeText.urgentAction,
                       style: TextStyle(
                         fontFamily: 'Space Grotesk',
                         fontWeight: FontWeight.bold,

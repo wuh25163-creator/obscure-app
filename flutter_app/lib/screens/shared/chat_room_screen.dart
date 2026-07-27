@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../core/app_text.dart';
 import '../../core/app_theme.dart';
 
 class ChatRoomScreen extends StatefulWidget {
@@ -7,8 +8,8 @@ class ChatRoomScreen extends StatefulWidget {
 
   const ChatRoomScreen({
     super.key,
-    this.contactName = '設計師',
-    this.contactStatus = '在線',
+    this.contactName = ChatText.defaultContactName,
+    this.contactStatus = ChatText.defaultStatus,
   });
 
   @override
@@ -39,26 +40,26 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                   ListView(
                     padding: const EdgeInsets.fromLTRB(15, 16, 15, 100),
                     children: [
-                      _buildDateHeader('今天'),
+                      _buildDateHeader(ChatText.today),
                       const SizedBox(height: 16),
                       _buildReceivedMessage(
-                        message: "嘿！我一直在審閱春季號的最新編輯版面。你覺得專題故事的非對稱網格如何？",
+                        message: ChatText.receivedMessage,
                         time: "09:41 AM",
                       ),
                       const SizedBox(height: 16),
                       _buildSentMessage(
-                        message: "我很喜歡。它比之前的結構感覺高階許多。留白確實讓照片有了喘息的空間。",
+                        message: ChatText.sentMessage,
                         time: "09:43 AM",
                         isRead: true,
                       ),
                       const SizedBox(height: 16),
                       _buildReceivedMessageWithImage(
-                        message: "這是我想要的氛圍。非常「空靈編輯感」。",
+                        message: ChatText.receivedImageMessage,
                         time: "09:45 AM",
                       ),
                       const SizedBox(height: 16),
                       _buildSentMessageBrief(
-                        message: "完美。讓我們朝這個方向繼續前進。 ✨",
+                        message: ChatText.sentBrief,
                         time: "09:46 AM",
                       ),
                       const SizedBox(height: 16),
@@ -81,7 +82,9 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
       decoration: const BoxDecoration(
         color: AppTheme.surface,
         border: Border(bottom: BorderSide(color: AppTheme.primary, width: 1.5)),
-        boxShadow: [BoxShadow(color: AppTheme.primary, offset: Offset(0, 2))],
+        boxShadow: [
+          BoxShadow(color: AppTheme.primary, offset: AppTheme.hardShadowOffset),
+        ],
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -240,7 +243,10 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                   color: Colors.white,
                   border: Border.all(color: AppTheme.primary, width: 1.5),
                   boxShadow: const [
-                    BoxShadow(color: AppTheme.primary, offset: Offset(2, 2)),
+                    BoxShadow(
+                      color: AppTheme.primary,
+                      offset: AppTheme.hardShadowOffset,
+                    ),
                   ],
                 ),
                 child: Text(
@@ -293,7 +299,10 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                   color: Colors.grey[200], // primary-container
                   border: Border.all(color: AppTheme.primary, width: 1.5),
                   boxShadow: const [
-                    BoxShadow(color: AppTheme.primary, offset: Offset(2, 2)),
+                    BoxShadow(
+                      color: AppTheme.primary,
+                      offset: AppTheme.hardShadowOffset,
+                    ),
                   ],
                 ),
                 child: Text(
@@ -358,7 +367,10 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                   color: Colors.white,
                   border: Border.all(color: AppTheme.primary, width: 1.5),
                   boxShadow: const [
-                    BoxShadow(color: AppTheme.primary, offset: Offset(2, 2)),
+                    BoxShadow(
+                      color: AppTheme.primary,
+                      offset: AppTheme.hardShadowOffset,
+                    ),
                   ],
                 ),
                 child: Column(
@@ -438,7 +450,10 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                   color: AppTheme.accentBlue, // tertiary
                   border: Border.all(color: AppTheme.primary, width: 1.5),
                   boxShadow: const [
-                    BoxShadow(color: AppTheme.primary, offset: Offset(2, 2)),
+                    BoxShadow(
+                      color: AppTheme.primary,
+                      offset: AppTheme.hardShadowOffset,
+                    ),
                   ],
                 ),
                 child: Text(
@@ -494,7 +509,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
         ),
         const SizedBox(width: 8),
         Text(
-          "${widget.contactName.split(' ')[0].toUpperCase()} 正在輸入",
+          "${widget.contactName.split(' ')[0].toUpperCase()} ???????????",
           style: const TextStyle(
             fontFamily: 'Space Grotesk',
             fontWeight: FontWeight.w900,
@@ -535,7 +550,10 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
               color: Colors.white,
               border: Border.all(color: AppTheme.primary, width: 1.5),
               boxShadow: const [
-                BoxShadow(color: AppTheme.primary, offset: Offset(2, 2)),
+                BoxShadow(
+                  color: AppTheme.primary,
+                  offset: AppTheme.hardShadowOffset,
+                ),
               ],
             ),
             child: IconButton(
@@ -551,7 +569,10 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                 color: Colors.white,
                 border: Border.all(color: AppTheme.primary, width: 1.5),
                 boxShadow: const [
-                  BoxShadow(color: AppTheme.primary, offset: Offset(2, 2)),
+                  BoxShadow(
+                    color: AppTheme.primary,
+                    offset: AppTheme.hardShadowOffset,
+                  ),
                 ],
               ),
               child: Row(
@@ -568,7 +589,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                       maxLines: 4,
                       minLines: 1,
                       decoration: InputDecoration(
-                        hintText: '輸入訊息...',
+                        hintText: ChatText.inputHint,
                         hintStyle: TextStyle(
                           fontFamily: 'Space Grotesk',
                           fontWeight: FontWeight.w500,
@@ -604,7 +625,10 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
               color: AppTheme.primary,
               border: Border.all(color: AppTheme.primary, width: 1.5),
               boxShadow: const [
-                BoxShadow(color: AppTheme.primary, offset: Offset(2, 2)),
+                BoxShadow(
+                  color: AppTheme.primary,
+                  offset: AppTheme.hardShadowOffset,
+                ),
               ],
             ),
             child: IconButton(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../core/app_text.dart';
 import '../../core/app_theme.dart';
 import 'package:flutter/gestures.dart';
 import '../../core/neo_button.dart';
@@ -6,79 +7,29 @@ import '../../core/neo_button.dart';
 class DiscoveryFeedScreen extends StatelessWidget {
   const DiscoveryFeedScreen({super.key});
 
-  static const List<Map<String, dynamic>> _leftItems = [
-    {
-      'height': 200.0,
-      'label': '粗獷派形態',
-      'tag': '#建築',
-      'accent': AppTheme.accentYellow,
-    },
-    {
-      'height': 130.0,
-      'label': '字體研究',
-      'tag': '#字體',
-      'accent': AppTheme.accentBlue,
-    },
-    {
-      'height': 170.0,
-      'label': '墨水系列',
-      'tag': '#手繪',
-      'accent': AppTheme.accentRed,
-    },
-    {
-      'height': 230.0,
-      'label': '虛實空間',
-      'tag': '#空間',
-      'accent': AppTheme.accentYellow,
-    },
-    {
-      'height': 190.0,
-      'label': '材質研究',
-      'tag': '#材質',
-      'accent': AppTheme.accentBlue,
-    },
-  ];
-
-  static const List<Map<String, dynamic>> _rightItems = [
-    {
-      'height': 140.0,
-      'label': '色彩理論',
-      'tag': '#色彩',
-      'accent': AppTheme.accentBlue,
-    },
-    {
-      'height': 190.0,
-      'label': '網格系統',
-      'tag': '#版面',
-      'accent': AppTheme.accentRed,
-    },
-    {
-      'height': 270.0,
-      'label': '動態研究',
-      'tag': '#動態',
-      'accent': AppTheme.accentYellow,
-    },
-    {
-      'height': 110.0,
-      'label': '質感研究',
-      'tag': '#質感',
-      'accent': AppTheme.accentRed,
-    },
-    {
-      'height': 160.0,
-      'label': '品牌識別',
-      'tag': '#品牌',
-      'accent': AppTheme.accentBlue,
-    },
-  ];
+  static const List<DiscoverySample> _leftItems = DiscoveryText.samplesLeft;
+  static const List<DiscoverySample> _rightItems = DiscoveryText.samplesRight;
 
   @override
   Widget build(BuildContext context) {
-    if (AppTheme.isDesigner) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        Navigator.pushReplacementNamed(context, '/daily_planner');
-      });
-      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    final savedProjects = AppTheme.designerProjects;
+    final savedLeftProjects = <_SavedProjectTile>[];
+    final savedRightProjects = <_SavedProjectTile>[];
+    var leftHeight = 0.0;
+    var rightHeight = 0.0;
+    for (var i = 0; i < savedProjects.length; i++) {
+      final tile = _SavedProjectTile(
+        project: savedProjects[i],
+        accent: _tagAccentForIndex(i),
+      );
+      final estimatedHeight = _estimatedSavedProjectHeight(savedProjects[i]);
+      if (leftHeight <= rightHeight) {
+        savedLeftProjects.add(tile);
+        leftHeight += estimatedHeight;
+      } else {
+        savedRightProjects.add(tile);
+        rightHeight += estimatedHeight;
+      }
     }
 
     return Scaffold(
@@ -108,15 +59,15 @@ class DiscoveryFeedScreen extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
-                        _buildPill('所有作品', isActive: true),
+                        _buildPill(DiscoveryText.categories[0], isActive: true),
                         const SizedBox(width: 8),
-                        _buildPill('建築'),
+                        _buildPill(DiscoveryText.categories[1]),
                         const SizedBox(width: 8),
-                        _buildPill('字體'),
+                        _buildPill(DiscoveryText.categories[2]),
                         const SizedBox(width: 8),
-                        _buildPill('手繪'),
+                        _buildPill(DiscoveryText.categories[3]),
                         const SizedBox(width: 8),
-                        _buildPill('品牌'),
+                        _buildPill(DiscoveryText.categories[4]),
                       ],
                     ),
                   ),
@@ -131,7 +82,7 @@ class DiscoveryFeedScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     const Text(
-                      '作品',
+                      DiscoveryText.sectionTitle,
                       style: TextStyle(
                         fontFamily: 'Space Grotesk',
                         fontWeight: FontWeight.w900,
@@ -149,7 +100,7 @@ class DiscoveryFeedScreen extends StatelessWidget {
                     ),
                     const SizedBox(width: 10),
                     const Text(
-                      '10 個專案',
+                      DiscoveryText.itemCount,
                       style: TextStyle(
                         fontFamily: 'Space Grotesk',
                         fontWeight: FontWeight.bold,
@@ -169,33 +120,47 @@ class DiscoveryFeedScreen extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Column(
-                        children: _leftItems
-                            .map(
-                              (item) => _buildMasonryCard(
-                                context,
-                                height: item['height'] as double,
-                                label: item['label'] as String,
-                                tag: item['tag'] as String,
-                                accent: item['accent'] as Color,
+                        children: [
+                          ...savedLeftProjects.map(
+                            (tile) =>
+                                _buildSavedProjectCard(context, tile: tile),
+                          ),
+                          ..._leftItems.indexed.map(
+                            (entry) => _buildMasonryCard(
+                              context,
+                              height: entry.$2.height,
+                              label: entry.$2.label,
+                              tag: entry.$2.tag,
+                              accent: _tagAccentForIndex(
+                                savedProjects.length + entry.$1,
                               ),
-                            )
-                            .toList(),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     const SizedBox(width: 10),
                     Expanded(
                       child: Column(
-                        children: _rightItems
-                            .map(
-                              (item) => _buildMasonryCard(
-                                context,
-                                height: item['height'] as double,
-                                label: item['label'] as String,
-                                tag: item['tag'] as String,
-                                accent: item['accent'] as Color,
+                        children: [
+                          ...savedRightProjects.map(
+                            (tile) =>
+                                _buildSavedProjectCard(context, tile: tile),
+                          ),
+                          ..._rightItems.indexed.map(
+                            (entry) => _buildMasonryCard(
+                              context,
+                              height: entry.$2.height,
+                              label: entry.$2.label,
+                              tag: entry.$2.tag,
+                              accent: _tagAccentForIndex(
+                                savedProjects.length +
+                                    _leftItems.length +
+                                    entry.$1,
                               ),
-                            )
-                            .toList(),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
@@ -305,4 +270,141 @@ class DiscoveryFeedScreen extends StatelessWidget {
       ),
     );
   }
+
+  Widget _buildSavedProjectCard(
+    BuildContext context, {
+    required _SavedProjectTile tile,
+  }) {
+    final project = tile.project;
+    final tag = project.styleTags.isNotEmpty
+        ? project.styleTags.first
+        : project.tags.firstOrNull ?? DiscoveryText.defaultSavedTag;
+    final label = project.fieldTags.isNotEmpty
+        ? project.fieldTags.first
+        : project.title;
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: NeoButton(
+        onTap: () {
+          Navigator.pushNamed(
+            context,
+            '/project_detail',
+            arguments: {
+              'projectName': project.title,
+              'authorName': AppTheme.designerNickname,
+              'imageBytes': project.imageBytes,
+              'imageBytesList': project.imageBytesList,
+              'conceptText': project.concept,
+              'tags': project.tags,
+              'fieldTags': project.fieldTags,
+              'styleTags': project.styleTags.isNotEmpty
+                  ? project.styleTags
+                  : project.tags,
+              'authorTags': DesignerProfileText.defaultTags,
+              'authorRecentImages': AppTheme.designerProjects
+                  .expand((savedProject) => savedProject.imageBytesList)
+                  .take(6)
+                  .toList(),
+              'closeMode': 'customerFeed',
+            },
+          );
+        },
+        color: AppTheme.surface,
+        depth: 3.0,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Stack(
+              alignment: Alignment.topRight,
+              children: [
+                if (project.imageBytes != null)
+                  Image.memory(
+                    project.imageBytes!,
+                    width: double.infinity,
+                    fit: BoxFit.fitWidth,
+                  )
+                else
+                  Container(height: 170, color: AppTheme.neutralLight),
+                Padding(
+                  padding: const EdgeInsets.all(6),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 5,
+                      vertical: 2,
+                    ),
+                    color: tile.accent,
+                    child: Text(
+                      tag,
+                      style: TextStyle(
+                        fontFamily: 'Space Grotesk',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 8,
+                        color: AppTheme.onAccent(tile.accent),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Container(
+              decoration: const BoxDecoration(
+                border: Border(
+                  top: BorderSide(color: AppTheme.primary, width: 1.5),
+                ),
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 7),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Text(
+                      label,
+                      style: const TextStyle(
+                        fontFamily: 'Space Grotesk',
+                        fontWeight: FontWeight.w900,
+                        fontSize: 10,
+                        letterSpacing: 0,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  const Icon(
+                    Icons.arrow_forward,
+                    size: 12,
+                    color: AppTheme.primary,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  static Color _tagAccentForIndex(int index) {
+    const accents = [
+      AppTheme.accentRed,
+      AppTheme.accentBlue,
+      AppTheme.accentYellow,
+    ];
+    return accents[index % accents.length];
+  }
+
+  static double _estimatedSavedProjectHeight(DesignerSavedProject project) {
+    final aspectRatio = project.imageAspectRatio;
+    final visualHeight = aspectRatio == null || aspectRatio <= 0
+        ? 170.0
+        : (170.0 / aspectRatio).clamp(100.0, 280.0);
+    return visualHeight + 42.0;
+  }
+}
+
+class _SavedProjectTile {
+  final DesignerSavedProject project;
+  final Color accent;
+
+  const _SavedProjectTile({required this.project, required this.accent});
 }

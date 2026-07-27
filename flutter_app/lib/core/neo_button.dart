@@ -18,7 +18,7 @@ class NeoButton extends StatefulWidget {
     required this.onTap,
     this.color = AppTheme.paper,
     this.shadowColor,
-    this.depth = 3.0,
+    this.depth = AppTheme.hardShadowDepth,
     this.borderWidth = 3.0,
     this.padding,
     this.borderRadius,
@@ -66,34 +66,37 @@ class _NeoButtonState extends State<NeoButton> {
       border: Border.all(color: AppTheme.primary, width: widget.borderWidth),
     );
 
-    return GestureDetector(
-      onTapDown: _handleTapDown,
-      onTapUp: _handleTapUp,
-      onTapCancel: _handleTapCancel,
-      child: Stack(
-        clipBehavior: Clip.none,
-        children: [
-          // Shadow Base
-          Positioned.fill(
-            child: Transform.translate(
-              offset: Offset(widget.depth, widget.depth),
-              child: Container(decoration: shadowDecoration),
+    return Padding(
+      padding: AppTheme.hardShadowClearance,
+      child: GestureDetector(
+        onTapDown: _handleTapDown,
+        onTapUp: _handleTapUp,
+        onTapCancel: _handleTapCancel,
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            // Shadow Base
+            Positioned.fill(
+              child: Transform.translate(
+                offset: AppTheme.hardShadowOffset,
+                child: Container(decoration: shadowDecoration),
+              ),
             ),
-          ),
-          // Interactive Top Layer
-          AnimatedContainer(
-            duration: const Duration(milliseconds: 70),
-            curve: Curves.easeOut,
-            transform: Matrix4.translationValues(
-              _isPressed ? widget.depth : 0,
-              _isPressed ? widget.depth : 0,
-              0,
+            // Interactive Top Layer
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 70),
+              curve: Curves.easeOut,
+              transform: Matrix4.translationValues(
+                _isPressed ? widget.depth : 0,
+                _isPressed ? widget.depth : 0,
+                0,
+              ),
+              decoration: decoration,
+              padding: widget.padding,
+              child: widget.child,
             ),
-            decoration: decoration,
-            padding: widget.padding,
-            child: widget.child,
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

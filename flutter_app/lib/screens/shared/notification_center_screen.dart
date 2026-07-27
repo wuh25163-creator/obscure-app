@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../core/app_text.dart';
 import '../../core/app_theme.dart';
 import '../../core/neo_button.dart';
 import '../../core/app_icons.dart';
@@ -42,7 +43,7 @@ class NotificationCenterScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        '收件箱',
+                        NotificationText.title,
                         style: TextStyle(
                           fontFamily: 'Space Grotesk',
                           fontSize: 24,
@@ -61,12 +62,12 @@ class NotificationCenterScreen extends StatelessWidget {
                             color: AppTheme.primary,
                           ),
                           children: [
-                            TextSpan(text: '您有 '),
+                            TextSpan(text: NotificationText.summaryPrefix),
                             TextSpan(
-                              text: '3 則未讀',
+                              text: NotificationText.summaryCount,
                               style: TextStyle(color: AppTheme.accentRed),
                             ),
-                            TextSpan(text: ' 通知'),
+                            TextSpan(text: NotificationText.summarySuffix),
                           ],
                         ),
                       ),
@@ -81,7 +82,7 @@ class NotificationCenterScreen extends StatelessWidget {
                       vertical: 8,
                     ),
                     child: const Text(
-                      '全部已讀',
+                      NotificationText.markAllRead,
                       style: TextStyle(
                         fontFamily: 'Space Grotesk',
                         fontWeight: FontWeight.bold,
@@ -95,16 +96,18 @@ class NotificationCenterScreen extends StatelessWidget {
               ),
               const SizedBox(height: 14),
 
-              // Tabs — 2x2 grid
+              // Tabs ??2x2 grid
               Row(
                 children: [
-                  Expanded(child: _buildTab('全部', isActive: true)),
+                  Expanded(
+                    child: _buildTab(NotificationText.tabs[0], isActive: true),
+                  ),
                   const SizedBox(width: 6),
-                  Expanded(child: _buildTab('委託')),
+                  Expanded(child: _buildTab(NotificationText.tabs[1])),
                   const SizedBox(width: 6),
-                  Expanded(child: _buildTab('系統')),
+                  Expanded(child: _buildTab(NotificationText.tabs[2])),
                   const SizedBox(width: 6),
-                  Expanded(child: _buildTab('付款')),
+                  Expanded(child: _buildTab(NotificationText.tabs[3])),
                 ],
               ),
               const SizedBox(height: 14),
@@ -113,26 +116,26 @@ class NotificationCenterScreen extends StatelessWidget {
               _buildNotificationItem(
                 icon: Icons.payments,
                 iconBgColor: AppTheme.accentYellow,
-                badgeText: '付款',
+                badgeText: NotificationText.items[0].badge,
                 badgeColor: AppTheme.accentBlue,
-                time: '2 分鐘前',
-                title: '林小姐已支付訂金',
-                subtitle: "專案：'新黑色風格插畫集'",
+                time: NotificationText.items[0].time,
+                title: NotificationText.items[0].title,
+                subtitle: NotificationText.items[0].subtitle,
                 actionColor: AppTheme.primary,
-                actionText: '收入儀表板',
+                actionText: NotificationText.items[0].action,
                 shadowColor: AppTheme.accentBlue,
               ),
               const SizedBox(height: 10),
               _buildNotificationItem(
                 icon: Icons.star,
                 iconBgColor: Colors.white,
-                badgeText: '精選',
+                badgeText: NotificationText.items[1].badge,
                 badgeColor: AppTheme.accentRed,
-                time: '1 小時前',
-                title: '新精選作品上線',
-                subtitle: "您的作品 'Structural Decay' 已登上首頁。",
+                time: NotificationText.items[1].time,
+                title: NotificationText.items[1].title,
+                subtitle: NotificationText.items[1].subtitle,
                 actionColor: AppTheme.accentBlue,
-                actionText: '查看作品',
+                actionText: NotificationText.items[1].action,
                 bgColor: AppTheme.accentYellow,
                 shadowColor: AppTheme.primary,
               ),
@@ -141,13 +144,13 @@ class NotificationCenterScreen extends StatelessWidget {
                 icon: Icons.architecture,
                 iconBgColor: AppTheme.accentBlue,
                 iconColor: Colors.white,
-                badgeText: '委託',
+                badgeText: NotificationText.items[2].badge,
                 badgeColor: AppTheme.primary,
-                time: '昨天',
-                title: '合約已簽署',
-                subtitle: "Agency X 已接受粗獷主義網頁提案。",
+                time: NotificationText.items[2].time,
+                title: NotificationText.items[2].title,
+                subtitle: NotificationText.items[2].subtitle,
                 actionColor: AppTheme.accentYellow,
-                actionText: '查看合約',
+                actionText: NotificationText.items[2].action,
                 actionTextColor: AppTheme.primary,
                 shadowColor: AppTheme.accentRed,
               ),
@@ -155,11 +158,11 @@ class NotificationCenterScreen extends StatelessWidget {
               _buildNotificationItem(
                 icon: Icons.settings,
                 iconBgColor: const Color(0xFFE0E0E0),
-                badgeText: '系統',
+                badgeText: NotificationText.items[3].badge,
                 badgeColor: Colors.grey,
-                time: '2 天前',
-                title: '帳號驗證完成',
-                subtitle: "身份已由全球合規團隊驗證。",
+                time: NotificationText.items[3].time,
+                title: NotificationText.items[3].title,
+                subtitle: NotificationText.items[3].subtitle,
                 isSystem: true,
                 shadowColor: Colors.transparent,
               ),
@@ -174,19 +177,19 @@ class NotificationCenterScreen extends StatelessWidget {
                   children: [
                     _buildStatBox(
                       '84%',
-                      '回覆率',
+                      NotificationText.responseRate,
                       AppTheme.accentBlue,
                       Colors.white,
                     ),
                     _buildStatBox(
                       '12',
-                      '進行中專案',
+                      NotificationText.pendingTasks,
                       Colors.white,
                       AppTheme.primary,
                     ),
                     _buildStatBox(
                       '\$4.2K',
-                      '待處理發票',
+                      NotificationText.monthlyIncome,
                       AppTheme.accentYellow,
                       AppTheme.primary,
                       isLast: true,
@@ -206,7 +209,7 @@ class NotificationCenterScreen extends StatelessWidget {
     return NeoButton(
       onTap: () {},
       color: isActive ? AppTheme.accentRed : Colors.white,
-      depth: isActive ? 3.0 : 2.0,
+      depth: AppTheme.hardShadowDepth,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 8),
         alignment: Alignment.center,
@@ -248,7 +251,12 @@ class NotificationCenterScreen extends StatelessWidget {
           color: bgColor,
           border: Border.all(color: AppTheme.primary, width: 1.5),
           boxShadow: shadowColor != Colors.transparent
-              ? [BoxShadow(color: shadowColor, offset: const Offset(3, 3))]
+              ? [
+                  BoxShadow(
+                    color: shadowColor,
+                    offset: AppTheme.hardShadowOffset,
+                  ),
+                ]
               : null,
         ),
         child: Column(

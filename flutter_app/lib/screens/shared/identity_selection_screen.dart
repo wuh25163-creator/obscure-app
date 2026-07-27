@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import '../../core/app_theme.dart';
+import '../../core/app_text.dart';
 import '../../core/neo_button.dart';
 
 class IdentitySelectionScreen extends StatelessWidget {
@@ -21,9 +23,9 @@ class IdentitySelectionScreen extends StatelessWidget {
               Expanded(
                 child: _buildIdentityCard(
                   context,
-                  title: '設計師',
-                  description: '我想要設計工作客，做出屬於我的作品集，並增進自身的技術。',
-                  actionText: '作為創作者進入',
+                  title: IdentityText.designerTitle,
+                  description: IdentityText.designerDescription,
+                  actionText: IdentityText.designerAction,
                   icon: Icons.architecture,
                   bgColor: const Color(0xFFFFCC00),
                   iconBgColor: AppTheme.primary,
@@ -36,9 +38,9 @@ class IdentitySelectionScreen extends StatelessWidget {
               Expanded(
                 child: _buildIdentityCard(
                   context,
-                  title: '客戶',
-                  description: '我有一個想法，但需要設計人才的協助，來完善這個想法。',
-                  actionText: '作為客戶進入',
+                  title: IdentityText.customerTitle,
+                  description: IdentityText.customerDescription,
+                  actionText: IdentityText.customerAction,
                   icon: Icons.hail,
                   bgColor: AppTheme.surface,
                   iconBgColor: AppTheme.accentBlue,
@@ -70,7 +72,7 @@ class IdentitySelectionScreen extends StatelessWidget {
       onTap: onTap,
       color: bgColor,
       shadowColor: AppTheme.primary,
-      depth: 3.0,
+      depth: 3,
       padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -83,38 +85,33 @@ class IdentitySelectionScreen extends StatelessWidget {
             child: Icon(icon, color: iconColor, size: 38),
           ),
           const SizedBox(height: 15),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: const TextStyle(
-                  fontFamily: 'Space Grotesk',
-                  fontWeight: FontWeight.w900,
-                  fontSize: 28,
-                  height: 1.03,
-                  letterSpacing: 0,
-                ),
+          Text(
+            title,
+            style: const TextStyle(
+              fontFamily: 'Space Grotesk',
+              fontWeight: FontWeight.w900,
+              fontSize: 28,
+              height: 1.03,
+              letterSpacing: 0,
+            ),
+          ),
+          const SizedBox(height: 15),
+          Container(
+            decoration: const BoxDecoration(
+              border: Border(
+                left: BorderSide(color: AppTheme.primary, width: 2.25),
               ),
-              const SizedBox(height: 15),
-              Container(
-                decoration: const BoxDecoration(
-                  border: Border(
-                    left: BorderSide(color: AppTheme.primary, width: 2.25),
-                  ),
-                ),
-                padding: const EdgeInsets.only(left: 10),
-                child: Text(
-                  description,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    height: 1.28,
-                    letterSpacing: 0,
-                  ),
-                ),
+            ),
+            padding: const EdgeInsets.only(left: 10),
+            child: Text(
+              description,
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                height: 1.28,
+                letterSpacing: 0,
               ),
-            ],
+            ),
           ),
           const Spacer(),
           Row(

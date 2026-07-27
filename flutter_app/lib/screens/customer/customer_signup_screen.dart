@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import '../../core/app_theme.dart';
+import '../../core/app_text.dart';
 
 class CustomerSignupScreen extends StatelessWidget {
   const CustomerSignupScreen({super.key});
@@ -27,7 +29,7 @@ class CustomerSignupScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '找尋你的需求',
+                        CustomerSignupText.title,
                         style: TextStyle(
                           fontFamily: 'Space Grotesk',
                           fontWeight: FontWeight.w900,
@@ -38,7 +40,7 @@ class CustomerSignupScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 7),
                       Text(
-                        '找尋協作夥伴',
+                        CustomerSignupText.subtitle,
                         style: TextStyle(
                           fontFamily: 'Space Grotesk',
                           fontWeight: FontWeight.bold,
@@ -51,177 +53,181 @@ class CustomerSignupScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 16),
-
-              // ── Main Card (everything inside one big border box) ──
-              Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(color: AppTheme.primary, width: 1.5),
-                    boxShadow: const [
-                      BoxShadow(color: AppTheme.primary, offset: Offset(4, 4)),
-                    ],
+              Container(
+                decoration: BoxDecoration(
+                  color: AppTheme.paper,
+                  border: Border.all(
+                    color: AppTheme.primary,
+                    width: AppStroke.regular,
                   ),
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      // Image area (top portion of the box)
-                      SizedBox(
-                        height: 200,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFF2F1ED),
-                            border: Border.all(
-                              color: AppTheme.primary.withValues(alpha: 0.2),
-                              width: 1,
-                            ),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: AppTheme.primary,
+                      offset: AppTheme.hardShadowOffset,
+                      blurRadius: 0,
+                    ),
+                  ],
+                ),
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SizedBox(
+                      height: 200,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFF2F1ED),
+                          border: Border.all(
+                            color: AppTheme.primary.withValues(alpha: 0.2),
+                            width: AppStroke.hairline,
                           ),
-                          alignment: Alignment.center,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.image_outlined,
-                                size: 28,
+                        ),
+                        alignment: Alignment.center,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.image_outlined,
+                              size: 28,
+                              color: AppTheme.primary.withValues(alpha: 0.25),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              CustomerSignupText.uploadImage,
+                              style: TextStyle(
+                                fontFamily: 'Space Grotesk',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 10,
                                 color: AppTheme.primary.withValues(alpha: 0.25),
                               ),
-                              const SizedBox(height: 4),
-                              Text(
-                                '點擊上傳圖片',
-                                style: TextStyle(
-                                  fontFamily: 'Space Grotesk',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 10,
-                                  color: AppTheme.primary.withValues(
-                                    alpha: 0.25,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
-
-                      // Horizontal divider
-                      Container(
-                        margin: const EdgeInsets.symmetric(vertical: 12),
-                        height: 1.5,
-                        color: AppTheme.primary.withValues(alpha: 0.15),
-                      ),
-
-                      // Name + Phone (side by side, underline)
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: _buildUnderlineField('姓名/暱稱', '輸入姓名'),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.symmetric(vertical: 12),
+                      height: AppStroke.regular,
+                      color: AppTheme.primary.withValues(alpha: 0.15),
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: _buildUnderlineField(
+                            CustomerSignupText.name,
+                            CustomerSignupText.nameHint,
                           ),
-                          const SizedBox(width: 16),
-                          Expanded(child: _buildUnderlineField('電話', '輸入電話')),
-                        ],
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: _buildUnderlineField(
+                            CustomerSignupText.phone,
+                            CustomerSignupText.phoneHint,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 15),
+                    const Text(
+                      CustomerSignupText.requirement,
+                      style: TextStyle(
+                        fontFamily: 'Space Grotesk',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 11,
+                        letterSpacing: 0,
                       ),
-                      const SizedBox(height: 10),
-
-                      // 需求 text area
-                      const Text(
-                        '需求',
-                        style: TextStyle(
+                    ),
+                    const SizedBox(height: 4),
+                    SizedBox(
+                      height: 52,
+                      child: TextField(
+                        maxLines: null,
+                        expands: true,
+                        textAlignVertical: TextAlignVertical.top,
+                        style: const TextStyle(
+                          fontSize: 12,
                           fontFamily: 'Space Grotesk',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 11,
                           letterSpacing: 0,
                         ),
-                      ),
-                      const SizedBox(height: 4),
-                      SizedBox(
-                        height: 52,
-                        child: TextField(
-                          maxLines: null,
-                          expands: true,
-                          textAlignVertical: TextAlignVertical.top,
-                          style: const TextStyle(
+                        decoration: InputDecoration(
+                          hintText: CustomerSignupText.requirementHint,
+                          hintStyle: TextStyle(
+                            color: AppTheme.primary.withValues(alpha: 0.3),
                             fontSize: 12,
-                            fontFamily: 'Space Grotesk',
-                            letterSpacing: 0,
                           ),
-                          decoration: InputDecoration(
-                            hintText: '描述你的需求大綱',
-                            hintStyle: TextStyle(
-                              color: AppTheme.primary.withValues(alpha: 0.3),
-                              fontSize: 12,
-                            ),
-                            enabledBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: AppTheme.primary,
-                                width: 1.0,
-                              ),
-                              borderRadius: BorderRadius.zero,
-                            ),
-                            focusedBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: AppTheme.accentRed,
-                                width: 1.5,
-                              ),
-                              borderRadius: BorderRadius.zero,
-                            ),
-                            contentPadding: const EdgeInsets.all(10),
-                            isDense: true,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-
-                      // Submit button — outline style (inside the box)
-                      GestureDetector(
-                        onTap: () {
-                          AppTheme.isDesigner = false;
-                          Navigator.pushReplacementNamed(
-                            context,
-                            '/discovery_feed',
-                          );
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(vertical: 13),
-                          decoration: BoxDecoration(
-                            color: AppTheme.primary,
-                            border: Border.all(
+                          enabledBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(
                               color: AppTheme.primary,
-                              width: 1.5,
+                              width: AppStroke.hairline,
                             ),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: AppTheme.accentBlue,
-                                offset: Offset(3, 3),
-                                blurRadius: 0,
-                              ),
-                            ],
+                            borderRadius: BorderRadius.zero,
                           ),
-                          child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                '開始合作',
-                                style: TextStyle(
-                                  fontFamily: 'Space Grotesk',
-                                  fontWeight: FontWeight.w900,
-                                  fontSize: 15,
-                                  color: AppTheme.paper,
-                                  letterSpacing: 0,
-                                ),
-                              ),
-                              SizedBox(width: 10),
-                              Icon(
-                                Icons.arrow_forward,
-                                color: AppTheme.paper,
-                                size: 20,
-                              ),
-                            ],
+                          focusedBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: AppTheme.accentRed,
+                              width: AppStroke.regular,
+                            ),
+                            borderRadius: BorderRadius.zero,
                           ),
+                          contentPadding: const EdgeInsets.all(10),
+                          isDense: true,
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(height: 10),
+                    GestureDetector(
+                      onTap: () async {
+                        await AppTheme.setRole(designer: false);
+                        if (!context.mounted) {
+                          return;
+                        }
+                        Navigator.pushReplacementNamed(
+                          context,
+                          '/discovery_feed',
+                        );
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 13),
+                        decoration: BoxDecoration(
+                          color: AppTheme.primary,
+                          border: Border.all(
+                            color: AppTheme.primary,
+                            width: AppStroke.regular,
+                          ),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: AppTheme.accentBlue,
+                              offset: AppTheme.hardShadowOffset,
+                              blurRadius: 0,
+                            ),
+                          ],
+                        ),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              CustomerSignupText.start,
+                              style: TextStyle(
+                                fontFamily: 'Space Grotesk',
+                                fontWeight: FontWeight.w900,
+                                fontSize: 15,
+                                color: AppTheme.paper,
+                                letterSpacing: 0,
+                              ),
+                            ),
+                            SizedBox(width: 10),
+                            Icon(
+                              Icons.arrow_forward,
+                              color: AppTheme.paper,
+                              size: 20,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(height: 8),
@@ -259,10 +265,16 @@ class CustomerSignupScreen extends StatelessWidget {
               fontSize: 12,
             ),
             enabledBorder: const UnderlineInputBorder(
-              borderSide: BorderSide(color: AppTheme.primary, width: 1.0),
+              borderSide: BorderSide(
+                color: AppTheme.primary,
+                width: AppStroke.hairline,
+              ),
             ),
             focusedBorder: const UnderlineInputBorder(
-              borderSide: BorderSide(color: AppTheme.accentRed, width: 1.5),
+              borderSide: BorderSide(
+                color: AppTheme.accentRed,
+                width: AppStroke.regular,
+              ),
             ),
             contentPadding: const EdgeInsets.symmetric(vertical: 6),
             isDense: true,

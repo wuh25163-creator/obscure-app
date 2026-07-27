@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import '../../core/app_text.dart';
 import '../../core/app_theme.dart';
 import '../../core/neo_button.dart';
 
@@ -11,13 +13,12 @@ class DailyPlannerScreen extends StatefulWidget {
 }
 
 class _DailyPlannerScreenState extends State<DailyPlannerScreen> {
+  final List<String> _headers = PlannerText.headers;
   late List<List<TextEditingController>> _taskControllersByCategory;
   late List<List<bool>> _checkedStatesByCategory;
   late List<List<FocusNode>> _taskFocusNodesByCategory;
   late List<int> _categoryDisplayOrder;
   bool _isFocusMode = true;
-
-  final List<String> _headers = ['今日急件!', '這禮拜', '這個月', '今年', '個人目標'];
 
   @override
   void initState() {
@@ -25,28 +26,24 @@ class _DailyPlannerScreenState extends State<DailyPlannerScreen> {
     _categoryDisplayOrder = [0, 1, 2, 3, 4];
     _taskControllersByCategory = [
       [
-        TextEditingController(text: '緊急！修復 OBSCURE 網站溢出 BUG'),
-        TextEditingController(text: ''),
+        for (final task in PlannerText.sampleTasks[0])
+          TextEditingController(text: task),
       ],
       [
-        TextEditingController(text: '完成設計系統初稿'),
-        TextEditingController(text: '客戶初步需求討論'),
-        TextEditingController(text: ''),
+        for (final task in PlannerText.sampleTasks[1])
+          TextEditingController(text: task),
       ],
       [
-        TextEditingController(text: '三月份內容策展計畫'),
-        TextEditingController(text: '核心組件標準化'),
-        TextEditingController(text: ''),
+        for (final task in PlannerText.sampleTasks[2])
+          TextEditingController(text: task),
       ],
       [
-        TextEditingController(text: '達成 10K 使用者訂閱'),
-        TextEditingController(text: '年度作品集大改版'),
-        TextEditingController(text: ''),
+        for (final task in PlannerText.sampleTasks[3])
+          TextEditingController(text: task),
       ],
       [
-        TextEditingController(text: '每日練習速寫 15 分鐘'),
-        TextEditingController(text: '閱讀 2 本設計相關書籍'),
-        TextEditingController(text: ''),
+        for (final task in PlannerText.sampleTasks[4])
+          TextEditingController(text: task),
       ],
     ];
     _checkedStatesByCategory = [
@@ -83,35 +80,17 @@ class _DailyPlannerScreenState extends State<DailyPlannerScreen> {
 
   @override
   void dispose() {
-    for (final cat in _taskControllersByCategory) {
-      for (final c in cat) {
-        c.dispose();
+    for (final category in _taskControllersByCategory) {
+      for (final controller in category) {
+        controller.dispose();
       }
     }
-    for (final cat in _taskFocusNodesByCategory) {
-      for (final n in cat) {
-        n.dispose();
+    for (final category in _taskFocusNodesByCategory) {
+      for (final node in category) {
+        node.dispose();
       }
     }
     super.dispose();
-  }
-
-  void _updateCategoryOrdering() {
-    setState(() {
-      final active = <int>[];
-      final empty = <int>[];
-      for (int i = 0; i < _headers.length; i++) {
-        bool hasText = _taskControllersByCategory[i].any(
-          (c) => c.text.trim().isNotEmpty,
-        );
-        if (hasText) {
-          active.add(i);
-        } else {
-          empty.add(i);
-        }
-      }
-      _categoryDisplayOrder = [...active, ...empty];
-    });
   }
 
   @override
@@ -124,6 +103,7 @@ class _DailyPlannerScreenState extends State<DailyPlannerScreen> {
     }
 
     final now = DateTime.now();
+    final weekdays = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
     final months = [
       'JAN',
       'FEB',
@@ -138,22 +118,18 @@ class _DailyPlannerScreenState extends State<DailyPlannerScreen> {
       'NOV',
       'DEC',
     ];
-    final monthStr = '${now.year} · ${months[now.month - 1]}';
-    final weekdays = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
-    final weekdayStr = weekdays[now.weekday - 1];
 
     return Scaffold(
       backgroundColor: AppTheme.background,
       appBar: const ObscureAppBar(),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 16),
+          padding: const EdgeInsets.fromLTRB(15, 30, 15, 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Date display
               Text(
-                '${now.month}/${now.day} $weekdayStr',
+                '${now.month}/${now.day} ${weekdays[now.weekday - 1]}',
                 style: const TextStyle(
                   fontFamily: 'Space Grotesk',
                   fontWeight: FontWeight.w900,
@@ -164,7 +140,7 @@ class _DailyPlannerScreenState extends State<DailyPlannerScreen> {
               ),
               const SizedBox(height: 4),
               Text(
-                monthStr,
+                '${now.year} ${months[now.month - 1]}',
                 style: const TextStyle(
                   fontFamily: 'Space Grotesk',
                   fontWeight: FontWeight.w800,
@@ -174,8 +150,6 @@ class _DailyPlannerScreenState extends State<DailyPlannerScreen> {
                 ),
               ),
               const SizedBox(height: 16),
-
-              // Focus mode toggle
               GestureDetector(
                 onTap: () => setState(() => _isFocusMode = !_isFocusMode),
                 child: Container(
@@ -188,15 +162,12 @@ class _DailyPlannerScreenState extends State<DailyPlannerScreen> {
                     horizontal: 14,
                   ),
                   child: Text(
-                    _isFocusMode
-                        ? '專注模式：已開啟 (FOCUS ON)'
-                        : '專注模式：已關閉 (FOCUS OFF)',
+                    _isFocusMode ? PlannerText.focusOn : PlannerText.focusOff,
                     style: TextStyle(
                       color: _isFocusMode ? Colors.white : AppTheme.primary,
                       fontFamily: 'Space Grotesk',
                       fontWeight: FontWeight.w900,
                       fontSize: 13,
-                      fontStyle: FontStyle.italic,
                       letterSpacing: 0,
                     ),
                   ),
@@ -205,7 +176,6 @@ class _DailyPlannerScreenState extends State<DailyPlannerScreen> {
               const SizedBox(height: 6),
               const Divider(color: AppTheme.primary, thickness: 2),
               const SizedBox(height: 10),
-
               ..._categoryDisplayOrder.map((catIndex) {
                 final isLast = catIndex == _categoryDisplayOrder.last;
                 return Column(
@@ -267,7 +237,7 @@ class _DailyPlannerScreenState extends State<DailyPlannerScreen> {
   }) {
     return Container(
       decoration: NeoBoxDecoration(color: boxColor ?? AppTheme.surface),
-      padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 14),
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 14),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -277,12 +247,12 @@ class _DailyPlannerScreenState extends State<DailyPlannerScreen> {
             style: TextStyle(
               fontFamily: 'Space Grotesk',
               fontWeight: FontWeight.w900,
-              fontSize: 17,
+              fontSize: 15,
               color: headerColor ?? AppTheme.primary,
               letterSpacing: 0,
             ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 8),
           Column(
             children: List.generate(_taskControllersByCategory[index].length, (
               taskIndex,
@@ -293,32 +263,33 @@ class _DailyPlannerScreenState extends State<DailyPlannerScreen> {
               final displayTextColor = textColor ?? AppTheme.primary;
 
               return Padding(
-                padding: const EdgeInsets.only(bottom: 10),
+                padding: const EdgeInsets.only(bottom: 7),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    if (!isLastItem)
+                    if (!isLastItem) ...[
                       NeoButton(
                         onTap: () => _toggleChecked(index, taskIndex),
                         color: isChecked ? AppTheme.accentYellow : Colors.white,
-                        depth: 3.0,
-                        borderWidth: 2.0,
+                        depth: 3,
+                        borderWidth: AppStroke.regular,
                         child: Container(
-                          width: 20,
-                          height: 20,
+                          width: 18,
+                          height: 18,
                           alignment: Alignment.center,
                           child: isChecked
                               ? const Icon(
                                   Icons.check,
-                                  size: 13,
+                                  size: 12,
                                   color: AppTheme.primary,
                                 )
                               : null,
                         ),
-                      )
-                    else
-                      const SizedBox(width: 24),
-                    const SizedBox(width: 10),
+                      ),
+                      const SizedBox(width: 10),
+                    ] else ...[
+                      const SizedBox(width: 8),
+                    ],
                     Expanded(
                       child: TextField(
                         focusNode: _taskFocusNodesByCategory[index][taskIndex],
@@ -330,7 +301,7 @@ class _DailyPlannerScreenState extends State<DailyPlannerScreen> {
                         style: TextStyle(
                           fontFamily: 'Space Grotesk',
                           fontWeight: FontWeight.w800,
-                          fontSize: 13,
+                          fontSize: 12,
                           color: isChecked
                               ? displayTextColor.withValues(alpha: 0.5)
                               : displayTextColor,
@@ -340,10 +311,10 @@ class _DailyPlannerScreenState extends State<DailyPlannerScreen> {
                           letterSpacing: 0,
                         ),
                         decoration: InputDecoration(
-                          hintText: isLastItem ? '新增項目...' : null,
+                          hintText: isLastItem ? PlannerText.add : null,
                           hintStyle: TextStyle(
                             color: displayTextColor.withValues(alpha: 0.4),
-                            fontSize: 13,
+                            fontSize: 12,
                           ),
                           border: InputBorder.none,
                           isDense: true,
@@ -365,7 +336,7 @@ class _DailyPlannerScreenState extends State<DailyPlannerScreen> {
 
   void _toggleChecked(int categoryIndex, int taskIndex) {
     setState(() {
-      final isChecked = !(_checkedStatesByCategory[categoryIndex][taskIndex]);
+      final isChecked = !_checkedStatesByCategory[categoryIndex][taskIndex];
       _checkedStatesByCategory[categoryIndex][taskIndex] = isChecked;
       if (isChecked) {
         final controller = _taskControllersByCategory[categoryIndex].removeAt(
@@ -378,10 +349,10 @@ class _DailyPlannerScreenState extends State<DailyPlannerScreen> {
           taskIndex,
         );
         final lastBlankIndex = _taskControllersByCategory[categoryIndex]
-            .indexWhere((c) => c.text.isEmpty);
-        final insertIndex = lastBlankIndex != -1
-            ? lastBlankIndex
-            : _taskControllersByCategory[categoryIndex].length;
+            .indexWhere((controller) => controller.text.isEmpty);
+        final insertIndex = lastBlankIndex == -1
+            ? _taskControllersByCategory[categoryIndex].length
+            : lastBlankIndex;
         _taskControllersByCategory[categoryIndex].insert(
           insertIndex,
           controller,
@@ -417,40 +388,44 @@ class _DailyPlannerScreenState extends State<DailyPlannerScreen> {
   }
 
   void _removeTaskRow({required int categoryIndex, required int taskIndex}) {
+    if (_taskControllersByCategory[categoryIndex].length <= 1) {
+      setState(() {
+        _taskControllersByCategory[categoryIndex][0].clear();
+        _checkedStatesByCategory[categoryIndex][0] = false;
+      });
+      _updateCategoryOrdering();
+      return;
+    }
+
     final removedController =
         _taskControllersByCategory[categoryIndex][taskIndex];
     final removedFocusNode =
         _taskFocusNodesByCategory[categoryIndex][taskIndex];
     setState(() {
-      if (_taskControllersByCategory[categoryIndex].length <= 1) {
-        _taskControllersByCategory[categoryIndex][0].clear();
-        _checkedStatesByCategory[categoryIndex][0] = false;
-      } else {
-        _taskControllersByCategory[categoryIndex].removeAt(taskIndex);
-        _checkedStatesByCategory[categoryIndex].removeAt(taskIndex);
-        _taskFocusNodesByCategory[categoryIndex].removeAt(taskIndex);
-        removedController.dispose();
-        removedFocusNode.dispose();
-        for (
-          int i = 0;
-          i < _taskFocusNodesByCategory[categoryIndex].length;
-          i++
-        ) {
-          _taskFocusNodesByCategory[categoryIndex][i] = _createFocusNode(
-            categoryIndex,
-            i,
-          );
-        }
-      }
+      _taskControllersByCategory[categoryIndex].removeAt(taskIndex);
+      _checkedStatesByCategory[categoryIndex].removeAt(taskIndex);
+      _taskFocusNodesByCategory[categoryIndex].removeAt(taskIndex);
+      removedController.dispose();
+      removedFocusNode.dispose();
     });
     _updateCategoryOrdering();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final len = _taskControllersByCategory[categoryIndex].length;
-      if (len == 0) return;
-      final newIndex = (taskIndex - 1).clamp(0, len - 1);
-      if (newIndex < _taskFocusNodesByCategory[categoryIndex].length) {
-        _taskFocusNodesByCategory[categoryIndex][newIndex].requestFocus();
+  }
+
+  void _updateCategoryOrdering() {
+    setState(() {
+      final active = <int>[];
+      final empty = <int>[];
+      for (var i = 0; i < _headers.length; i++) {
+        final hasText = _taskControllersByCategory[i].any(
+          (controller) => controller.text.trim().isNotEmpty,
+        );
+        if (hasText) {
+          active.add(i);
+        } else {
+          empty.add(i);
+        }
       }
+      _categoryDisplayOrder = [...active, ...empty];
     });
   }
 }

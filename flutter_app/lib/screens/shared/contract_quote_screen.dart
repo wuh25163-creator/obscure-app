@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../core/app_text.dart';
 import '../../core/app_theme.dart';
 
 class ContractQuoteScreen extends StatelessWidget {
@@ -22,14 +23,17 @@ class ContractQuoteScreen extends StatelessWidget {
                   color: AppTheme.accentRed,
                   border: Border.all(color: AppTheme.primary, width: 1.5),
                   boxShadow: const [
-                    BoxShadow(color: AppTheme.primary, offset: Offset(4, 4)),
+                    BoxShadow(
+                      color: AppTheme.primary,
+                      offset: AppTheme.hardShadowOffset,
+                    ),
                   ],
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: const [
                     Text(
-                      '合約草案\n042',
+                      ContractQuoteText.title,
                       style: TextStyle(
                         fontFamily: 'Space Grotesk',
                         fontSize: 26,
@@ -41,7 +45,7 @@ class ContractQuoteScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 12),
                     Text(
-                      '專案「Neon-Lattice」的完整服務協議。',
+                      ContractQuoteText.description,
                       style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 13,
@@ -59,14 +63,17 @@ class ContractQuoteScreen extends StatelessWidget {
                   color: Colors.white,
                   border: Border.all(color: AppTheme.primary, width: 1.5),
                   boxShadow: const [
-                    BoxShadow(color: AppTheme.primary, offset: Offset(4, 4)),
+                    BoxShadow(
+                      color: AppTheme.primary,
+                      offset: AppTheme.hardShadowOffset,
+                    ),
                   ],
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      '狀態',
+                      ContractQuoteText.statusLabel,
                       style: TextStyle(
                         fontFamily: 'Space Grotesk',
                         fontSize: 13,
@@ -75,7 +82,7 @@ class ContractQuoteScreen extends StatelessWidget {
                       ),
                     ),
                     const Text(
-                      '待處理',
+                      ContractQuoteText.statusValue,
                       style: TextStyle(
                         fontFamily: 'Space Grotesk',
                         fontSize: 29,
@@ -93,7 +100,7 @@ class ContractQuoteScreen extends StatelessWidget {
                         ),
                       ),
                       child: const Text(
-                        '發布日期：2023年10月24日',
+                        ContractQuoteText.date,
                         style: TextStyle(
                           fontFamily: 'Space Grotesk',
                           fontWeight: FontWeight.bold,
@@ -114,7 +121,10 @@ class ContractQuoteScreen extends StatelessWidget {
                   color: Colors.white,
                   border: Border.all(color: AppTheme.primary, width: 1.5),
                   boxShadow: const [
-                    BoxShadow(color: AppTheme.primary, offset: Offset(4, 4)),
+                    BoxShadow(
+                      color: AppTheme.primary,
+                      offset: AppTheme.hardShadowOffset,
+                    ),
                   ],
                 ),
                 child: Column(
@@ -131,7 +141,7 @@ class ContractQuoteScreen extends StatelessWidget {
                         ),
                       ),
                       child: const Text(
-                        '委任條款',
+                        ContractQuoteText.termsTitle,
                         style: TextStyle(
                           fontFamily: 'Space Grotesk',
                           fontSize: 17,
@@ -142,13 +152,19 @@ class ContractQuoteScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     _buildTermItem(
-                      '修改次數',
-                      '每階段最多三次 (3) 迭代循環。超出部分按每小時 \$250 計費。',
+                      ContractQuoteText.terms[0].title,
+                      ContractQuoteText.terms[0].detail,
                     ),
                     const SizedBox(height: 16),
-                    _buildTermItem('交付日期', '標準交付週期為需求確認後 14 個工作日。'),
+                    _buildTermItem(
+                      ContractQuoteText.terms[1].title,
+                      ContractQuoteText.terms[1].detail,
+                    ),
                     const SizedBox(height: 16),
-                    _buildTermItem('版權所有', '收到尾款後，完整知識產權移轉予客戶。'),
+                    _buildTermItem(
+                      ContractQuoteText.terms[2].title,
+                      ContractQuoteText.terms[2].detail,
+                    ),
                   ],
                 ),
               ),
@@ -161,7 +177,10 @@ class ContractQuoteScreen extends StatelessWidget {
                   color: Colors.white,
                   border: Border.all(color: AppTheme.primary, width: 1.5),
                   boxShadow: const [
-                    BoxShadow(color: AppTheme.primary, offset: Offset(4, 4)),
+                    BoxShadow(
+                      color: AppTheme.primary,
+                      offset: AppTheme.hardShadowOffset,
+                    ),
                   ],
                 ),
                 child: Column(
@@ -179,7 +198,7 @@ class ContractQuoteScreen extends StatelessWidget {
                         ),
                       ),
                       child: const Text(
-                        '費用明細',
+                        ContractQuoteText.feeTitle,
                         style: TextStyle(
                           fontFamily: 'Space Grotesk',
                           fontSize: 17,
@@ -188,11 +207,20 @@ class ContractQuoteScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    _buildFeeItem('第一階段：研究調查', '\$ 2,500'),
+                    _buildFeeItem(
+                      ContractQuoteText.fees[0].title,
+                      ContractQuoteText.fees[0].detail,
+                    ),
                     const SizedBox(height: 12),
-                    _buildFeeItem('第二階段：執行製作', '\$ 8,200'),
+                    _buildFeeItem(
+                      ContractQuoteText.fees[1].title,
+                      ContractQuoteText.fees[1].detail,
+                    ),
                     const SizedBox(height: 12),
-                    _buildFeeItem('第三階段：品質保證', '\$ 4,000'),
+                    _buildFeeItem(
+                      ContractQuoteText.fees[2].title,
+                      ContractQuoteText.fees[2].detail,
+                    ),
                     const SizedBox(height: 16),
                     Container(
                       padding: const EdgeInsets.all(12),
@@ -202,7 +230,7 @@ class ContractQuoteScreen extends StatelessWidget {
                         children: const [
                           Expanded(
                             child: Text(
-                              '專案總費用',
+                              ContractQuoteText.total,
                               style: TextStyle(
                                 fontFamily: 'Space Grotesk',
                                 fontSize: 13,
@@ -236,7 +264,10 @@ class ContractQuoteScreen extends StatelessWidget {
                   color: AppTheme.accentYellow,
                   border: Border.all(color: AppTheme.primary, width: 1.5),
                   boxShadow: const [
-                    BoxShadow(color: AppTheme.primary, offset: Offset(4, 4)),
+                    BoxShadow(
+                      color: AppTheme.primary,
+                      offset: AppTheme.hardShadowOffset,
+                    ),
                   ],
                 ),
                 child: Column(
@@ -248,7 +279,7 @@ class ContractQuoteScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            '簽名',
+                            ContractQuoteText.signature,
                             style: TextStyle(
                               fontFamily: 'Space Grotesk',
                               fontSize: 17,
@@ -271,7 +302,7 @@ class ContractQuoteScreen extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.only(bottom: 8.0),
                               child: Text(
-                                '在此處簽名...',
+                                ContractQuoteText.signatureHint,
                                 style: TextStyle(
                                   fontFamily: 'Space Grotesk',
                                   fontSize: 15,
@@ -286,7 +317,7 @@ class ContractQuoteScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 12),
                           const Text(
-                            '簽署即表示您同意 OBSCURE 主服務協議 V4.0',
+                            ContractQuoteText.consent,
                             style: TextStyle(
                               fontFamily: 'Space Grotesk',
                               fontSize: 10,
@@ -304,7 +335,7 @@ class ContractQuoteScreen extends StatelessWidget {
                         color: AppTheme.primary,
                         alignment: Alignment.center,
                         child: const Text(
-                          '簽署合約',
+                          ContractQuoteText.sign,
                           style: TextStyle(
                             fontFamily: 'Space Grotesk',
                             fontSize: 17,
@@ -329,7 +360,7 @@ class ContractQuoteScreen extends StatelessWidget {
                         ),
                         alignment: Alignment.center,
                         child: const Text(
-                          '下載 PDF',
+                          ContractQuoteText.downloadPdf,
                           style: TextStyle(
                             fontFamily: 'Space Grotesk',
                             fontSize: 17,

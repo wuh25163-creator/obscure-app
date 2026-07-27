@@ -1,14 +1,33 @@
 import 'package:flutter/material.dart';
 
-/// A custom page route that displays the page instantly without any fade or slide animation,
-/// giving a direct pop-up feel like standard bottom nav switching or immediate app transitions.
+/// A lightweight shared transition used by every named route.
 class FadeSlideRoute<T> extends PageRouteBuilder<T> {
   final Widget page;
 
-  FadeSlideRoute({required this.page})
+  FadeSlideRoute({required this.page, super.settings})
     : super(
         pageBuilder: (context, animation, secondaryAnimation) => page,
-        transitionDuration: Duration.zero,
-        reverseTransitionDuration: Duration.zero,
+        transitionDuration: const Duration(milliseconds: 170),
+        reverseTransitionDuration: const Duration(milliseconds: 120),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          final curvedAnimation = CurvedAnimation(
+            parent: animation,
+            curve: Curves.easeOutQuart,
+            reverseCurve: Curves.easeInQuart,
+          );
+          final scaleAnimation = Tween<double>(
+            begin: 0.985,
+            end: 1,
+          ).animate(curvedAnimation);
+
+          return FadeTransition(
+            opacity: curvedAnimation,
+            child: ScaleTransition(
+              scale: scaleAnimation,
+              alignment: Alignment.center,
+              child: child,
+            ),
+          );
+        },
       );
 }
