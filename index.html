@@ -44,23 +44,12 @@
   -->
   <script>
     (function () {
-      const isLocalPreview =
-        window.location.hostname === '127.0.0.1' ||
-        window.location.hostname === 'localhost';
-
       const loadFlutter = function () {
         const script = document.createElement('script');
-        script.src = isLocalPreview
-          ? 'flutter_bootstrap.js?v=' + Date.now()
-          : 'flutter_bootstrap.js';
+        script.src = 'flutter_bootstrap.js?v=' + Date.now();
         script.async = true;
         document.body.appendChild(script);
       };
-
-      if (!isLocalPreview) {
-        loadFlutter();
-        return;
-      }
 
       const clearServiceWorkers =
         'serviceWorker' in navigator
