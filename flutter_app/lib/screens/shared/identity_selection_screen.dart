@@ -31,7 +31,13 @@ class IdentitySelectionScreen extends StatelessWidget {
                   iconBgColor: AppTheme.primary,
                   iconColor: const Color(0xFFFFCC00),
                   actionColor: AppTheme.primary,
-                  onTap: () => Navigator.pushNamed(context, '/designer_signup'),
+                  onTap: () async {
+                    await AppTheme.setRole(designer: true);
+                    if (!context.mounted) {
+                      return;
+                    }
+                    Navigator.pushNamed(context, '/designer_signup');
+                  },
                 ),
               ),
               const SizedBox(height: 15),
@@ -46,7 +52,13 @@ class IdentitySelectionScreen extends StatelessWidget {
                   iconBgColor: AppTheme.accentBlue,
                   iconColor: Colors.white,
                   actionColor: AppTheme.accentBlue,
-                  onTap: () => Navigator.pushNamed(context, '/customer_signup'),
+                  onTap: () async {
+                    await AppTheme.setRole(designer: false);
+                    if (!context.mounted) {
+                      return;
+                    }
+                    Navigator.pushNamed(context, '/customer_signup');
+                  },
                 ),
               ),
             ],

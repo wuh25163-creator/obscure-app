@@ -96,6 +96,9 @@ class _StitchAppState extends State<StitchApp> {
 
   static String _guardedRouteName(String? routeName) {
     final name = routeName ?? '/';
+    if (AppTheme.isDesigner && name == '/discovery_feed') {
+      return '/daily_planner';
+    }
     if (_designerOnlyRoutes.contains(name) && !AppTheme.isDesigner) {
       return '/discovery_feed';
     }
